@@ -3,7 +3,14 @@
 
 <head>
     <meta charset="utf-8">
-    <base href="/PlanetaLevoca/">
+    <script>
+        // Nastav base tag len pre GitHub Pages
+        if (window.location.hostname.includes('github.io')) {
+            var base = document.createElement('base');
+            base.href = '/PlanetaLevoca/';
+            document.head.appendChild(base);
+        }
+    </script>
     <title>Planéta Levoča - Café Restaurant</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="Planéta Levoča, reštaurácia Levoča, catering Levoča, denné menu, oslavy Levoča" name="keywords">
