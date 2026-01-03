@@ -7,110 +7,110 @@
       "polievka": {
         "name": "Kulajda / Kurací vývar",
         "portion": "0,3l",
-        "price": "V cene"
+        "price": "6,50 €"
       },
       "menu1": {
         "name": "½ Bryndza, ½ kapustové halušky s bravčovou pečienkou",
         "description": "250g",
-        "price": "V cene"
+        "price": "6,50 €"
       },
       "menu2": {
         "name": "Kurací rezeň s grilovanou zeleninou, dušená ryža",
         "description": "120g",
-        "price": "V cene"
+        "price": "6,50 €"
       },
       "menu3": {
         "name": "Vyprážaná cuketa, zemiaky varené, tatárska omáčka, šalát",
         "description": "130g",
-        "price": "V cene"
+        "price": "6,50 €"
       }
     },
     "utorok": {
       "polievka": {
         "name": "Fazuľová polievka / Kurací vývar",
         "portion": "0,3l",
-        "price": "V cene"
+        "price": "6,50 €"
       },
       "menu1": {
         "name": "Koložvárska kapusta, zemiaky varené",
         "description": "200g",
-        "price": "V cene"
+        "price": "6,50 €"
       },
       "menu2": {
         "name": "Kurací rezeň s grilovanou zeleninou, dušená ryža",
         "description": "120g",
-        "price": "V cene"
+        "price": "6,50 €"
       },
       "menu3": {
         "name": "Vyprážaná cuketa, zemiaky varené, tatárska omáčka, šalát",
         "description": "130g",
-        "price": "V cene"
+        "price": "6,50 €"
       }
     },
     "streda": {
       "polievka": {
         "name": "Hrachová polievka s oškvarkami / Kurací vývar",
         "portion": "0,3l",
-        "price": "V cene"
+        "price": "6,50 €"
       },
       "menu1": {
         "name": "Maďarský guláš, dušená knedľa",
         "description": "200g",
-        "price": "V cene"
+        "price": "6,50 €"
       },
       "menu2": {
         "name": "Kurací rezeň s grilovanou zeleninou, dušená ryža",
         "description": "120g",
-        "price": "V cene"
+        "price": "6,50 €"
       },
       "menu3": {
         "name": "Špenátové rizotto, pečený morský okúň",
         "description": "200g",
-        "price": "V cene"
+        "price": "6,50 €"
       }
     },
     "stvrtok": {
       "polievka": {
         "name": "Tekvicová polievka / Kurací vývar",
         "portion": "0,3l",
-        "price": "V cene"
+        "price": "6,50 €"
       },
       "menu1": {
         "name": "Čiernohorský rezeň, zemiaky varené, kyslá uhorka",
         "description": "200g",
-        "price": "V cene"
+        "price": "6,50 €"
       },
       "menu2": {
         "name": "Kurací rezeň s grilovanou zeleninou, dušená ryža",
         "description": "120g",
-        "price": "V cene"
+        "price": "6,50 €"
       },
       "menu3": {
         "name": "Špenátové rizotto, pečený morský okúň",
         "description": "200g",
-        "price": "V cene"
+        "price": "6,50 €"
       }
     },
     "piatok": {
       "polievka": {
         "name": "Kapustnica s klobásou / Kurací vývar",
         "portion": "0,3l",
-        "price": "V cene"
+        "price": "6,50 €"
       },
       "menu1": {
         "name": "Bravčový rezeň, pečené zemiaky s červenou repou a cibuľou, šalát",
         "description": "200g",
-        "price": "V cene"
+        "price": "6,50 €"
       },
       "menu2": {
         "name": "Kurací rezeň s grilovanou zeleninou, dušená ryža",
         "description": "120g",
-        "price": "V cene"
+        "price": "6,50 €"
       },
       "menu3": {
         "name": "Špenátové rizotto, pečený morský okúň",
         "description": "200g",
-        "price": "V cene"
+        "price": "6,50 €"
       }
     }
   }

@@ -37,15 +37,38 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const currentDayKey = getCurrentDayKey();
 
-    // Načítať JSON súbor
-    fetch('data/daily-menu.json')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Nepodarilo sa načítať denné menu');
+    // Načítať menu (z Google Sheets ak je nakonfigurované, inak z JSON)
+    let loadMenuPromise;
+    
+    if (typeof GOOGLE_SHEETS_CONFIG !== 'undefined' && GOOGLE_SHEETS_CONFIG.enabled && GOOGLE_SHEETS_CONFIG.apiKey && GOOGLE_SHEETS_CONFIG.spreadsheetId) {
+        // Načítať z Google Sheets
+        loadMenuPromise = loadFromGoogleSheets();
+    } else {
+        // Načítať z JSON (fallback)
+        loadMenuPromise = fetch('data/daily-menu.json')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Nepodarilo sa načítať denné menu');
+                }
+                return response.json();
+            });
+    }
+    
+    loadMenuPromise
+        .then(data => {
+            // Ak sú dáta z Google Sheets (majú property 'values'), konvertovať
+            if (data.values) {
+                // TODO: Implementovať konverziu z Google Sheets
+                // Pre teraz použijeme JSON fallback
+                return fetch('data/daily-menu.json').then(r => r.json());
             }
-            return response.json();
+            return data;
         })
         .then(data => {
+            // Ak sú dáta z Google Sheets, konvertovať na správny formát
+            if (typeof GOOGLE_SHEETS_CONFIG !== 'undefined' && GOOGLE_SHEETS_CONFIG.enabled) {
+                data = convertSheetsDataToMenuFormat(data);
+            }
             // Aktualizovať informácie o týždni a cene - zlúčiť do jedného riadku
             const weekPriceInfo = document.getElementById('weekPriceInfo');
             if (weekPriceInfo) {
@@ -117,14 +140,14 @@ document.addEventListener('DOMContentLoaded', function() {
                     const portionText = dayData.polievka.portion ? ` (${dayData.polievka.portion})` : '';
                     // Zobraziť cenu len ak nie je "V cene"
                     const priceDisplay = dayData.polievka.price && dayData.polievka.price !== 'V cene' 
-                        ? `<span class="text-primary">${dayData.polievka.price}</span>` 
+                        ? `<span class="text-primary ms-3 flex-shrink-0" style="white-space: nowrap;">${dayData.polievka.price}</span>` 
                         : '';
                     menuHTML += `
                         <div class="col-lg-6">
                             <div class="d-flex align-items-center">
                                 <div class="w-100 d-flex flex-column text-start">
-                                    <h5 class="d-flex justify-content-between border-bottom pb-2">
-                                        <span>${dayData.polievka.name}${portionText}</span>
+                                    <h5 class="d-flex justify-content-between align-items-center border-bottom pb-2">
+                                        <span class="flex-grow-1">${dayData.polievka.name}${portionText}</span>
                                         ${priceDisplay}
                                     </h5>
                                 </div>
@@ -139,14 +162,14 @@ document.addEventListener('DOMContentLoaded', function() {
                         const menu = dayData[menuKey];
                         // Zobraziť cenu len ak nie je "V cene"
                         const priceDisplay = menu.price && menu.price !== 'V cene' 
-                            ? `<span class="text-primary">${menu.price}</span>` 
+                            ? `<span class="text-primary ms-3 flex-shrink-0" style="white-space: nowrap;">${menu.price}</span>` 
                             : '';
                         menuHTML += `
                             <div class="col-lg-6">
                                 <div class="d-flex align-items-center">
                                     <div class="w-100 d-flex flex-column text-start">
-                                        <h5 class="d-flex justify-content-between border-bottom pb-2">
-                                            <span>${menu.name}</span>
+                                        <h5 class="d-flex justify-content-between align-items-center border-bottom pb-2">
+                                            <span class="flex-grow-1">${menu.name}</span>
                                             ${priceDisplay}
                                         </h5>
                                         <small class="fst-italic">${menu.description || ''}</small>
@@ -233,5 +256,36 @@ function switchView(view) {
             header.style.display = 'block';
         });
     }
+}
+
+// Funkcia na načítanie z Google Sheets (ak je nakonfigurované)
+function loadFromGoogleSheets() {
+    if (typeof GOOGLE_SHEETS_CONFIG === 'undefined' || !GOOGLE_SHEETS_CONFIG.enabled) {
+        return Promise.reject(new Error('Google Sheets nie je nakonfigurované'));
+    }
+    
+    const url = `https://sheets.googleapis.com/v4/spreadsheets/${GOOGLE_SHEETS_CONFIG.spreadsheetId}/values/${GOOGLE_SHEETS_CONFIG.range}?key=${GOOGLE_SHEETS_CONFIG.apiKey}`;
+    
+    return fetch(url)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Nepodarilo sa načítať z Google Sheets');
+            }
+            return response.json();
+        })
+        .then(sheetsData => {
+            // Konverzia sa urobí v .then(data => ...)
+            return sheetsData;
+        });
+}
+
+// Funkcia na konverziu Google Sheets dát do formátu menu
+function convertSheetsDataToMenuFormat(sheetsData) {
+    // TODO: Implementovať konverziu z Google Sheets formátu do JSON formátu
+    // Toto bude závisieť od štruktúry vašej Google Sheets tabuľky
+    // Pre teraz vrátime fallback - načítame z JSON
+    console.warn('Google Sheets konverzia ešte nie je implementovaná, používa sa JSON fallback');
+    return fetch('data/daily-menu.json')
+        .then(response => response.json());
 }
 
