@@ -3,7 +3,7 @@
 // Toto riešenie používa Maps JavaScript API, ktoré nevyžaduje CORS
 
 const GOOGLE_API_KEY = 'AIzaSyAFrSBwbwPvnYBL-Q2GqU0UkxkJaeM_Z54'; // Google Maps API kľúč
-const PLACE_SEARCH_QUERY = 'Planeta Levoča, Námestie Majstra Pavla 26, Levoča'; // Názov a adresa pre vyhľadávanie
+const PLACE_SEARCH_QUERY = 'Planéta Levoča, Námestie Majstra Pavla 26, Levoča'; // Názov a adresa pre vyhľadávanie
 
 let googleMapsLoaded = false;
 let placesService = null;
@@ -224,7 +224,7 @@ async function loadGoogleReviews() {
             carousel.innerHTML = `
                 <div class="testimonial-item bg-transparent border rounded p-4 text-center">
                     <i class="fa fa-exclamation-triangle fa-3x text-warning mb-3"></i>
-                    <p class="mb-0">Nepodarilo sa načítať recenzie z Google. Skúste to neskôr alebo <a href="https://www.google.com/maps/place/Planeta+Levoča" target="_blank">pozrite si recenzie priamo na Google</a>.</p>
+                    <p class="mb-0">Nepodarilo sa načítať recenzie z Google. Skúste to neskôr alebo <a href="https://www.google.com/maps/place/Planéta+Levoča" target="_blank">pozrite si recenzie priamo na Google</a>.</p>
                 </div>
             `;
         }
