@@ -98,7 +98,7 @@ function loadPlaceDetails(placeId) {
 
         const request = {
             placeId: placeId,
-            fields: ['name', 'rating', 'reviews']
+            fields: ['name', 'rating', 'reviews', 'reviews.photos']
         };
 
         placesService.getDetails(request, (place, status) => {
@@ -126,6 +126,37 @@ function displayReviews(reviews) {
     carousel.innerHTML = '';
     
     reviewsToShow.forEach(review => {
+        // Fotka recenzenta (ak je dostupná)
+        const profilePhoto = review.profile_photo_url 
+            ? `<img src="${review.profile_photo_url}" alt="${review.author_name}" class="img-fluid rounded-circle" style="width: 50px; height: 50px; object-fit: cover;">`
+            : `<div class="bg-primary rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                <span class="text-white fw-bold">${getInitials(review.author_name)}</span>
+               </div>`;
+        
+        // Fotky z recenzie (ak sú dostupné)
+        let reviewPhotosHtml = '';
+        if (review.photos && review.photos.length > 0) {
+            const photosToShow = review.photos.slice(0, 3); // Zobraziť max 3 fotky
+            reviewPhotosHtml = '<div class="mt-3 d-flex gap-2 flex-wrap">';
+            photosToShow.forEach((photo, index) => {
+                try {
+                    // Skúsiť získať URL fotky
+                    let photoUrl;
+                    if (typeof photo.getUrl === 'function') {
+                        photoUrl = photo.getUrl({ maxWidth: 200, maxHeight: 200 });
+                    } else if (photo.url) {
+                        photoUrl = photo.url;
+                    } else {
+                        return; // Preskočiť, ak nie je dostupná URL
+                    }
+                    reviewPhotosHtml += `<img src="${photoUrl}" alt="Foto z recenzie ${index + 1}" class="rounded" style="width: 80px; height: 80px; object-fit: cover; cursor: pointer;" onclick="window.open('${photoUrl}', '_blank')">`;
+                } catch (e) {
+                    console.log('Chyba pri získavaní URL fotky:', e);
+                }
+            });
+            reviewPhotosHtml += '</div>';
+        }
+        
         const reviewHtml = `
             <div class="testimonial-item bg-transparent border rounded p-4">
                 <div class="d-flex align-items-center mb-3">
@@ -134,11 +165,10 @@ function displayReviews(reviews) {
                     </div>
                 </div>
                 <i class="fa fa-quote-left fa-2x text-primary mb-3"></i>
-                <p>${review.text}</p>
-                <div class="d-flex align-items-center">
-                    <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
-                        <span class="text-white fw-bold">${getInitials(review.author_name)}</span>
-                    </div>
+                <p class="mb-3">${review.text}</p>
+                ${reviewPhotosHtml}
+                <div class="d-flex align-items-center mt-3">
+                    ${profilePhoto}
                     <div class="ps-3">
                         <h5 class="mb-1">${review.author_name}</h5>
                         <small><i class="fab fa-google me-1"></i>Google Recenzia</small>
