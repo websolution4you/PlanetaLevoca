@@ -67,3 +67,4 @@ Kompletná transformácia reštaurácie template na webovú stránku pre **Plan�
 ## Počet commitov
 35+ commitov s detailnými zmenami
 
+

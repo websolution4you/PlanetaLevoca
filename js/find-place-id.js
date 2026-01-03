@@ -33,3 +33,4 @@ async function findPlaceId() {
 // Spustiť vyhľadávanie
 findPlaceId();
 
+
