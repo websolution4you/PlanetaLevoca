@@ -98,7 +98,7 @@ function loadPlaceDetails(placeId) {
 
         const request = {
             placeId: placeId,
-            fields: ['name', 'rating', 'reviews', 'reviews.photos']
+            fields: ['name', 'rating', 'reviews', 'reviews.photos', 'reviews.profile_photo_url']
         };
 
         placesService.getDetails(request, (place, status) => {
