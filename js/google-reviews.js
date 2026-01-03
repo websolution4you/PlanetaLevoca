@@ -98,7 +98,7 @@ function loadPlaceDetails(placeId) {
 
         const request = {
             placeId: placeId,
-            fields: ['name', 'rating', 'reviews', 'reviews.photos', 'reviews.profile_photo_url']
+            fields: ['name', 'rating', 'reviews', 'reviews.author_name', 'reviews.rating', 'reviews.text', 'reviews.time', 'reviews.profile_photo_url']
         };
 
         placesService.getDetails(request, (place, status) => {
@@ -144,29 +144,9 @@ function displayReviews(reviews) {
                 <span class="text-white fw-bold">${getInitials(review.author_name)}</span>
                </div>`;
         
-        // Fotky z recenzie (ak sú dostupné)
+        // Poznámka: Fotky z recenzií nie sú dostupné cez PlacesService API
+        // Google Places API neposkytuje fotky z recenzií cez tento endpoint
         let reviewPhotosHtml = '';
-        if (review.photos && review.photos.length > 0) {
-            const photosToShow = review.photos.slice(0, 3); // Zobraziť max 3 fotky
-            reviewPhotosHtml = '<div class="mt-3 d-flex gap-2 flex-wrap">';
-            photosToShow.forEach((photo, index) => {
-                try {
-                    // Skúsiť získať URL fotky
-                    let photoUrl;
-                    if (typeof photo.getUrl === 'function') {
-                        photoUrl = photo.getUrl({ maxWidth: 200, maxHeight: 200 });
-                    } else if (photo.url) {
-                        photoUrl = photo.url;
-                    } else {
-                        return; // Preskočiť, ak nie je dostupná URL
-                    }
-                    reviewPhotosHtml += `<img src="${photoUrl}" alt="Foto z recenzie ${index + 1}" class="rounded" style="width: 80px; height: 80px; object-fit: cover; cursor: pointer;" onclick="window.open('${photoUrl}', '_blank')">`;
-                } catch (e) {
-                    console.log('Chyba pri získavaní URL fotky:', e);
-                }
-            });
-            reviewPhotosHtml += '</div>';
-        }
         
         const reviewHtml = `
             <div class="testimonial-item bg-transparent border rounded p-4">
