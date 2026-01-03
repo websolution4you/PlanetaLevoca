@@ -123,6 +123,17 @@ function displayReviews(reviews) {
 
     // Zobraziť prvých 5 recenzií
     const reviewsToShow = reviews.slice(0, 5);
+    
+    // Zrušiť existujúci owlCarousel, ak je inicializovaný
+    if (typeof $ !== 'undefined' && $.fn.owlCarousel) {
+        const $carousel = $('.testimonial-carousel');
+        if ($carousel.data('owl.carousel')) {
+            $carousel.trigger('destroy.owl.carousel').removeClass('owl-carousel owl-loaded');
+            $carousel.find('.owl-stage-outer').children().unwrap();
+        }
+    }
+    
+    // Vymazať obsah
     carousel.innerHTML = '';
     
     reviewsToShow.forEach(review => {
@@ -181,20 +192,23 @@ function displayReviews(reviews) {
     
     // Reinicializovať carousel po načítaní recenzií
     if (typeof $ !== 'undefined' && $.fn.owlCarousel) {
-        $('.testimonial-carousel').owlCarousel({
-            items: 1,
-            loop: true,
-            margin: 30,
-            nav: false,
-            dots: true,
-            autoplay: true,
-            autoplayTimeout: 5000,
-            responsive: {
-                0: { items: 1 },
-                768: { items: 2 },
-                992: { items: 3 }
-            }
-        });
+        // Počakať, kým sa DOM aktualizuje
+        setTimeout(() => {
+            $('.testimonial-carousel').addClass('owl-carousel').owlCarousel({
+                autoplay: true,
+                smartSpeed: 1000,
+                center: true,
+                margin: 24,
+                dots: true,
+                loop: true,
+                nav: false,
+                responsive: {
+                    0: { items: 1 },
+                    768: { items: 2 },
+                    992: { items: 3 }
+                }
+            });
+        }, 100);
     }
 }
 
@@ -224,7 +238,16 @@ async function loadGoogleReviews() {
         
     } catch (error) {
         console.error('Chyba pri načítaní Google recenzií:', error);
-        console.log('Zobrazujú sa príklady recenzií.');
+        // Zobraziť chybovú správu
+        const carousel = document.querySelector('.testimonial-carousel');
+        if (carousel) {
+            carousel.innerHTML = `
+                <div class="testimonial-item bg-transparent border rounded p-4 text-center">
+                    <i class="fa fa-exclamation-triangle fa-3x text-warning mb-3"></i>
+                    <p class="mb-0">Nepodarilo sa načítať recenzie z Google. Skúste to neskôr alebo <a href="https://www.google.com/maps/place/Planeta+Levoča" target="_blank">pozrite si recenzie priamo na Google</a>.</p>
+                </div>
+            `;
+        }
     }
 }
 
