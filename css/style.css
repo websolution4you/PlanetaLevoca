@@ -152,10 +152,11 @@
 
 /*** Hero Header ***/
 .hero-header {
-    background: linear-gradient(rgba(15, 23, 43, .9), rgba(15, 23, 43, .9)), url(../img/bg-hero.jpg);
+    background: linear-gradient(rgba(15, 23, 43, .5), rgba(15, 23, 43, .5)), url(../img/bg-hero.jpg);
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
+    filter: brightness(1.2);
 }
 
 .hero-header img {
@@ -163,8 +164,6 @@
     border-radius: 50%;
     object-fit: cover;
     aspect-ratio: 1 / 1;
-    filter: hue-rotate(180deg) saturate(0.8) brightness(1.1) contrast(1.05);
-    box-shadow: 0 0 30px rgba(15, 23, 43, 0.5);
 }
 
 @keyframes imgRotate { 
