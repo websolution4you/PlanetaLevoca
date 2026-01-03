@@ -2,8 +2,9 @@
 // Pre načítanie skutočných recenzií z Google Places API
 // Potrebujete Google Places API kľúč a Place ID
 
-const GOOGLE_PLACE_ID = 'ChIJ...'; // Nahraďte Place ID pre Planeta Levoča
+const GOOGLE_PLACE_ID = null; // Bude automaticky nájdené pomocou Text Search API
 const GOOGLE_API_KEY = 'AIzaSyAFrSBwbwPvnYBL-Q2GqU0UkxkJaeM_Z54'; // Google Places API kľúč
+const PLACE_SEARCH_QUERY = 'Planeta Levoča, Námestie Majstra Pavla 26, Levoča'; // Názov a adresa pre vyhľadávanie
 
 // Funkcia na vytvorenie hviezdičiek
 function createStars(rating) {
@@ -33,16 +34,56 @@ function getInitials(name) {
     return name.substring(0, 2).toUpperCase();
 }
 
-// Funkcia na načítanie recenzií z Google Places API
-async function loadGoogleReviews() {
-    if (!GOOGLE_PLACE_ID || GOOGLE_PLACE_ID === 'ChIJ...' || !GOOGLE_API_KEY || GOOGLE_API_KEY === 'YOUR_API_KEY') {
-        console.log('Google Places API nie je nakonfigurovaný. Zobrazujú sa príklady recenzií.');
-        return;
+// Funkcia na nájdenie Place ID pomocou Text Search API
+async function findPlaceId() {
+    if (!PLACE_SEARCH_QUERY || !GOOGLE_API_KEY) {
+        console.log('Chýba vyhľadávací dotaz alebo API kľúč.');
+        return null;
     }
 
     try {
         const response = await fetch(
-            `https://maps.googleapis.com/maps/api/place/details/json?place_id=${GOOGLE_PLACE_ID}&fields=name,rating,reviews&key=${GOOGLE_API_KEY}`
+            `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${encodeURIComponent(PLACE_SEARCH_QUERY)}&key=${GOOGLE_API_KEY}`
+        );
+        
+        const data = await response.json();
+        
+        if (data.status === 'OK' && data.results.length > 0) {
+            const place = data.results[0];
+            console.log('Nájdené miesto:', place.name, '- Place ID:', place.place_id);
+            return place.place_id;
+        } else {
+            console.error('Miesto sa nenašlo:', data.status);
+            return null;
+        }
+    } catch (error) {
+        console.error('Chyba pri vyhľadávaní Place ID:', error);
+        return null;
+    }
+}
+
+// Funkcia na načítanie recenzií z Google Places API
+async function loadGoogleReviews() {
+    if (!GOOGLE_API_KEY || GOOGLE_API_KEY === 'YOUR_API_KEY') {
+        console.log('Google Places API kľúč nie je nakonfigurovaný. Zobrazujú sa príklady recenzií.');
+        return;
+    }
+
+    // Ak Place ID nie je nastavené, nájdeme ho automaticky
+    let placeId = GOOGLE_PLACE_ID;
+    if (!placeId || placeId === 'ChIJ...') {
+        console.log('Hľadám Place ID pre:', PLACE_SEARCH_QUERY);
+        placeId = await findPlaceId();
+        
+        if (!placeId) {
+            console.log('Place ID sa nepodarilo nájsť. Zobrazujú sa príklady recenzií.');
+            return;
+        }
+    }
+
+    try {
+        const response = await fetch(
+            `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&fields=name,rating,reviews&key=${GOOGLE_API_KEY}`
         );
         
         const data = await response.json();
@@ -96,6 +137,8 @@ async function loadGoogleReviews() {
                     });
                 }
             }
+        } else {
+            console.error('Chyba pri načítaní recenzií:', data.status, data.error_message || '');
         }
     } catch (error) {
         console.error('Chyba pri načítaní Google recenzií:', error);
