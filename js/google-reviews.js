@@ -3,7 +3,7 @@
 // Potrebujete Google Places API kľúč a Place ID
 
 const GOOGLE_PLACE_ID = 'ChIJ...'; // Nahraďte Place ID pre Planeta Levoča
-const GOOGLE_API_KEY = 'YOUR_API_KEY'; // Nahraďte vaším Google Places API kľúčom
+const GOOGLE_API_KEY = 'AIzaSyAFrSBwbwPvnYBL-Q2GqU0UkxkJaeM_Z54'; // Google Places API kľúč
 
 // Funkcia na vytvorenie hviezdičiek
 function createStars(rating) {
