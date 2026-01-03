@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="sk">
+
+<head>
+    <meta charset="utf-8">
+    <title>Galéria - Planeta Levoča</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="galéria Planeta Levoča, fotografie reštaurácie Levoča" name="keywords">
+    <meta content="Galéria fotografií z Café Restaurant Planeta Levoča - interiér, jedlá, terasa, oslavy a eventy." name="description">
+
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&family=Pacifico&display=swap" rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/animate/animate.min.css" rel="stylesheet">
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container-xxl bg-white p-0">
+        <!-- Spinner Start -->
+        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+        <!-- Spinner End -->
+
+
+        <!-- Navbar & Hero Start -->
+        <div class="container-xxl position-relative p-0">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4 px-lg-5 py-3 py-lg-0">
+                <a href="index.html" class="navbar-brand p-0">
+                    <h1 class="text-primary m-0"><i class="fa fa-utensils me-3"></i>Planeta Levoča</h1>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                    <span class="fa fa-bars"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <div class="navbar-nav ms-auto py-0 pe-4">
+                        <a href="index.html" class="nav-item nav-link">Domov</a>
+                        <a href="about.html" class="nav-item nav-link">O nás</a>
+                        <a href="service.html" class="nav-item nav-link">Služby</a>
+                        <a href="menu.html" class="nav-item nav-link">Menu</a>
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown">Stránky</a>
+                            <div class="dropdown-menu m-0">
+                                <a href="booking.html" class="dropdown-item">Rezervácia</a>
+                                <a href="gallery.html" class="dropdown-item active">Galéria</a>
+                                <a href="team.html" class="dropdown-item">Tím</a>
+                                <a href="testimonial.html" class="dropdown-item">Recenzie</a>
+                            </div>
+                        </div>
+                        <a href="contact.html" class="nav-item nav-link">Kontakt</a>
+                    </div>
+                    <a href="booking.html" class="btn btn-primary py-2 px-4">Rezervovať stôl</a>
+                </div>
+            </nav>
+
+            <div class="container-xxl py-5 bg-dark hero-header mb-5">
+                <div class="container text-center my-5 pt-5 pb-4">
+                    <h1 class="display-3 text-white mb-3 animated slideInDown">Galéria</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center text-uppercase">
+                            <li class="breadcrumb-item"><a href="index.html">Domov</a></li>
+                            <li class="breadcrumb-item"><a href="#">Stránky</a></li>
+                            <li class="breadcrumb-item text-white active" aria-current="page">Galéria</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <!-- Navbar & Hero End -->
+
+
+        <!-- Gallery Start -->
+        <div class="container-xxl py-5">
+            <div class="container">
+                <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                    <h5 class="section-title ff-secondary text-center text-primary fw-normal">Naša Galéria</h5>
+                    <h1 class="mb-5">Fotografie z Planety Levoča</h1>
+                    <p class="mb-5">Pozrite si našu bohatú galériu fotografií z reštaurácie, jedál, interiéru, terasy a organizovaných podujatí</p>
+                </div>
+
+                <!-- Filter Buttons -->
+                <div class="text-center mb-5">
+                    <button class="btn btn-outline-primary active me-2 mb-2" data-filter="all">Všetko</button>
+                    <button class="btn btn-outline-primary me-2 mb-2" data-filter="interior">Interiér</button>
+                    <button class="btn btn-outline-primary me-2 mb-2" data-filter="food">Jedlá</button>
+                    <button class="btn btn-outline-primary me-2 mb-2" data-filter="terrace">Terasa</button>
+                    <button class="btn btn-outline-primary me-2 mb-2" data-filter="events">Oslavy & Eventy</button>
+                    <button class="btn btn-outline-primary me-2 mb-2" data-filter="levoca">Levoča</button>
+                </div>
+
+                <div class="row g-4" id="gallery-container">
+                    <!-- Interiér -->
+                    <div class="col-lg-4 col-md-6 gallery-item" data-category="interior">
+                        <div class="position-relative overflow-hidden rounded">
+                            <img class="img-fluid w-100" src="img/about-1.jpg" alt="Interiér reštaurácie Planeta Levoča" style="height: 300px; object-fit: cover; cursor: pointer;" data-bs-toggle="modal" data-bs-target="#imageModal" onclick="openModal(this.src, 'Interiér reštaurácie')">
+                            <div class="position-absolute top-0 start-0 rounded m-3 py-1 px-2 bg-primary text-white">Interiér</div>
+                            <div class="position-absolute bottom-0 start-0 w-100 p-3 bg-dark bg-opacity-75 text-white">
+                                <h6 class="mb-0">Príjemná atmosféra v interiéri</h6>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Jedlá -->
+                    <div class="col-lg-4 col-md-6 gallery-item" data-category="food">
+                        <div class="position-relative overflow-hidden rounded">
+                            <img class="img-fluid w-100" src="img/about-2.jpg" alt="Jedlá v Planete Levoča" style="height: 300px; object-fit: cover; cursor: pointer;" data-bs-toggle="modal" data-bs-target="#imageModal" onclick="openModal(this.src, 'Kvalitné jedlá')">
+                            <div class="position-absolute top-0 start-0 rounded m-3 py-1 px-2 bg-primary text-white">Jedlá</div>
+                            <div class="position-absolute bottom-0 start-0 w-100 p-3 bg-dark bg-opacity-75 text-white">
+                                <h6 class="mb-0">Kvalitné jedlá z čerstvých surovín</h6>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Terasa -->
+                    <div class="col-lg-4 col-md-6 gallery-item" data-category="terrace">
+                        <div class="position-relative overflow-hidden rounded">
+                            <img class="img-fluid w-100" src="img/about-3.jpg" alt="Letná terasa" style="height: 300px; object-fit: cover; cursor: pointer;" data-bs-toggle="modal" data-bs-target="#imageModal" onclick="openModal(this.src, 'Letná terasa')">
+                            <div class="position-absolute top-0 start-0 rounded m-3 py-1 px-2 bg-primary text-white">Terasa</div>
+                            <div class="position-absolute bottom-0 start-0 w-100 p-3 bg-dark bg-opacity-75 text-white">
+                                <h6 class="mb-0">Letná terasa s výhľadom</h6>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Oslavy -->
+                    <div class="col-lg-4 col-md-6 gallery-item" data-category="events">
+                        <div class="position-relative overflow-hidden rounded">
+                            <img class="img-fluid w-100" src="img/about-4.jpg" alt="Organizovanie osláv" style="height: 300px; object-fit: cover; cursor: pointer;" data-bs-toggle="modal" data-bs-target="#imageModal" onclick="openModal(this.src, 'Organizovanie osláv')">
+                            <div class="position-absolute top-0 start-0 rounded m-3 py-1 px-2 bg-primary text-white">Oslavy</div>
+                            <div class="position-absolute bottom-0 start-0 w-100 p-3 bg-dark bg-opacity-75 text-white">
+                                <h6 class="mb-0">Organizovanie osláv a podujatí</h6>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Špeciality -->
+                    <div class="col-lg-4 col-md-6 gallery-item" data-category="food">
+                        <div class="position-relative overflow-hidden rounded">
+                            <img class="img-fluid w-100" src="img/menu-1.jpg" alt="Špeciality" style="height: 300px; object-fit: cover; cursor: pointer;" data-bs-toggle="modal" data-bs-target="#imageModal" onclick="openModal(this.src, 'Naše špeciality')">
+                            <div class="position-absolute top-0 start-0 rounded m-3 py-1 px-2 bg-primary text-white">Špeciality</div>
+                            <div class="position-absolute bottom-0 start-0 w-100 p-3 bg-dark bg-opacity-75 text-white">
+                                <h6 class="mb-0">Naše kuchárske špeciality</h6>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Atmosféra -->
+                    <div class="col-lg-4 col-md-6 gallery-item" data-category="interior">
+                        <div class="position-relative overflow-hidden rounded">
+                            <img class="img-fluid w-100" src="img/menu-2.jpg" alt="Atmosféra reštaurácie" style="height: 300px; object-fit: cover; cursor: pointer;" data-bs-toggle="modal" data-bs-target="#imageModal" onclick="openModal(this.src, 'Atmosféra reštaurácie')">
+                            <div class="position-absolute top-0 start-0 rounded m-3 py-1 px-2 bg-primary text-white">Atmosféra</div>
+                            <div class="position-absolute bottom-0 start-0 w-100 p-3 bg-dark bg-opacity-75 text-white">
+                                <h6 class="mb-0">Jedinečná atmosféra</h6>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Historické mesto Levoča -->
+                    <div class="col-lg-4 col-md-6 gallery-item" data-category="levoca">
+                        <div class="position-relative overflow-hidden rounded">
+                            <img class="img-fluid w-100" src="img/menu-3.jpg" alt="Historické mesto Levoča" style="height: 300px; object-fit: cover; cursor: pointer;" data-bs-toggle="modal" data-bs-target="#imageModal" onclick="openModal(this.src, 'Historické mesto Levoča')">
+                            <div class="position-absolute top-0 start-0 rounded m-3 py-1 px-2 bg-primary text-white">Levoča</div>
+                            <div class="position-absolute bottom-0 start-0 w-100 p-3 bg-dark bg-opacity-75 text-white">
+                                <h6 class="mb-0">Historické mesto UNESCO</h6>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Denné menu -->
+                    <div class="col-lg-4 col-md-6 gallery-item" data-category="food">
+                        <div class="position-relative overflow-hidden rounded">
+                            <img class="img-fluid w-100" src="img/menu-4.jpg" alt="Denné menu" style="height: 300px; object-fit: cover; cursor: pointer;" data-bs-toggle="modal" data-bs-target="#imageModal" onclick="openModal(this.src, 'Denné menu')">
+                            <div class="position-absolute top-0 start-0 rounded m-3 py-1 px-2 bg-primary text-white">Menu</div>
+                            <div class="position-absolute bottom-0 start-0 w-100 p-3 bg-dark bg-opacity-75 text-white">
+                                <h6 class="mb-0">Denné menu 3,40 €</h6>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Catering -->
+                    <div class="col-lg-4 col-md-6 gallery-item" data-category="events">
+                        <div class="position-relative overflow-hidden rounded">
+                            <img class="img-fluid w-100" src="img/menu-5.jpg" alt="Catering služby" style="height: 300px; object-fit: cover; cursor: pointer;" data-bs-toggle="modal" data-bs-target="#imageModal" onclick="openModal(this.src, 'Catering služby')">
+                            <div class="position-absolute top-0 start-0 rounded m-3 py-1 px-2 bg-primary text-white">Catering</div>
+                            <div class="position-absolute bottom-0 start-0 w-100 p-3 bg-dark bg-opacity-75 text-white">
+                                <h6 class="mb-0">Profesionálny catering</h6>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Námestie Majstra Pavla -->
+                    <div class="col-lg-4 col-md-6 gallery-item" data-category="levoca">
+                        <div class="position-relative overflow-hidden rounded">
+                            <img class="img-fluid w-100" src="img/menu-6.jpg" alt="Námestie Majstra Pavla" style="height: 300px; object-fit: cover; cursor: pointer;" data-bs-toggle="modal" data-bs-target="#imageModal" onclick="openModal(this.src, 'Námestie Majstra Pavla')">
+                            <div class="position-absolute top-0 start-0 rounded m-3 py-1 px-2 bg-primary text-white">Námestie</div>
+                            <div class="position-absolute bottom-0 start-0 w-100 p-3 bg-dark bg-opacity-75 text-white">
+                                <h6 class="mb-0">Námestie Majstra Pavla</h6>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Svadby -->
+                    <div class="col-lg-4 col-md-6 gallery-item" data-category="events">
+                        <div class="position-relative overflow-hidden rounded">
+                            <img class="img-fluid w-100" src="img/menu-7.jpg" alt="Svadby" style="height: 300px; object-fit: cover; cursor: pointer;" data-bs-toggle="modal" data-bs-target="#imageModal" onclick="openModal(this.src, 'Organizovanie svadieb')">
+                            <div class="position-absolute top-0 start-0 rounded m-3 py-1 px-2 bg-primary text-white">Svadby</div>
+                            <div class="position-absolute bottom-0 start-0 w-100 p-3 bg-dark bg-opacity-75 text-white">
+                                <h6 class="mb-0">Nezabudnuteľné svadby</h6>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Eventy -->
+                    <div class="col-lg-4 col-md-6 gallery-item" data-category="events">
+                        <div class="position-relative overflow-hidden rounded">
+                            <img class="img-fluid w-100" src="img/menu-8.jpg" alt="Eventy" style="height: 300px; object-fit: cover; cursor: pointer;" data-bs-toggle="modal" data-bs-target="#imageModal" onclick="openModal(this.src, 'Firemné eventy')">
+                            <div class="position-absolute top-0 start-0 rounded m-3 py-1 px-2 bg-primary text-white">Eventy</div>
+                            <div class="position-absolute bottom-0 start-0 w-100 p-3 bg-dark bg-opacity-75 text-white">
+                                <h6 class="mb-0">Firemné eventy</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center mt-5">
+                    <p class="text-muted mb-3">Pre viac fotografií nás navštívte na našich oficiálnych stránkach:</p>
+                    <a href="https://www.facebook.com/PlanetaLevoca" target="_blank" class="btn btn-primary me-2 mb-2">
+                        <i class="fab fa-facebook-f me-2"></i>Facebook Galéria
+                    </a>
+                    <a href="https://www.planetalevoca.sk" target="_blank" class="btn btn-outline-primary mb-2">
+                        <i class="fa fa-globe me-2"></i>Oficiálna Stránka
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-- Gallery End -->
+
+        <!-- Image Modal -->
+        <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="imageModalLabel"></h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body text-center">
+                        <img id="modalImage" src="" alt="" class="img-fluid rounded">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer Start -->
+        <div class="container-fluid bg-dark text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
+            <div class="container py-5">
+                <div class="row g-5">
+                    <div class="col-lg-3 col-md-6">
+                        <h4 class="section-title ff-secondary text-start text-primary fw-normal mb-4">Reštaurácia</h4>
+                        <a class="btn btn-link" href="about.html">O nás</a>
+                        <a class="btn btn-link" href="contact.html">Kontakt</a>
+                        <a class="btn btn-link" href="booking.html">Rezervácia</a>
+                        <a class="btn btn-link" href="service.html">Služby</a>
+                        <a class="btn btn-link" href="menu.html">Menu</a>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <h4 class="section-title ff-secondary text-start text-primary fw-normal mb-4">Kontakt</h4>
+                        <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>Námestie Majstra Pavla 26, 054 01 Levoča</p>
+                        <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>053/451 21 00</p>
+                        <p class="mb-2"><i class="fa fa-envelope me-3"></i>info@planetalevoca.sk</p>
+                        <div class="d-flex pt-2">
+                            <a class="btn btn-outline-light btn-social" href="https://www.facebook.com/PlanetaLevoca" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <h4 class="section-title ff-secondary text-start text-primary fw-normal mb-4">Otváracie hodiny</h4>
+                        <h5 class="text-light fw-normal">1. október - 30. apríl</h5>
+                        <p>Pon-Sob: 9:00 - 22:00<br>Ne: 10:00 - 22:00</p>
+                        <h5 class="text-light fw-normal">1. máj - 30. september</h5>
+                        <p>Pon-Ne: 8:00 - 23:00</p>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <h4 class="section-title ff-secondary text-start text-primary fw-normal mb-4">Novinky</h4>
+                        <p>Sledujte nás na Facebooku pre aktuálne denné menu a novinky.</p>
+                        <div class="d-flex pt-2">
+                            <a class="btn btn-primary" href="https://www.facebook.com/PlanetaLevoca" target="_blank">
+                                <i class="fab fa-facebook-f me-2"></i>Facebook
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="copyright">
+                    <div class="row">
+                        <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                            &copy; <a class="border-bottom" href="index.html">Planeta Levoča</a>, Všetky práva vyhradené.
+                        </div>
+                        <div class="col-md-6 text-center text-md-end">
+                            <div class="footer-menu">
+                                <a href="index.html">Domov</a>
+                                <a href="about.html">O nás</a>
+                                <a href="contact.html">Kontakt</a>
+                                <a href="menu.html">Menu</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Footer End -->
+
+
+        <!-- Back to Top -->
+        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+    </div>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/wow/wow.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/counterup/counterup.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="lib/tempusdominus/js/moment.min.js"></script>
+    <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
+    <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="js/main.js"></script>
+
+    <!-- Gallery Filter Script -->
+    <script>
+        // Gallery filter
+        document.querySelectorAll('[data-filter]').forEach(button => {
+            button.addEventListener('click', function() {
+                const filter = this.getAttribute('data-filter');
+                
+                // Update active button
+                document.querySelectorAll('[data-filter]').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                this.classList.add('active');
+                
+                // Filter gallery items
+                document.querySelectorAll('.gallery-item').forEach(item => {
+                    if (filter === 'all' || item.getAttribute('data-category') === filter) {
+                        item.style.display = 'block';
+                        setTimeout(() => {
+                            item.style.opacity = '1';
+                        }, 10);
+                    } else {
+                        item.style.opacity = '0';
+                        setTimeout(() => {
+                            item.style.display = 'none';
+                        }, 300);
+                    }
+                });
+            });
+        });
+
+        // Modal function
+        function openModal(imageSrc, imageTitle) {
+            document.getElementById('modalImage').src = imageSrc;
+            document.getElementById('imageModalLabel').textContent = imageTitle;
+        }
+    </script>
+</body>
+
+</html>
+
