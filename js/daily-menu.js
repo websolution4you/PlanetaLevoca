@@ -46,34 +46,42 @@ document.addEventListener('DOMContentLoaded', function() {
             return response.json();
         })
         .then(data => {
-            // Aktualizovať informácie o týždni a cene
-            if (data.week) {
-                document.getElementById('weekInfo').textContent = data.week;
-            }
-            if (data.price) {
-                document.getElementById('priceInfo').textContent = 'Cena: ' + data.price;
-            }
-            if (data.time) {
-                const timeInfo = document.getElementById('timeInfo');
-                if (timeInfo) {
-                    timeInfo.textContent = 'Menu je k dispozícii od pondelka do piatka v čase ' + data.time;
+            // Aktualizovať informácie o týždni a cene - zlúčiť do jedného riadku
+            const weekPriceInfo = document.getElementById('weekPriceInfo');
+            if (weekPriceInfo) {
+                let infoText = '';
+                if (data.week) {
+                    infoText = data.week;
                 }
+                if (data.price) {
+                    if (infoText) {
+                        infoText += ' | ';
+                    }
+                    infoText += 'Cena: ' + data.price;
+                }
+                weekPriceInfo.textContent = infoText || 'Načítavam...';
             }
             
-            // Zobraziť informáciu o aktuálnom dni (iba počas pracovných dní)
+            // Zobraziť aktuálny dátum a deň
             const today = new Date();
             const dayOfWeek = today.getDay();
-            if (dayOfWeek >= 1 && dayOfWeek <= 5) {
-                const currentDayInfo = document.getElementById('currentDayInfo');
-                const currentDayNameEl = document.getElementById('currentDayName');
-                if (currentDayInfo) {
-                    currentDayInfo.style.display = 'block';
-                }
-                if (currentDayNameEl) {
-                    currentDayNameEl.textContent = dayNames[currentDayKey].name;
-                }
-            } else {
-                // Zobraziť víkendovú správu
+            const currentDateInfo = document.getElementById('currentDateInfo');
+            
+            if (currentDateInfo) {
+                const dayNamesSlovak = ['Nedeľa', 'Pondelok', 'Utorok', 'Streda', 'Štvrtok', 'Piatok', 'Sobota'];
+                const monthNamesSlovak = ['januára', 'februára', 'marca', 'apríla', 'mája', 'júna', 
+                                         'júla', 'augusta', 'septembra', 'októbra', 'novembra', 'decembra'];
+                
+                const dayName = dayNamesSlovak[dayOfWeek];
+                const day = today.getDate();
+                const month = monthNamesSlovak[today.getMonth()];
+                const year = today.getFullYear();
+                
+                currentDateInfo.textContent = `Dnes: ${dayName}, ${day}. ${month} ${year}`;
+            }
+            
+            // Zobraziť víkendovú správu ak je víkend
+            if (dayOfWeek === 0 || dayOfWeek === 6) {
                 const weekendInfo = document.getElementById('weekendInfo');
                 if (weekendInfo) {
                     weekendInfo.style.display = 'block';
@@ -162,7 +170,10 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .catch(error => {
             console.error('Chyba pri načítaní denného menu:', error);
-            document.getElementById('weekInfo').textContent = 'Chyba pri načítaní menu';
+            const weekPriceInfo = document.getElementById('weekPriceInfo');
+            if (weekPriceInfo) {
+                weekPriceInfo.textContent = 'Chyba pri načítaní menu';
+            }
             document.getElementById('dayContent').innerHTML = '<p class="text-danger">Nepodarilo sa načítať denné menu. Skontrolujte, či existuje súbor data/daily-menu.json</p>';
         });
 });
