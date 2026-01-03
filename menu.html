@@ -639,6 +639,34 @@
         </div>
         <!-- Menu End -->
         
+        <!-- Menu Item Modal -->
+        <div class="modal fade" id="menuItemModal" tabindex="-1" aria-labelledby="menuItemModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="menuItemModalLabel">Detail jedla</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <img id="modalItemImage" src="" alt="" class="img-fluid rounded w-100" style="max-height: 300px; object-fit: cover;">
+                            </div>
+                            <div class="col-md-7">
+                                <h4 id="modalItemTitle" class="mb-3"></h4>
+                                <p id="modalItemDescription" class="text-muted mb-3"></p>
+                                <div class="d-flex align-items-center">
+                                    <h5 class="text-primary mb-0" id="modalItemPrice"></h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zavrieť</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <!-- Footer Start -->
         <div class="container-fluid bg-dark text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
@@ -724,6 +752,59 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+    
+    <!-- Menu Item Modal Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Pridať CSS pre hover efekt
+            const style = document.createElement('style');
+            style.textContent = `
+                .tab-content .d-flex.align-items-center {
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                    padding: 10px;
+                    border-radius: 8px;
+                }
+                .tab-content .d-flex.align-items-center:hover {
+                    background-color: #f8f9fa;
+                    transform: translateX(5px);
+                    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+                }
+            `;
+            document.head.appendChild(style);
+            
+            // Zachytiť kliky na menu položky - hľadáme všetky divy s menu položkami
+            document.querySelectorAll('.tab-content .d-flex.align-items-center').forEach(function(item) {
+                item.addEventListener('click', function(e) {
+                    // Získať dáta z HTML štruktúry
+                    const titleElement = this.querySelector('h5 span:first-child');
+                    const priceElement = this.querySelector('.text-primary');
+                    const descriptionElement = this.querySelector('small.fst-italic');
+                    const imageElement = this.querySelector('img');
+                    
+                    if (titleElement && priceElement && descriptionElement && imageElement) {
+                        const title = titleElement.textContent.trim();
+                        const price = priceElement.textContent.trim();
+                        const description = descriptionElement.textContent.trim();
+                        const image = imageElement.src;
+                        const alt = imageElement.alt;
+                        
+                        // Nastaviť obsah modalu
+                        document.getElementById('menuItemModalLabel').textContent = title;
+                        document.getElementById('modalItemTitle').textContent = title;
+                        document.getElementById('modalItemPrice').textContent = price;
+                        document.getElementById('modalItemDescription').textContent = description;
+                        document.getElementById('modalItemImage').src = image;
+                        document.getElementById('modalItemImage').alt = alt || title;
+                        
+                        // Otvoriť modal
+                        const modal = new bootstrap.Modal(document.getElementById('menuItemModal'));
+                        modal.show();
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>
