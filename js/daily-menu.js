@@ -37,21 +37,37 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const currentDayKey = getCurrentDayKey();
 
-    // Načítať menu (z Google Sheets ak je nakonfigurované, inak z JSON)
+    // Načítať menu (najprv z localStorage, potom z Google Sheets alebo JSON)
     let loadMenuPromise;
     
-    if (typeof GOOGLE_SHEETS_CONFIG !== 'undefined' && GOOGLE_SHEETS_CONFIG.enabled && GOOGLE_SHEETS_CONFIG.apiKey && GOOGLE_SHEETS_CONFIG.spreadsheetId) {
-        // Načítať z Google Sheets
-        loadMenuPromise = loadFromGoogleSheets();
-    } else {
-        // Načítať z JSON (fallback)
-        loadMenuPromise = fetch('data/daily-menu.json')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Nepodarilo sa načítať denné menu');
-                }
-                return response.json();
-            });
+    // Skontrolovať localStorage najprv
+    const savedMenuData = localStorage.getItem('dailyMenuData');
+    if (savedMenuData) {
+        try {
+            const parsedData = JSON.parse(savedMenuData);
+            loadMenuPromise = Promise.resolve(parsedData);
+        } catch (error) {
+            console.error('Chyba pri parsovaní dát z localStorage:', error);
+            // Pokračovať s načítaním z iného zdroja
+            loadMenuPromise = null;
+        }
+    }
+    
+    // Ak nie sú dáta v localStorage, načítať z iného zdroja
+    if (!loadMenuPromise) {
+        if (typeof GOOGLE_SHEETS_CONFIG !== 'undefined' && GOOGLE_SHEETS_CONFIG.enabled && GOOGLE_SHEETS_CONFIG.apiKey && GOOGLE_SHEETS_CONFIG.spreadsheetId) {
+            // Načítať z Google Sheets
+            loadMenuPromise = loadFromGoogleSheets();
+        } else {
+            // Načítať z JSON (fallback)
+            loadMenuPromise = fetch('data/daily-menu.json')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Nepodarilo sa načítať denné menu');
+                    }
+                    return response.json();
+                });
+        }
     }
     
     loadMenuPromise
@@ -281,11 +297,76 @@ function loadFromGoogleSheets() {
 
 // Funkcia na konverziu Google Sheets dát do formátu menu
 function convertSheetsDataToMenuFormat(sheetsData) {
-    // TODO: Implementovať konverziu z Google Sheets formátu do JSON formátu
-    // Toto bude závisieť od štruktúry vašej Google Sheets tabuľky
-    // Pre teraz vrátime fallback - načítame z JSON
-    console.warn('Google Sheets konverzia ešte nie je implementovaná, používa sa JSON fallback');
-    return fetch('data/daily-menu.json')
-        .then(response => response.json());
+    if (!sheetsData.values || sheetsData.values.length === 0) {
+        throw new Error('Google Sheets neobsahuje dáta');
+    }
+    
+    const rows = sheetsData.values;
+    const headerRow = rows[0];
+    
+    // Nájsť indexy stĺpcov
+    const weekIndex = headerRow.indexOf('Týždeň');
+    const priceIndex = headerRow.indexOf('Cena');
+    const timeIndex = headerRow.indexOf('Čas');
+    const dayIndex = headerRow.indexOf('Deň');
+    
+    // Vytvoriť štruktúru menu
+    const menuData = {
+        week: '',
+        price: '',
+        time: '',
+        days: {}
+    };
+    
+    // Prejsť všetky riadky (okrem hlavičky)
+    for (let i = 1; i < rows.length; i++) {
+        const row = rows[i];
+        if (!row || row.length === 0) continue;
+        
+        // Získať základné informácie z prvého riadku
+        if (i === 1) {
+            menuData.week = row[weekIndex] || '';
+            menuData.price = row[priceIndex] || '';
+            menuData.time = row[timeIndex] || '';
+        }
+        
+        const day = row[dayIndex];
+        if (!day) continue;
+        
+        const dayKey = day.toLowerCase();
+        if (!['pondelok', 'utorok', 'streda', 'stvrtok', 'piatok'].includes(dayKey)) continue;
+        
+        // Nájsť indexy pre polievku a menu
+        const polievkaNameIndex = headerRow.indexOf('Polievka - Názov');
+        const polievkaPortionIndex = headerRow.indexOf('Polievka - Porcia');
+        const polievkaPriceIndex = headerRow.indexOf('Polievka - Cena');
+        
+        if (!menuData.days[dayKey]) {
+            menuData.days[dayKey] = {
+                polievka: {
+                    name: row[polievkaNameIndex] || '',
+                    portion: row[polievkaPortionIndex] || '',
+                    price: row[polievkaPriceIndex] || 'V cene'
+                },
+                menu1: {
+                    name: row[headerRow.indexOf('Menu 1 - Názov')] || '',
+                    description: row[headerRow.indexOf('Menu 1 - Popis')] || '',
+                    price: row[headerRow.indexOf('Menu 1 - Cena')] || 'V cene'
+                },
+                menu2: {
+                    name: row[headerRow.indexOf('Menu 2 - Názov')] || '',
+                    description: row[headerRow.indexOf('Menu 2 - Popis')] || '',
+                    price: row[headerRow.indexOf('Menu 2 - Cena')] || 'V cene'
+                },
+                menu3: {
+                    name: row[headerRow.indexOf('Menu 3 - Názov')] || '',
+                    description: row[headerRow.indexOf('Menu 3 - Popis')] || '',
+                    price: row[headerRow.indexOf('Menu 3 - Cena')] || 'V cene'
+                }
+            };
+        }
+    }
+    
+    return menuData;
 }
 

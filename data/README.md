@@ -90,3 +90,4 @@ Ak chcete skontrolovať, či je váš JSON správny, použite:
 - Nezabudnite aktualizovať aj pole `"week"` s aktuálnym týždňom
 - Ak chcete zmeniť cenu denného menu, upravte pole `"price"`
 
+

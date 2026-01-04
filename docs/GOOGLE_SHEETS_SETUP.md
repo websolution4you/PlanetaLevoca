@@ -30,20 +30,27 @@ Tento návod popisuje, ako nastaviť Google Sheets integráciu pre úpravu denn�
 
 ## Krok 3: Konfigurácia v projekte
 
-1. Vytvorte súbor `js/google-sheets-config.js`:
+1. Otvorte súbor `js/google-sheets-config.js` a vyplňte:
 ```javascript
 const GOOGLE_SHEETS_CONFIG = {
     apiKey: 'VÁŠ_API_KĽÚČ',
     spreadsheetId: 'ID_VAŠEHO_DOKUMENTU',
-    range: 'Sheet1!A1:O100' // Upravte podľa potreby
+    range: 'Sheet1!A1:O100',
+    sheetName: 'Sheet1',
+    enabled: true,
+    webhookUrl: 'VÁŠ_WEBHOOK_URL' // Pozri GOOGLE_APPS_SCRIPT_WEBHOOK.md
 };
 ```
 
 2. **DÔLEŽITÉ**: Pre produkciu použite obmedzený API kľúč (len pre Sheets API a len pre váš doménu)
 
-## Krok 4: Implementácia načítania
+## Krok 4: Nastavenie webhooku pre ukladanie
 
-JavaScript automaticky načíta dáta z Google Sheets pomocou Google Sheets API v4.
+Pre ukladanie dát do Google Sheets potrebujete nastaviť Google Apps Script webhook. Pozri [GOOGLE_APPS_SCRIPT_WEBHOOK.md](./GOOGLE_APPS_SCRIPT_WEBHOOK.md) pre detailný návod.
+
+## Krok 5: Testovanie
+
+JavaScript automaticky načíta dáta z Google Sheets pomocou Google Sheets API v4 a uloží dáta cez webhook (ak je nakonfigurovaný).
 
 ## Bezpečnostné poznámky
 
