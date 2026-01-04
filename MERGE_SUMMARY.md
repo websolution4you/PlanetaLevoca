@@ -1,3 +1,128 @@
+# Zhrnutie zmien - Denné Menu a Admin funkcionalita (DENNE_MENU branch)
+
+## Prehľad
+Implementácia denného menu stránky s automatickým prepínaním na aktuálny deň a admin rozhraním pre jednoduchú úpravu menu. Systém podporuje zobrazenie menu pre pondelok až piatok s možnosťou prepínania medzi "Dnešný deň" a "Celý týždeň" režimom.
+
+## Hlavné zmeny
+
+### 1. Denné Menu stránka (`daily-menu.html`)
+- **Nová stránka**: Kompletná stránka pre zobrazenie týždenného denného menu
+- **Automatické prepínanie**: Pri načítaní sa automaticky zobrazí menu pre aktuálny deň
+- **Víkendová logika**: Počas víkendu sa zobrazuje piatkové menu s informačnou správou
+- **Dva režimy zobrazenia**:
+  - **Dnešný deň**: Zobrazuje len menu pre aktuálny deň
+  - **Celý týždeň**: Zobrazuje menu pre všetky dni (Pondelok - Piatok)
+- **Zobrazenie dátumu**: Zobrazuje aktuálny dátum a deň pre overenie funkčnosti systému
+- **Štruktúra menu pre každý deň**:
+  - Polievka (názov, porcia, cena)
+  - Menu 1, 2, 3 (názov, popis, cena)
+- **Ceny**: Nastavené na 6,50 € (namiesto "V cene")
+- **Formátovanie cien**: Ceny zostávajú v jednom riadku aj pri dlhých názvoch jedál
+
+### 2. Admin stránka (`admin-menu.html`)
+- **Nová stránka**: Jednoduché admin rozhranie pre úpravu denného menu
+- **Formulár pre každý deň**: 
+  - Polievka (názov, porcia, cena)
+  - Menu 1, 2, 3 (názov, popis, cena)
+- **Týždenné informácie**: Pole pre týždeň, cenu a čas
+- **Uloženie**: Generuje JSON súbor, ktorý sa stiahne po kliknutí na "Uložiť zmeny"
+- **Jednoduché použitie**: Navrhnuté pre bežného používateľa (podobne ako Facebook/Instagram)
+
+### 3. JSON dátová štruktúra (`data/daily-menu.json`)
+- **Formát**: Štruktúrovaný JSON súbor s týždennými dátami
+- **Štruktúra**:
+  ```json
+  {
+    "week": "6. - 10. november 2023",
+    "price": "3,40 €",
+    "time": "11:00 - 14:00",
+    "days": {
+      "pondelok": { ... },
+      "utorok": { ... },
+      ...
+    }
+  }
+  ```
+- **Každý deň obsahuje**: polievka + menu1, menu2, menu3
+- **Ceny**: Aktualizované na 6,50 € pre všetky položky
+
+### 4. JavaScript funkcionalita (`js/daily-menu.js`)
+- **Dynamické načítanie**: Načítanie menu z JSON súboru
+- **Automatická detekcia dňa**: Určenie aktuálneho dňa a zobrazenie príslušného menu
+- **Prepínanie režimov**: Funkcia `switchView()` pre prepínanie medzi "Dnešný deň" a "Celý týždeň"
+- **Víkendová logika**: Automatické zobrazenie piatkového menu počas víkendu
+- **Formátovanie**: Ceny s `white-space: nowrap` a `flex-shrink-0` pre zachovanie v jednom riadku
+- **Google Sheets podpora**: Pripravená štruktúra pre budúcu integráciu s Google Sheets
+
+### 5. Admin JavaScript (`js/admin-menu.js`)
+- **Načítanie dát**: Automatické načítanie aktuálneho menu z JSON
+- **Vyplnenie formulára**: Automatické vyplnenie všetkých polí aktuálnymi dátami
+- **Generovanie JSON**: Konverzia formulárových dát do JSON formátu
+- **Stiahnutie súboru**: Automatické stiahnutie upraveného JSON súboru
+
+### 6. Navigácia a odkazy
+- **Admin odkaz**: Pridaný na koniec denného menu stránky (pred footerom)
+- **Tlačidlo**: "Upraviť Menu (Admin)" s ikonou ceruzky
+- **Odkaz odstránený z hlavnej navigácie**: Admin odkaz je viditeľný len na dennom menu
+
+### 7. Dokumentácia
+- **`docs/GOOGLE_SHEETS_SETUP.md`**: Návod na nastavenie Google Sheets API (pripravené na budúcnosť)
+- **`data/README.md`**: Inštrukcie pre admina ako upravovať menu
+- **`js/google-sheets-config.js`**: Konfiguračný súbor pre Google Sheets (pripravený, nie aktivovaný)
+
+## Technické zmeny
+
+### Nové súbory
+- `daily-menu.html` - Stránka denného menu
+- `admin-menu.html` - Admin stránka pre úpravu menu
+- `js/daily-menu.js` - JavaScript pre denné menu
+- `js/admin-menu.js` - JavaScript pre admin stránku
+- `js/google-sheets-config.js` - Konfigurácia pre Google Sheets
+- `data/daily-menu.json` - JSON súbor s menu dátami
+- `docs/GOOGLE_SHEETS_SETUP.md` - Dokumentácia pre Google Sheets
+
+### Upravené súbory
+- `index.html` - Pridaný odkaz na denné menu do navigácie
+- `menu.html` - Pridaný odkaz na denné menu do navigácie
+- `data/daily-menu.json` - Aktualizované ceny na 6,50 €
+
+## Použitie
+
+### Pre návštevníkov
+1. Otvoriť stránku "Denné Menu"
+2. Automaticky sa zobrazí menu pre aktuálny deň
+3. Možnosť prepnúť na "Celý týždeň" pre zobrazenie všetkých dní
+
+### Pre admina
+1. Otvoriť denné menu stránku
+2. Kliknúť na "Upraviť Menu (Admin)" na konci stránky
+3. Upraviť menu v formulári
+4. Kliknúť na "Uložiť zmeny"
+5. Stiahne sa JSON súbor
+6. Nahradiť `data/daily-menu.json` na serveri
+7. Zmeny sa zobrazia na webe
+
+## Budúce vylepšenia
+- **Google Sheets integrácia**: Možnosť editovať menu priamo v Google Sheets (pripravené, nie aktivované)
+- **Automatické načítanie**: Načítanie menu priamo z Google Sheets bez potreby nahrávania JSON súboru
+
+## Commity v tomto merge
+1. **e763220** - Pridana admin stranka pre upravu menu, zmenene ceny na 6,50 EUR, upravene formatovanie cien
+2. Predchádzajúce commity s implementáciou denného menu a admin funkcionality
+
+## Výsledok
+- ✅ Funkčná denné menu stránka s automatickým prepínaním
+- ✅ Admin stránka pre jednoduchú úpravu menu
+- ✅ JSON dátová štruktúra pre menu
+- ✅ Prepínanie medzi "Dnešný deň" a "Celý týždeň"
+- ✅ Víkendová logika s informačnou správou
+- ✅ Zobrazenie aktuálneho dátumu a dňa
+- ✅ Ceny nastavené na 6,50 €
+- ✅ Formátovanie cien v jednom riadku
+- ✅ Pripravená štruktúra pre Google Sheets integráciu
+
+---
+
 # Zhrnutie zmien - Merge kamil_branch do main
 
 ## Prehľad

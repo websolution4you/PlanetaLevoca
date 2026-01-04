@@ -501,3 +501,21 @@
     padding-right: 0;
     border-right: none;
 }
+
+/* Menu obrázky - mierne zaoblené rohy */
+.tab-content img.rounded,
+.menu-item img.rounded {
+    border-radius: 1rem !important;
+}
+
+/* Modal obrázok - zaoblené rohy */
+#modalItemImage,
+.modal img.rounded {
+    border-radius: 1rem !important;
+}
+
+/* Menu ceny - zostanú v jednom riadku */
+.tab-content h5 .text-primary {
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
+}
