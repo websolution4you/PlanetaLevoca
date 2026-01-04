@@ -25,13 +25,15 @@
     z-index: 99;
 }
 
-.back-to-top-fork {
-    transform: rotate(180deg) rotate(-30deg) !important;
-    margin-right: -8px;
+.back-to-top-knife-left {
+    transform: rotate(-45deg) !important;
+    display: inline-block;
+    margin-right: -12px;
 }
 
-.back-to-top-knife {
-    transform: rotate(180deg) rotate(30deg) scaleX(-1) !important;
+.back-to-top-knife-right {
+    transform: rotate(45deg) scaleX(-1) !important;
+    display: inline-block;
 }
 
 
