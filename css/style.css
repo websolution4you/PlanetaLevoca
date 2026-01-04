@@ -25,9 +25,13 @@
     z-index: 99;
 }
 
-.back-to-top i {
-    transform: perspective(100px) rotateX(30deg) rotateZ(-20deg);
-    display: inline-block;
+.back-to-top-fork {
+    transform: rotate(-25deg) !important;
+    margin-right: -8px;
+}
+
+.back-to-top-knife {
+    transform: rotate(25deg) scaleX(-1) !important;
 }
 
 
