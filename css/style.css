@@ -25,6 +25,10 @@
     z-index: 99;
 }
 
+.back-to-top i {
+    transform: rotate(-45deg);
+}
+
 
 /*** Spinner ***/
 #spinner {
