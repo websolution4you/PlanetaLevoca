@@ -26,12 +26,12 @@
 }
 
 .back-to-top-fork {
-    transform: rotate(-25deg) !important;
+    transform: rotate(180deg) rotate(-30deg) !important;
     margin-right: -8px;
 }
 
 .back-to-top-knife {
-    transform: rotate(25deg) scaleX(-1) !important;
+    transform: rotate(180deg) rotate(30deg) scaleX(-1) !important;
 }
 
 
