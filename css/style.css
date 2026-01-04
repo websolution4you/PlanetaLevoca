@@ -26,16 +26,14 @@
 }
 
 .back-to-top-knife-left {
-    transform: rotate(-60deg) !important;
+    transform: rotate(180deg) rotate(-30deg) !important;
     display: inline-block;
     margin-right: -15px;
-    position: relative;
 }
 
 .back-to-top-knife-right {
-    transform: rotate(60deg) scaleX(-1) !important;
+    transform: rotate(180deg) rotate(30deg) scaleX(-1) !important;
     display: inline-block;
-    position: relative;
 }
 
 
