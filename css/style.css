@@ -235,6 +235,16 @@
 .service-item {
     box-shadow: 0 0 45px rgba(0, 0, 0, .08);
     transition: .5s;
+    background: white;
+}
+
+.service-item .service-bg-image {
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.service-item:hover .service-bg-image {
+    opacity: 0.20;
 }
 
 .service-item:hover {
