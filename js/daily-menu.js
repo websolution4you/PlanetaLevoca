@@ -242,6 +242,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 contentContainer.appendChild(dayContainer);
             });
+            
+            // Automaticky zobraziť aktuálny deň po načítaní
+            switchView('today');
         })
         .catch(error => {
             console.error('Chyba pri načítaní denného menu:', error);
