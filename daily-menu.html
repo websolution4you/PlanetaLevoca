@@ -104,17 +104,19 @@
                     <h5 class="section-title ff-secondary text-center text-primary fw-normal">Denné Menu</h5>
                     <h1 class="mb-4">Týždenné Menu</h1>
                     <p class="text-muted mb-3" id="weekPriceInfo">Načítavam...</p>
-                    <p class="text-muted small mb-2" id="currentDateInfo">Načítavam dátum...</p>
                     <p class="text-muted small mb-2" id="timeInfo">Dostupné Po-Pia 11:00-14:00</p>
                     <p class="text-muted small mb-4" id="weekendInfo" style="display: none;">Denné menu je k dispozícii len počas pracovných dní. Zobrazuje sa menu z piatka.</p>
                     
                     <!-- Prepínanie medzi režimami -->
                     <div class="btn-group mb-4" role="group" id="viewToggle">
-                        <button type="button" class="btn btn-outline-primary active" id="btnToday" onclick="switchView('today')">
-                            <i class="fa fa-calendar-day me-2"></i>Dnešný deň
+                        <button type="button" class="btn btn-outline-primary active d-flex flex-column align-items-center py-2 px-3" id="btnToday" onclick="switchView('today')">
+                            <div class="d-flex align-items-center">
+                                Dnešný deň
+                            </div>
+                            <small class="mt-1 text-danger fw-bold" id="currentDayDate" style="font-size: 0.75rem;">Načítavam...</small>
                         </button>
                         <button type="button" class="btn btn-outline-primary" id="btnWeek" onclick="switchView('week')">
-                            <i class="fa fa-calendar-week me-2"></i>Celý týždeň
+                            Celý týždeň
                         </button>
                     </div>
                 </div>

@@ -131,3 +131,4 @@ const GOOGLE_SHEETS_CONFIG = {
 - Zvážte obmedzenie prístupu len pre vašu doménu
 
 
+

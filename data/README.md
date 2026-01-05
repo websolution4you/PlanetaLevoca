@@ -91,3 +91,4 @@ Ak chcete skontrolovať, či je váš JSON správny, použite:
 - Ak chcete zmeniť cenu denného menu, upravte pole `"price"`
 
 
+
