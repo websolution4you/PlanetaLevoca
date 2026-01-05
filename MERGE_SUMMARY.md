@@ -392,3 +392,73 @@ Vylepšenie používateľského rozhrania denného menu s dôrazom na zjednoduš
 - Žiadne breaking changes
 - Zmeny zlepšujú používateľský zážitok bez zmeny funkcionality
 
+---
+
+# Firebase Authentication a Login funkcionalita (LOGIN_AND_STORE_DATA branch)
+
+## Prehľad
+Implementacia Firebase Authentication pre admin prihlasenie na dennom menu. System umoznuje bezpecne prihlasenie admina, reset hesla a ochranu admin rozhrania.
+
+## Hlavne zmeny
+
+### 1. Firebase konfiguracia
+- **Novy subor**: `js/firebase-config.js` - Firebase konfiguracny objekt
+- **Firebase SDK**: Pridane Firebase SDK (compat verzia) do `daily-menu.html`
+- **Autentifikacia**: Nastavene Email/Password authentication v Firebase Console
+
+### 2. Prihlasovaci system (`daily-menu.html`)
+- **Prihlasovaci formular**: Minimalisticky dizajn, menej napadny
+- **Automaticke zobrazenie**: Formular sa zobrazi len ked nie je pouzivatel prihlaseny
+- **Reset hesla**: Funkcia "Zabudol som heslo" posiela email na reset hesla
+- **Ochrana admin tlacidla**: Tlacidlo "Upravit Menu (Admin)" je viditelne len po prihlaseni
+- **Odhasenie**: Tlacidlo "Odhasit sa" pod admin tlacidlom
+
+### 3. JavaScript funkcionalita (`js/auth.js`)
+- **Auth state monitoring**: Automaticke sledovanie prihlaseneho stavu
+- **Login funkcia**: Spracovanie prihlasenia s error handling
+- **Logout funkcia**: Bezpecne odhasenie
+- **Password reset**: Posielanie emailu na reset hesla
+- **Error handling**: Slovenske chybove hlasky pre rozne scenare
+
+### 4. UI upravy
+- **Kompaktny dizajn**: Mensie fonty, padding a margin
+- **Nenapadny vzhlad**: Prihlasovaci formular je minimalne viditelny
+- **Farebne ladenie**: Pouzitie farby #fea116 pre prihlasovacie tlacidlo
+- **Vacsia medzera**: 200px medzera medzi dennym menu a prihlasenim
+
+### 5. Automaticke zobrazenie denneho menu
+- **Oprava**: Po nacitani sa automaticky zobrazi aktualny den s nadpisom
+- **Volanie switchView**: Automaticke volanie `switchView('today')` po nacitani dat
+
+## Technicke detaily
+
+### Firebase konfiguracia
+```javascript
+const firebaseConfig = {
+  apiKey: "AIzaSyCWgg-pASmbuF2G-8oksdIX9DpYqwQaeWQ",
+  authDomain: "planetalevoca-40469.firebaseapp.com",
+  projectId: "planetalevoca-40469",
+  storageBucket: "planetalevoca-40469.firebasestorage.app",
+  messagingSenderId: "472070169194",
+  appId: "1:472070169194:web:9a9e32b42f4b4fb3332013"
+};
+```
+
+### Bezpecnost
+- Admin ucty sa vytvaraju manuálne v Firebase Console
+- Verejna registracia nie je dostupna
+- Reset hesla cez Firebase email system
+
+## Vysledok
+- ✅ Firebase Authentication implementovane
+- ✅ Bezpecne prihlasenie a odhasenie
+- ✅ Ochrana admin rozhrania
+- ✅ Reset hesla funkcionalita
+- ✅ Minimalisticky, nenapadny dizajn
+- ✅ Automaticke zobrazenie aktualneho dna pri nacitani
+
+## Poznamky
+- Admin ucty sa vytvaraju manuálne v Firebase Console
+- Heslo sa da zmenit cez Firebase Console alebo reset hesla funkciu
+- Vsetky zmeny su spetne kompatibilne
+
