@@ -125,3 +125,4 @@ const GOOGLE_SHEETS_CONFIG = {
 - Skontrolujte obmedzenia API kľúča
 
 
+
