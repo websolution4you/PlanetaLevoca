@@ -10,6 +10,202 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const dayOrder = ['pondelok', 'utorok', 'streda', 'stvrtok', 'piatok'];
 
+    // Dish catalog helper functions
+    function loadDishCatalog() {
+        try {
+            const stored = localStorage.getItem('dishCatalog');
+            if (stored) {
+                return JSON.parse(stored);
+            }
+        } catch (error) {
+            console.error('Chyba pri načítaní zoznamu jedál:', error);
+        }
+        return [];
+    }
+
+    function saveDishCatalog(arr) {
+        try {
+            localStorage.setItem('dishCatalog', JSON.stringify(arr));
+        } catch (error) {
+            console.error('Chyba pri ukladaní zoznamu jedál:', error);
+        }
+    }
+
+    function isDishInCatalog(dishName, catalog) {
+        const trimmed = dishName.trim().toLowerCase();
+        return catalog.some(dish => dish.trim().toLowerCase() === trimmed);
+    }
+
+    // Create datalist element once
+    let dishCatalogList = document.getElementById('dishCatalogList');
+    if (!dishCatalogList) {
+        dishCatalogList = document.createElement('datalist');
+        dishCatalogList.id = 'dishCatalogList';
+        document.body.appendChild(dishCatalogList);
+    }
+
+    // Reusable "Pridať do zoznamu" button
+    let addButton = null;
+    let activeDishInput = null;
+
+    function createAddButton() {
+        if (!addButton) {
+            addButton = document.createElement('button');
+            addButton.type = 'button';
+            addButton.textContent = 'Pridať do zoznamu';
+            addButton.className = 'btn btn-sm btn-outline-primary';
+            addButton.style.fontSize = '0.75rem';
+            addButton.addEventListener('mousedown', function(e) {
+                e.preventDefault();
+            });
+            addButton.addEventListener('click', function() {
+                if (activeDishInput && activeDishInput.value.trim()) {
+                    const dishName = activeDishInput.value.trim();
+                    const catalog = loadDishCatalog();
+                    if (!isDishInCatalog(dishName, catalog)) {
+                        catalog.push(dishName);
+                        saveDishCatalog(catalog);
+                        refreshDatalist();
+                        refreshCatalogDisplay();
+                        addButton.style.display = 'none';
+                        // Re-check if button should still show after adding
+                        setTimeout(() => {
+                            if (activeDishInput === document.activeElement) {
+                                handleInputChange(activeDishInput);
+                            }
+                        }, 10);
+                    }
+                }
+            });
+        }
+        return addButton;
+    }
+
+    function refreshDatalist() {
+        const catalog = loadDishCatalog();
+        dishCatalogList.innerHTML = '';
+        catalog.forEach(dish => {
+            const option = document.createElement('option');
+            option.value = dish;
+            dishCatalogList.appendChild(option);
+        });
+    }
+
+    function refreshCatalogDisplay() {
+        const catalogSection = document.getElementById('catalogSection');
+        if (!catalogSection) return;
+
+        const listContainer = catalogSection.querySelector('.catalog-list');
+        if (!listContainer) return;
+
+        const catalog = loadDishCatalog();
+        listContainer.innerHTML = '';
+
+        if (catalog.length === 0) {
+            listContainer.innerHTML = '<p class="text-muted small mb-0">Zoznam je prázdny</p>';
+            return;
+        }
+
+        catalog.forEach((dish, index) => {
+            const row = document.createElement('div');
+            row.className = 'd-flex justify-content-between align-items-center border-bottom pb-2 mb-2';
+            row.innerHTML = `
+                <span>${dish}</span>
+                <button type="button" class="btn btn-sm btn-outline-danger" style="font-size: 0.75rem; padding: 2px 8px;">✕</button>
+            `;
+            row.querySelector('button').addEventListener('click', function() {
+                const updatedCatalog = loadDishCatalog();
+                updatedCatalog.splice(index, 1);
+                saveDishCatalog(updatedCatalog);
+                refreshDatalist();
+                refreshCatalogDisplay();
+                // Update add button visibility if needed
+                if (activeDishInput) {
+                    handleInputChange(activeDishInput);
+                }
+            });
+            listContainer.appendChild(row);
+        });
+    }
+
+    function handleInputChange(input) {
+        const value = input.value.trim();
+        const catalog = loadDishCatalog();
+        const shouldShow = value && !isDishInCatalog(value, catalog);
+
+        // Find the wrapper div for this input
+        let wrapper = input.parentElement;
+        if (!wrapper || !wrapper.classList.contains('dish-input-wrapper')) {
+            return; // Input not wrapped yet, skip
+        }
+
+        // Update "🧹 Nahradiť" button visibility
+        const replaceButton = wrapper.querySelector('.replace-dish-button');
+        if (replaceButton) {
+            replaceButton.style.display = value ? 'inline-block' : 'none';
+        }
+
+        if (shouldShow) {
+            const btn = createAddButton();
+            // Remove button from previous location if exists
+            if (btn.parentNode) {
+                btn.parentNode.removeChild(btn);
+            }
+            // Add button to wrapper (after input)
+            wrapper.appendChild(btn);
+            btn.style.display = 'inline-block';
+        } else {
+            if (addButton && addButton.parentNode) {
+                addButton.style.display = 'none';
+            }
+        }
+    }
+
+    function setupChangeButton(input) {
+        const wrapper = input.parentElement;
+        if (!wrapper || !wrapper.classList.contains('dish-input-wrapper')) {
+            return;
+        }
+
+        // Create "🧹 Nahradiť" button
+        let replaceButton = wrapper.querySelector('.replace-dish-button');
+        if (!replaceButton) {
+            replaceButton = document.createElement('button');
+            replaceButton.type = 'button';
+            replaceButton.textContent = '🧹 Nahradiť';
+            replaceButton.className = 'replace-dish-button btn btn-sm btn-outline-secondary';
+            replaceButton.style.fontSize = '0.75rem';
+            replaceButton.addEventListener('click', function() {
+                input.value = '';
+                input.focus();
+                activeDishInput = input;
+                handleInputChange(input);
+            });
+            wrapper.appendChild(replaceButton);
+        }
+
+        // Set initial visibility
+        replaceButton.style.display = input.value.trim() ? 'inline-block' : 'none';
+    }
+
+    function createCatalogSection() {
+        const daysContainer = document.getElementById('daysContainer');
+        if (!daysContainer) return;
+
+        let catalogSection = document.getElementById('catalogSection');
+        if (!catalogSection) {
+            catalogSection = document.createElement('div');
+            catalogSection.id = 'catalogSection';
+            catalogSection.className = 'mt-4';
+            catalogSection.innerHTML = `
+                <h5 class="mb-3">Zoznam jedál</h5>
+                <div class="catalog-list"></div>
+            `;
+            daysContainer.parentNode.insertBefore(catalogSection, daysContainer.nextSibling);
+        }
+        refreshCatalogDisplay();
+    }
+
     // Načítať menu z JSON (fallback, neskôr Google Sheets)
     loadMenu();
 
@@ -55,10 +251,12 @@ document.addEventListener('DOMContentLoaded', function() {
                                 <label><strong>Polievka:</strong></label>
                                 <div class="row">
                                     <div class="col-md-8">
-                                        <input type="text" class="form-control mb-2" 
-                                            id="${dayKey}_polievka_name" 
-                                            placeholder="Názov polievky" 
-                                            value="${dayData.polievka?.name || ''}">
+                                        <div class="dish-input-wrapper" style="display:flex; align-items:center; gap:8px;">
+                                            <input type="text" class="form-control mb-2" 
+                                                id="${dayKey}_polievka_name" 
+                                                placeholder="Názov polievky" 
+                                                value="${dayData.polievka?.name || ''}">
+                                        </div>
                                     </div>
                                     <div class="col-md-2">
                                         <input type="text" class="form-control mb-2" 
@@ -79,10 +277,12 @@ document.addEventListener('DOMContentLoaded', function() {
                         <div class="row">
                             <div class="col-md-4 mb-3">
                                 <label><strong>Menu 1:</strong></label>
-                                <input type="text" class="form-control mb-2" 
-                                    id="${dayKey}_menu1_name" 
-                                    placeholder="Názov menu 1" 
-                                    value="${dayData.menu1?.name || ''}">
+                                <div class="dish-input-wrapper" style="display:flex; align-items:center; gap:8px;">
+                                    <input type="text" class="form-control mb-2" 
+                                        id="${dayKey}_menu1_name" 
+                                        placeholder="Názov menu 1" 
+                                        value="${dayData.menu1?.name || ''}">
+                                </div>
                                 <input type="text" class="form-control mb-2" 
                                     id="${dayKey}_menu1_description" 
                                     placeholder="Popis" 
@@ -94,10 +294,12 @@ document.addEventListener('DOMContentLoaded', function() {
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label><strong>Menu 2:</strong></label>
-                                <input type="text" class="form-control mb-2" 
-                                    id="${dayKey}_menu2_name" 
-                                    placeholder="Názov menu 2" 
-                                    value="${dayData.menu2?.name || ''}">
+                                <div class="dish-input-wrapper" style="display:flex; align-items:center; gap:8px;">
+                                    <input type="text" class="form-control mb-2" 
+                                        id="${dayKey}_menu2_name" 
+                                        placeholder="Názov menu 2" 
+                                        value="${dayData.menu2?.name || ''}">
+                                </div>
                                 <input type="text" class="form-control mb-2" 
                                     id="${dayKey}_menu2_description" 
                                     placeholder="Popis" 
@@ -109,10 +311,12 @@ document.addEventListener('DOMContentLoaded', function() {
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label><strong>Menu 3:</strong></label>
-                                <input type="text" class="form-control mb-2" 
-                                    id="${dayKey}_menu3_name" 
-                                    placeholder="Názov menu 3" 
-                                    value="${dayData.menu3?.name || ''}">
+                                <div class="dish-input-wrapper" style="display:flex; align-items:center; gap:8px;">
+                                    <input type="text" class="form-control mb-2" 
+                                        id="${dayKey}_menu3_name" 
+                                        placeholder="Názov menu 3" 
+                                        value="${dayData.menu3?.name || ''}">
+                                </div>
                                 <input type="text" class="form-control mb-2" 
                                     id="${dayKey}_menu3_description" 
                                     placeholder="Popis" 
@@ -126,6 +330,67 @@ document.addEventListener('DOMContentLoaded', function() {
                     `;
                     daysContainer.appendChild(daySection);
                 });
+
+                // Attach datalist to all dish name inputs and set up event listeners
+                dayOrder.forEach(dayKey => {
+                    // Polievka name input
+                    const polievkaInput = document.getElementById(`${dayKey}_polievka_name`);
+                    if (polievkaInput) {
+                        polievkaInput.setAttribute('list', 'dishCatalogList');
+                        polievkaInput.addEventListener('focus', function() {
+                            activeDishInput = this;
+                            handleInputChange(this);
+                        });
+                        polievkaInput.addEventListener('input', function() {
+                            if (activeDishInput === this) {
+                                handleInputChange(this);
+                            } else {
+                                // Update change button visibility even if not active
+                                handleInputChange(this);
+                            }
+                        });
+                        setupChangeButton(polievkaInput);
+                        polievkaInput.addEventListener('blur', function() {
+                            setTimeout(() => {
+                                if (addButton && addButton.parentNode && document.activeElement !== addButton) {
+                                    addButton.style.display = 'none';
+                                }
+                            }, 200);
+                        });
+                    }
+
+                    // Menu 1, 2, 3 name inputs
+                    ['menu1', 'menu2', 'menu3'].forEach(menuKey => {
+                        const menuInput = document.getElementById(`${dayKey}_${menuKey}_name`);
+                        if (menuInput) {
+                            menuInput.setAttribute('list', 'dishCatalogList');
+                            menuInput.addEventListener('focus', function() {
+                                activeDishInput = this;
+                                handleInputChange(this);
+                            });
+                            menuInput.addEventListener('input', function() {
+                                if (activeDishInput === this) {
+                                    handleInputChange(this);
+                                } else {
+                                    // Update change button visibility even if not active
+                                    handleInputChange(this);
+                                }
+                            });
+                            setupChangeButton(menuInput);
+                            menuInput.addEventListener('blur', function() {
+                                setTimeout(() => {
+                                    if (addButton && addButton.parentNode && document.activeElement !== addButton) {
+                                        addButton.style.display = 'none';
+                                    }
+                                }, 200);
+                            });
+                        }
+                    });
+                });
+
+                // Initialize datalist and catalog display
+                refreshDatalist();
+                createCatalogSection();
             })
             .catch(error => {
                 console.error('Chyba pri načítaní menu:', error);
