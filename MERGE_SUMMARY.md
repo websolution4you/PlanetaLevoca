@@ -308,3 +308,157 @@ Integrácia slovenského menu s detailným zoznamom jedál a interaktívnym moda
 - Modal je univerzálny a funguje pre všetky menu položky
 - Všetky ceny sú v eurách a pripravené na aktualizáciu
 
+---
+
+# Zhrnutie zmien - Vylepšenie denného menu UI (peto_branch)
+
+## Prehľad
+Vylepšenie používateľského rozhrania denného menu s dôrazom na zjednodušenie, zlepšenie čitateľnosti a používateľského zážitku.
+
+## Hlavné zmeny
+
+### 1. Odstránenie sekcie "Denné Menu & Špeciality" z hlavnej stránky
+- **Súbor**: `index.html`
+- **Zmena**: Odstránená celá sekcia s tabmi (Aktuálne Denné Menu, Špecialita Hlavné Jedlá, Nápoje Káva & Nápoje)
+- **Dôvod**: Denné menu má vlastnú stránku (`daily-menu.html`), duplicitná sekcia na hlavnej stránke bola zbytočná
+
+### 2. Optimalizácia "Back to Top" tlačidla
+- **Súbor**: `js/main.js`
+- **Zmena**: Nahradená jQuery animácia (1500ms) natívnym `window.scrollTo()` s `behavior: 'smooth'`
+- **Výhody**: 
+  - Rýchlejšia odozva na kliknutie
+  - Plynulejšie scrollovanie
+  - Lepšia výkonnosť (natívna implementácia prehliadača)
+
+### 3. Zobrazenie aktuálneho dátumu v tlačidle "Dnešný deň"
+- **Súbory**: `daily-menu.html`, `js/daily-menu.js`
+- **Zmena**: 
+  - Pridaný dátum pod textom tlačidla "Dnešný deň" vo formáte "Pondelok, 5. január 2026"
+  - Dátum je zobrazený červenou farbou (`text-danger`) a tučným písmom (`fw-bold`) pre lepšiu viditeľnosť
+  - Automatická aktualizácia pri načítaní stránky
+- **Funkcionalita**: Nová funkcia `updateCurrentDayDate()` formátuje a zobrazuje aktuálny dátum
+
+### 4. Odstránenie ikon kalendára
+- **Súbory**: `daily-menu.html`, `js/daily-menu.js`
+- **Zmeny**:
+  - Odstránená ikona kalendára z tlačidla "Dnešný deň"
+  - Odstránená ikona kalendára z tlačidla "Celý týždeň"
+  - Odstránené ikony kalendára z nadpisov dní v týždennom zobrazení
+- **Dôvod**: Zjednodušenie UI, ikony boli zbytočné
+
+### 5. Zobrazenie nadpisu dňa pri dennom zobrazení
+- **Súbor**: `js/daily-menu.js`
+- **Zmena**: Pri zobrazení len denného menu sa teraz zobrazuje nadpis aktuálneho dňa (napr. "Pondelok") rovnako ako pri týždennom zobrazení
+- **Výhoda**: Konzistentné zobrazenie, používateľ vždy vidí, ktorý deň sa zobrazuje
+
+### 6. Zväčšenie rozostupu medzi dňami v týždennom zobrazení
+- **Súbor**: `js/daily-menu.js`
+- **Zmena**: Pridaný `marginTop: '7rem'` na každý deň okrem prvého v týždennom zobrazení
+- **Výhoda**: Lepšia čitateľnosť a prehľadnosť pri zobrazení celého týždňa
+
+### 7. Odstránenie duplicitného zobrazenia dátumu
+- **Súbory**: `daily-menu.html`, `js/daily-menu.js`
+- **Zmena**: Odstránený riadok "Dnes: Pondelok, 5. januára 2026" z hlavičky stránky
+- **Dôvod**: Dátum je už zobrazený v tlačidle "Dnešný deň", duplicitné zobrazenie bolo zbytočné
+
+## Technické detaily
+
+### Upravené súbory:
+- `index.html` - odstránenie sekcie denného menu
+- `daily-menu.html` - úpravy tlačidiel a odstránenie duplicitného dátumu
+- `js/main.js` - optimalizácia "Back to Top" funkcie
+- `js/daily-menu.js` - nová funkcia pre dátum, úpravy zobrazenia, rozostupy
+
+### Nové funkcie:
+- `updateCurrentDayDate()` - formátuje a zobrazuje aktuálny dátum v tlačidle
+
+### CSS zmeny:
+- Pridané `text-danger fw-bold` na dátum v tlačidle pre lepšiu viditeľnosť
+- Pridaný inline style `marginTop: '7rem'` pre rozostup medzi dňami
+
+## Commity v tomto merge
+1. **2b8a01f** - Vylepsenie denneho menu: UI upravy, odstranenie ikon, zobrazenie datumu, rozostup medzi dnymi
+
+## Výsledok
+- ✅ Zjednodušené UI denného menu
+- ✅ Rýchlejšie "Back to Top" tlačidlo
+- ✅ Zobrazenie aktuálneho dátumu v tlačidle
+- ✅ Konzistentné zobrazenie nadpisov dní
+- ✅ Lepšia čitateľnosť týždenného zobrazenia
+- ✅ Odstránené zbytočné duplicitné informácie
+
+## Poznámky
+- Všetky zmeny sú spätne kompatibilné
+- Žiadne breaking changes
+- Zmeny zlepšujú používateľský zážitok bez zmeny funkcionality
+
+---
+
+# Firebase Authentication a Login funkcionalita (LOGIN_AND_STORE_DATA branch)
+
+## Prehľad
+Implementacia Firebase Authentication pre admin prihlasenie na dennom menu. System umoznuje bezpecne prihlasenie admina, reset hesla a ochranu admin rozhrania.
+
+## Hlavne zmeny
+
+### 1. Firebase konfiguracia
+- **Novy subor**: `js/firebase-config.js` - Firebase konfiguracny objekt
+- **Firebase SDK**: Pridane Firebase SDK (compat verzia) do `daily-menu.html`
+- **Autentifikacia**: Nastavene Email/Password authentication v Firebase Console
+
+### 2. Prihlasovaci system (`daily-menu.html`)
+- **Prihlasovaci formular**: Minimalisticky dizajn, menej napadny
+- **Automaticke zobrazenie**: Formular sa zobrazi len ked nie je pouzivatel prihlaseny
+- **Reset hesla**: Funkcia "Zabudol som heslo" posiela email na reset hesla
+- **Ochrana admin tlacidla**: Tlacidlo "Upravit Menu (Admin)" je viditelne len po prihlaseni
+- **Odhasenie**: Tlacidlo "Odhasit sa" pod admin tlacidlom
+
+### 3. JavaScript funkcionalita (`js/auth.js`)
+- **Auth state monitoring**: Automaticke sledovanie prihlaseneho stavu
+- **Login funkcia**: Spracovanie prihlasenia s error handling
+- **Logout funkcia**: Bezpecne odhasenie
+- **Password reset**: Posielanie emailu na reset hesla
+- **Error handling**: Slovenske chybove hlasky pre rozne scenare
+
+### 4. UI upravy
+- **Kompaktny dizajn**: Mensie fonty, padding a margin
+- **Nenapadny vzhlad**: Prihlasovaci formular je minimalne viditelny
+- **Farebne ladenie**: Pouzitie farby #fea116 pre prihlasovacie tlacidlo
+- **Vacsia medzera**: 200px medzera medzi dennym menu a prihlasenim
+
+### 5. Automaticke zobrazenie denneho menu
+- **Oprava**: Po nacitani sa automaticky zobrazi aktualny den s nadpisom
+- **Volanie switchView**: Automaticke volanie `switchView('today')` po nacitani dat
+
+## Technicke detaily
+
+### Firebase konfiguracia
+```javascript
+const firebaseConfig = {
+  apiKey: "AIzaSyCWgg-pASmbuF2G-8oksdIX9DpYqwQaeWQ",
+  authDomain: "planetalevoca-40469.firebaseapp.com",
+  projectId: "planetalevoca-40469",
+  storageBucket: "planetalevoca-40469.firebasestorage.app",
+  messagingSenderId: "472070169194",
+  appId: "1:472070169194:web:9a9e32b42f4b4fb3332013"
+};
+```
+
+### Bezpecnost
+- Admin ucty sa vytvaraju manuálne v Firebase Console
+- Verejna registracia nie je dostupna
+- Reset hesla cez Firebase email system
+
+## Vysledok
+- ✅ Firebase Authentication implementovane
+- ✅ Bezpecne prihlasenie a odhasenie
+- ✅ Ochrana admin rozhrania
+- ✅ Reset hesla funkcionalita
+- ✅ Minimalisticky, nenapadny dizajn
+- ✅ Automaticke zobrazenie aktualneho dna pri nacitani
+
+## Poznamky
+- Admin ucty sa vytvaraju manuálne v Firebase Console
+- Heslo sa da zmenit cez Firebase Console alebo reset hesla funkciu
+- Vsetky zmeny su spetne kompatibilne
+

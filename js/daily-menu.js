@@ -37,6 +37,54 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const currentDayKey = getCurrentDayKey();
 
+    // Funkcia na formátovanie a zobrazenie aktuálneho dňa a dátumu
+    function updateCurrentDayDate() {
+        const today = new Date();
+        const dayOfWeek = today.getDay();
+        
+        // Mapovanie dní na slovenské názvy
+        const dayNames = {
+            0: 'Nedeľa',
+            1: 'Pondelok',
+            2: 'Utorok',
+            3: 'Streda',
+            4: 'Štvrtok',
+            5: 'Piatok',
+            6: 'Sobota'
+        };
+        
+        // Mapovanie mesiacov na slovenské názvy
+        const monthNames = {
+            0: 'január',
+            1: 'február',
+            2: 'marec',
+            3: 'apríl',
+            4: 'máj',
+            5: 'jún',
+            6: 'júl',
+            7: 'august',
+            8: 'september',
+            9: 'október',
+            10: 'november',
+            11: 'december'
+        };
+        
+        const dayName = dayNames[dayOfWeek];
+        const day = today.getDate();
+        const month = monthNames[today.getMonth()];
+        const year = today.getFullYear();
+        
+        const dateString = `${dayName}, ${day}. ${month} ${year}`;
+        
+        const currentDayDateElement = document.getElementById('currentDayDate');
+        if (currentDayDateElement) {
+            currentDayDateElement.textContent = dateString;
+        }
+    }
+
+    // Aktualizovať dátum hneď pri načítaní
+    updateCurrentDayDate();
+
     // Načítať menu (najprv z localStorage, potom z Google Sheets alebo JSON)
     let loadMenuPromise;
     
@@ -101,25 +149,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 weekPriceInfo.textContent = infoText || 'Načítavam...';
             }
             
-            // Zobraziť aktuálny dátum a deň
+            // Zobraziť víkendovú správu ak je víkend
             const today = new Date();
             const dayOfWeek = today.getDay();
-            const currentDateInfo = document.getElementById('currentDateInfo');
-            
-            if (currentDateInfo) {
-                const dayNamesSlovak = ['Nedeľa', 'Pondelok', 'Utorok', 'Streda', 'Štvrtok', 'Piatok', 'Sobota'];
-                const monthNamesSlovak = ['januára', 'februára', 'marca', 'apríla', 'mája', 'júna', 
-                                         'júla', 'augusta', 'septembra', 'októbra', 'novembra', 'decembra'];
-                
-                const dayName = dayNamesSlovak[dayOfWeek];
-                const day = today.getDate();
-                const month = monthNamesSlovak[today.getMonth()];
-                const year = today.getFullYear();
-                
-                currentDateInfo.textContent = `Dnes: ${dayName}, ${day}. ${month} ${year}`;
-            }
-            
-            // Zobraziť víkendovú správu ak je víkend
             if (dayOfWeek === 0 || dayOfWeek === 6) {
                 const weekendInfo = document.getElementById('weekendInfo');
                 if (weekendInfo) {
@@ -143,10 +175,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 const dayContainer = document.createElement('div');
                 dayContainer.id = `day-${dayKey}`;
                 dayContainer.className = `day-container ${dayKey === currentDayKey ? 'active' : ''}`;
+                // Pridať väčší rozostup medzi dňami (okrem prvého)
+                if (index > 0) {
+                    dayContainer.style.marginTop = '7rem';
+                }
                 
                 // Pridať nadpis dňa pre režim "Celý týždeň"
                 let menuHTML = `<div class="day-header mb-4" style="display: none;">
-                    <h4 class="text-primary mb-3"><i class="fa fa-calendar-day me-2"></i>${day.name}</h4>
+                    <h4 class="text-primary mb-3">${day.name}</h4>
                     <hr class="mb-4">
                 </div>`;
                 menuHTML += '<div class="row g-4">';
@@ -206,6 +242,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 contentContainer.appendChild(dayContainer);
             });
+            
+            // Automaticky zobraziť aktuálny deň po načítaní
+            switchView('today');
         })
         .catch(error => {
             console.error('Chyba pri načítaní denného menu:', error);
@@ -252,14 +291,24 @@ function switchView(view) {
         document.querySelectorAll('.day-container').forEach(container => {
             if (container.id === `day-${currentDayKey}`) {
                 container.style.display = 'block';
+                // Zobraziť nadpis pre aktuálny deň
+                const header = container.querySelector('.day-header');
+                if (header) {
+                    header.style.display = 'block';
+                }
             } else {
                 container.style.display = 'none';
             }
         });
         
-        // Skryť nadpisy dní
-        document.querySelectorAll('.day-header').forEach(header => {
-            header.style.display = 'none';
+        // Skryť nadpisy ostatných dní
+        document.querySelectorAll('.day-container').forEach(container => {
+            if (container.id !== `day-${currentDayKey}`) {
+                const header = container.querySelector('.day-header');
+                if (header) {
+                    header.style.display = 'none';
+                }
+            }
         });
     } else {
         // Zobraziť celý týždeň - zobraziť všetky dni naraz
