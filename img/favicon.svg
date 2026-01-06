@@ -1,10 +1,20 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="32" height="32">
-  <!-- Chef Hat Icon - Simple and clear -->
-  <!-- Hat base -->
-  <path fill="#F59E0B" d="M256 0C114.6 0 0 114.6 0 256c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64C512 114.6 397.4 0 256 0z"/>
-  <!-- Hat top section -->
-  <path fill="#FFFFFF" d="M256 64c-106 0-192 86-192 192h384c0-106-86-192-192-192z"/>
-  <path fill="#F59E0B" d="M256 128c-70.7 0-128 57.3-128 128h256c0-70.7-57.3-128-128-128z"/>
-  <!-- Hat band -->
-  <rect fill="#1F2937" x="96" y="352" width="320" height="24" rx="4"/>
+  <!-- Dark background for better visibility -->
+  <rect width="512" height="512" fill="#1F2937" rx="80"/>
+  <!-- Light circle background -->
+  <circle cx="256" cy="256" r="200" fill="#F59E0B"/>
+  <!-- White inner circle -->
+  <circle cx="256" cy="256" r="160" fill="#FFFFFF"/>
+  <!-- Restaurant utensils icon -->
+  <g fill="#F59E0B" stroke="#F59E0B" stroke-width="8" stroke-linecap="round">
+    <!-- Fork (left) -->
+    <line x1="180" y1="180" x2="180" y2="340"/>
+    <line x1="160" y1="180" x2="160" y2="220"/>
+    <line x1="200" y1="180" x2="200" y2="220"/>
+    <line x1="150" y1="180" x2="150" y2="220"/>
+    <line x1="210" y1="180" x2="210" y2="220"/>
+    <!-- Knife (right) -->
+    <line x1="332" y1="180" x2="332" y2="340"/>
+    <path d="M332 180 L340 180 L340 220 L332 220 Z" fill="#F59E0B"/>
+  </g>
 </svg>
