@@ -10,7 +10,24 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const dayOrder = ['pondelok', 'utorok', 'streda', 'stvrtok', 'piatok'];
 
-    // Dish catalog helper functions
+    // Demo dish options for dropdown (real dish names from menu)
+    const DEMO_DISH_OPTIONS = [
+        "Kulajda / Kurací vývar",
+        "Fazuľová polievka / Kurací vývar",
+        "Hrachová polievka s oškvarkami / Kurací vývar",
+        "Tekvicová polievka / Kurací vývar",
+        "Kapustnica s klobásou / Kurací vývar",
+        "½ Bryndza, ½ kapustové halušky s bravčovou pečienkou",
+        "Kurací rezeň s grilovanou zeleninou, dušená ryža",
+        "Vyprážaná cuketa, zemiaky varené, tatárska omáčka, šalát",
+        "Koložvárska kapusta, zemiaky varené",
+        "Maďarský guláš, dušená knedľa",
+        "Špenátové rizotto, pečený morský okúň",
+        "Čiernohorský rezeň, zemiaky varené, kyslá uhorka",
+        "Bravčový rezeň, pečené zemiaky s červenou repou a cibuľou, šalát"
+    ];
+
+    // Dish catalog helper functions (kept but not used in demo)
     function loadDishCatalog() {
         try {
             const stored = localStorage.getItem('dishCatalog');
@@ -36,13 +53,7 @@ document.addEventListener('DOMContentLoaded', function() {
         return catalog.some(dish => dish.trim().toLowerCase() === trimmed);
     }
 
-    // Create datalist element once
-    let dishCatalogList = document.getElementById('dishCatalogList');
-    if (!dishCatalogList) {
-        dishCatalogList = document.createElement('datalist');
-        dishCatalogList.id = 'dishCatalogList';
-        document.body.appendChild(dishCatalogList);
-    }
+    // Datalist creation disabled for demo (dropdown only)
 
     // Reusable "Pridať do zoznamu" button
     let addButton = null;
@@ -189,21 +200,132 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function createCatalogSection() {
-        const daysContainer = document.getElementById('daysContainer');
-        if (!daysContainer) return;
+        // Disabled for demo (dropdown only)
+    }
 
-        let catalogSection = document.getElementById('catalogSection');
-        if (!catalogSection) {
-            catalogSection = document.createElement('div');
-            catalogSection.id = 'catalogSection';
-            catalogSection.className = 'mt-4';
-            catalogSection.innerHTML = `
-                <h5 class="mb-3">Zoznam jedál</h5>
-                <div class="catalog-list"></div>
-            `;
-            daysContainer.parentNode.insertBefore(catalogSection, daysContainer.nextSibling);
+    function setupDishDropdown(input) {
+        const wrapper = input.parentElement;
+        if (!wrapper || !wrapper.classList.contains('dish-input-wrapper')) {
+            return;
         }
-        refreshCatalogDisplay();
+
+        // Check if dropdown already exists
+        let inputGroup = wrapper.querySelector('.dish-input-group');
+        if (inputGroup) {
+            return; // Already exists
+        }
+
+        // Make the input visible and editable (remove any hiding)
+        input.style.display = '';
+        input.readOnly = false;
+
+        // Create flex container (not Bootstrap input-group)
+        inputGroup = document.createElement('div');
+        inputGroup.className = 'dish-input-group';
+        inputGroup.style.width = '100%';
+        inputGroup.style.position = 'relative';
+        inputGroup.style.display = 'flex';
+        inputGroup.style.gap = '5px';
+        inputGroup.style.alignItems = 'stretch';
+
+        // Create arrow button
+        const arrowButton = document.createElement('button');
+        arrowButton.type = 'button';
+        arrowButton.className = 'btn btn-outline-secondary';
+        arrowButton.innerHTML = '▼';
+        arrowButton.style.cursor = 'pointer';
+        arrowButton.style.position = 'relative';
+        arrowButton.style.display = 'flex';
+        arrowButton.style.alignItems = 'center';
+        arrowButton.style.justifyContent = 'center';
+        arrowButton.style.height = 'auto';
+
+
+        // Create hidden select dropdown (overlay on arrow button)
+        const dropdown = document.createElement('select');
+        dropdown.className = 'dish-dropdown-select';
+        dropdown.style.position = 'absolute';
+        dropdown.style.opacity = '0';
+        dropdown.style.pointerEvents = 'auto';
+        dropdown.style.cursor = 'pointer';
+        dropdown.style.zIndex = '10';
+        dropdown.style.border = 'none';
+        dropdown.style.background = 'transparent';
+        dropdown.style.appearance = 'none';
+        dropdown.style.webkitAppearance = 'none';
+
+        // Add placeholder option (selected by default)
+        const placeholderOption = document.createElement('option');
+        placeholderOption.value = '';
+        placeholderOption.textContent = '— vyber jedlo —';
+        placeholderOption.selected = true;
+        dropdown.appendChild(placeholderOption);
+
+        // Add options from DEMO_DISH_OPTIONS
+        DEMO_DISH_OPTIONS.forEach(dish => {
+            const option = document.createElement('option');
+            option.value = dish;
+            option.textContent = dish;
+            dropdown.appendChild(option);
+        });
+
+        // Keep select at placeholder (don't sync with input value)
+        dropdown.value = '';
+
+        // Set input to flex:1
+        input.style.flex = '1';
+
+        // Move input into flex container
+        wrapper.removeChild(input);
+        inputGroup.appendChild(input);
+        inputGroup.appendChild(arrowButton);
+        inputGroup.appendChild(dropdown);
+        wrapper.appendChild(inputGroup);
+
+        // Measure input height after render and set button height to match (pixel-perfect)
+        setTimeout(() => {
+            const inputHeight = input.offsetHeight; // Includes padding and border
+            const inputStyle = window.getComputedStyle(input);
+            const inputPaddingTop = parseFloat(inputStyle.paddingTop);
+            const inputPaddingBottom = parseFloat(inputStyle.paddingBottom);
+            
+            // Set button to exact same height and padding as input
+            arrowButton.style.height = inputHeight + 'px';
+            arrowButton.style.paddingTop = inputPaddingTop + 'px';
+            arrowButton.style.paddingBottom = inputPaddingBottom + 'px';
+            arrowButton.style.paddingLeft = '12px';
+            arrowButton.style.paddingRight = '12px';
+        }, 0);
+
+        // Position select overlay exactly over arrow button
+        const updateSelectPosition = () => {
+            const buttonRect = arrowButton.getBoundingClientRect();
+            const groupRect = inputGroup.getBoundingClientRect();
+            dropdown.style.left = (buttonRect.left - groupRect.left) + 'px';
+            dropdown.style.top = (buttonRect.top - groupRect.top) + 'px';
+            dropdown.style.width = buttonRect.width + 'px';
+            dropdown.style.height = buttonRect.height + 'px';
+        };
+
+        // Update position initially and on resize
+        setTimeout(updateSelectPosition, 0);
+        window.addEventListener('resize', updateSelectPosition);
+
+        // On select change, update the input value
+        dropdown.addEventListener('change', function() {
+            if (this.value) {
+                input.value = this.value;
+                // Trigger input event for existing save logic
+                const inputEvent = new Event('input', { bubbles: true });
+                input.dispatchEvent(inputEvent);
+            } else {
+                input.value = '';
+                const inputEvent = new Event('input', { bubbles: true });
+                input.dispatchEvent(inputEvent);
+            }
+            // Reset select to placeholder after selection
+            this.value = '';
+        });
     }
 
     // Načítať menu z JSON (fallback, neskôr Google Sheets)
@@ -331,66 +453,22 @@ document.addEventListener('DOMContentLoaded', function() {
                     daysContainer.appendChild(daySection);
                 });
 
-                // Attach datalist to all dish name inputs and set up event listeners
+                // Setup dropdown selects for dish name inputs (demo mode)
                 dayOrder.forEach(dayKey => {
                     // Polievka name input
                     const polievkaInput = document.getElementById(`${dayKey}_polievka_name`);
                     if (polievkaInput) {
-                        polievkaInput.setAttribute('list', 'dishCatalogList');
-                        polievkaInput.addEventListener('focus', function() {
-                            activeDishInput = this;
-                            handleInputChange(this);
-                        });
-                        polievkaInput.addEventListener('input', function() {
-                            if (activeDishInput === this) {
-                                handleInputChange(this);
-                            } else {
-                                // Update change button visibility even if not active
-                                handleInputChange(this);
-                            }
-                        });
-                        setupChangeButton(polievkaInput);
-                        polievkaInput.addEventListener('blur', function() {
-                            setTimeout(() => {
-                                if (addButton && addButton.parentNode && document.activeElement !== addButton) {
-                                    addButton.style.display = 'none';
-                                }
-                            }, 200);
-                        });
+                        setupDishDropdown(polievkaInput);
                     }
 
                     // Menu 1, 2, 3 name inputs
                     ['menu1', 'menu2', 'menu3'].forEach(menuKey => {
                         const menuInput = document.getElementById(`${dayKey}_${menuKey}_name`);
                         if (menuInput) {
-                            menuInput.setAttribute('list', 'dishCatalogList');
-                            menuInput.addEventListener('focus', function() {
-                                activeDishInput = this;
-                                handleInputChange(this);
-                            });
-                            menuInput.addEventListener('input', function() {
-                                if (activeDishInput === this) {
-                                    handleInputChange(this);
-                                } else {
-                                    // Update change button visibility even if not active
-                                    handleInputChange(this);
-                                }
-                            });
-                            setupChangeButton(menuInput);
-                            menuInput.addEventListener('blur', function() {
-                                setTimeout(() => {
-                                    if (addButton && addButton.parentNode && document.activeElement !== addButton) {
-                                        addButton.style.display = 'none';
-                                    }
-                                }, 200);
-                            });
+                            setupDishDropdown(menuInput);
                         }
                     });
                 });
-
-                // Initialize datalist and catalog display
-                refreshDatalist();
-                createCatalogSection();
             })
             .catch(error => {
                 console.error('Chyba pri načítaní menu:', error);
