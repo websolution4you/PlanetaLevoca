@@ -194,9 +194,6 @@
     } 
 }
 
-.breadcrumb-item + .breadcrumb-item::before {
-    color: rgba(255, 255, 255, .5);
-}
 
 
 /*** Section Title ***/
