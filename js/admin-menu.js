@@ -9,97 +9,231 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
     const dayOrder = ['pondelok', 'utorok', 'streda', 'stvrtok', 'piatok'];
-
-    // Demo dish options for dropdown (real dish names from menu)
-    const DEMO_DISH_OPTIONS = [
-        "Kulajda / Kurací vývar",
-        "Fazuľová polievka / Kurací vývar",
-        "Hrachová polievka s oškvarkami / Kurací vývar",
-        "Tekvicová polievka / Kurací vývar",
-        "Kapustnica s klobásou / Kurací vývar",
-        "½ Bryndza, ½ kapustové halušky s bravčovou pečienkou",
-        "Kurací rezeň s grilovanou zeleninou, dušená ryža",
-        "Vyprážaná cuketa, zemiaky varené, tatárska omáčka, šalát",
-        "Koložvárska kapusta, zemiaky varené",
-        "Maďarský guláš, dušená knedľa",
-        "Špenátové rizotto, pečený morský okúň",
-        "Čiernohorský rezeň, zemiaky varené, kyslá uhorka",
-        "Bravčový rezeň, pečené zemiaky s červenou repou a cibuľou, šalát"
+    
+    // Seed list to pre-populate database if empty
+    const SEED_DISHES = [
+      "kelová so zemiakmi",
+      "česká bramboračka",
+      "šošovicová",
+      "cesnaková",
+      "ruský boršč",
+      "bulharská kuracia",
+      "brokolicová so zemiakmi",
+      "držková",
+      "paradajková",
+      "zemiaková krémová so slaninkou",
+      "gulášová",
+      "fazuľková struková",
+      "mrkvová so zázvorom",
+      "karfiólová s karamelizovanou cibuľkou",
+      "hrachová",
+      "kulajda",
+      "hŕstková s údeným",
+      "zeleninová krémová",
+      "fazuľová s údeným",
+      "šošovicová s párkom",
+      "kapustnica",
+      "karfiólová krémová",
+      "hrachová so slaninkou",
+      "fraknkfurtská",
+      "krúpová s údeným",
+      "hrachová s krutónmi",
+      "zemiaková na kyslo",
+      "sviatočná kapustnica",
+      "brokolicová krémová",
+      "tekvicová hokaido",
+      "cesnaková krémová",
+      "Bravčové ragú na póre, dusená ryža, cesnaková bagetka",
+      "Kurací steak s broskyňou a syrom, ryža, hranolky, šalát",
+      "Plnená cuketa Caprese, pečené zemiaky, šalát",
+      "Maďarský guláš, knedľa",
+      "Bravčový špíz, pečené zemiaky, šalát coleslaw",
+      "Bryndzové a kapustové halušky",
+      "Krkovička na rasci, pečené zemiaky, šalát",
+      "Kuracie kari soté, ryža, mrkvový šalát",
+      "Penne s cuketou a parmezánom",
+      "Bravčové pliecko na bielom víne, tlačené zemiaky, baby mrkva",
+      "Grilované kuracie mäso, tagliatelle so syrovou omáčkou",
+      "Vyprážaný encián, varené zemiaky, tatárska omáčka, šalát",
+      "Lasagne bolognese",
+      "Bravčový steak na syrovej omáčke, pečené zemiaky, šalát",
+      "Kurací steak so šunkou a syrom, ryža, hranolky, šalát",
+      "Cuketový prívarok, varené zemiaky, volské oko",
+      "Pečené plnené kuracie stehná, ryža, kompót",
+      "Zapečený karfiól so zemiakmi a syrom",
+      "Segedínsky guláš, knedľa",
+      "Grilovaná zelenina s parmezánom, opekané zemiaky, dressing",
+      "Bravčový špíz so zeleninou, hranolky, šalát coleslaw",
+      "Kurací cordon bleu, zemiaková kaša, šalát",
+      "Kurací gyros, ryža, hranolky, tzatziki",
+      "Vyprážané šampiňóny, varené zemiaky, tatárska omáčka, šalát",
+      "Koložvárska kapusta, varené zemiaky",
+      "Sumček na holandskej omáčke, pečené zemiakové plátky",
+      "Obrátený bravčový rezeň, tlačené zemiaky",
+      "Kurací steak na grilovanej zelenine, pečené zemiaky",
+      "Linguine s brokolicovou omáčkou a grilovaným lososom",
+      "Krkovička na rasci, žemľová knedľa",
+      "Ryba na kari omáčke s kokosovým mliekom, ryža",
+      "Španielsky vtáčik, slovenská ryža, šalát",
+      "Krkovička pečená so zemiakmi, cibuľou a koreňovou zeleninou",
+      "Čiernohorský rezeň, zemiaková kaša, šalát",
+      "Kurací steak s bylinkovým maslom, ryža, hranolky, šalát",
+      "Bryndzové pirohy s maslom a kyslou smotanou",
+      "Pečená krkovička s mrkvou na pive, tlačené zemiaky",
+      "Kuracie soté s kari, ryža, hranolky, mrkvový šalát",
+      "Vyprážaný karfiól, varené zemiaky, tatárska omáčka, šalát",
+      "Penne so syrovou omáčkou, brokolicou a cesnakom",
+      "Čiernohorský rezeň, zemiaková kaša, kyslá uhorka",
+      "Živánska na plechu, šalát",
+      "Zabíjačka (krkovička, jaternica, klobása), kyslá kapusta, varené zemiaky",
+      "Hríbové rizoto s parmezánom",
+      "Bravčové pliecko na bielom víne, tlačené zemiaky, špenát",
+      "Bravčový steak na syrovej omáčke, ryža, hranolky, šalát",
+      "Bryndzové halušky s cibuľkou opraženou na masle",
+      "Bravčový tokáň, zemiaková kaša",
+      "Vyprážaný bravčový rezeň, zemiaková kaša, šalát",
+      "Kurací steak s ananásom a syrom, ryža, hranolky, šalát",
+      "Zeleninové rizoto s parmezánom",
+      "Bravčový steak na dijonskej omáčke, pečené zemiaky",
+      "Zeleninové rizoto so syrom",
+      "Vyprážaný syr, varené zemiaky, tatárska omáčka, šalát",
+      "Hamburské bravčové pliecko, cestovina kolienka",
+      "Sedliacka krkovička, zemiaky s cibuľkou a petržlenom",
+      "Kuracie krídelká barbecue, ryža, hranolky, coleslaw",
+      "Penne so syrovou omáčkou a grilovaným kuracím mäsom",
+      "Špagety s olivovým olejom, chilli, cesnakom a parmezánom",
+      "Zemiakový prívarok, pečená fašírka s vajíčkom, chlieb",
+      "Bravčové pečené, červená kapusta knedľa",
+      "Cuketové rizoto s parmezánom",
+      "Kuracie soté v zemiakovej placke, šalát",
+      "Zeleninové kari, dusená ryža, mrkvový šalát",
+      "Živánska na plechu",
+      "Kuracie Caprese, ryža, hranolky, šalát",
+      "Bravčové medajlóniky na krémovej omáčke so špenátom a hráškom, tlačené zemiaky",
+      "Sviečková na smotane s Brusnicami, knedľa",
+      "Čiernohorský rezeň, zemiaková kaša, uhorkový šalát",
+      "Penne s brokolicou, cesnakom a syrom",
+      "Bravčový perkelt s haluškami",
+      "Plnený kurací rezeň, zemiaková kaša, šalát",
+      "Špagety s chilli, cesnakom a parmezánom",
+      "Zabíjačka (jaternica, klobása, krkovička) so strapačkami",
+      "Pečená krkovička na pive, tlačené zemiaky",
+      "Hovädzie dusené, kôprová omáčka, knedľa",
+      "Zemiakové šúľance s makom a maslom",
+      "Bravčové medajlóniky na hríbovej omáčke, pečené zemiaky, šalát",
+      "Moravský vrabec, dusená kyslá kapusta, knedľa",
+      "Pečené plnené kuracie stehno, dusená ryža, kompót",
+      "Panenka plnená fetou a špenátom, pečené zemiaky, šalát",
+      "Bravčový Stroganoff, ryža, krokety, šalát",
+      "Plnený kurací rezeň, varené zemiaky, tatárska omáčka, šalát"
     ];
 
-    // Dish catalog helper functions (kept but not used in demo)
-    function loadDishCatalog() {
-        try {
-            const stored = localStorage.getItem('dishCatalog');
-            if (stored) {
-                return JSON.parse(stored);
-            }
-        } catch (error) {
-            console.error('Chyba pri načítaní zoznamu jedál:', error);
+    let cachedCatalog = [];
+    let tomSelectInstances = {};
+
+    // Load dishes catalog from Firestore
+    async function loadDishCatalog() {
+        if (typeof db === 'undefined') {
+            const local = localStorage.getItem('dishCatalog');
+            return local ? JSON.parse(local) : SEED_DISHES;
         }
-        return [];
+
+        try {
+            const snapshot = await db.collection('catalog').doc('dishes').get();
+            if (snapshot.exists) {
+                const data = snapshot.data();
+                if (data && Array.isArray(data.items)) {
+                    cachedCatalog = data.items.sort();
+                    return cachedCatalog;
+                }
+            }
+            // Seed database if empty
+            await db.collection('catalog').doc('dishes').set({ items: SEED_DISHES });
+            cachedCatalog = SEED_DISHES.sort();
+            return cachedCatalog;
+        } catch (error) {
+            console.error('Chyba pri načítaní katalógu z Firestore:', error);
+            return SEED_DISHES;
+        }
     }
 
-    function saveDishCatalog(arr) {
-        try {
-            localStorage.setItem('dishCatalog', JSON.stringify(arr));
-        } catch (error) {
-            console.error('Chyba pri ukladaní zoznamu jedál:', error);
+    // Save dish catalog to Firestore
+    async function saveDishCatalog(catalog) {
+        cachedCatalog = [...new Set(catalog)].sort();
+        if (typeof db !== 'undefined') {
+            try {
+                await db.collection('catalog').doc('dishes').set({ items: cachedCatalog });
+            } catch (error) {
+                console.error('Chyba pri ukladaní katalógu do Firestore:', error);
+            }
+        } else {
+            localStorage.setItem('dishCatalog', JSON.stringify(cachedCatalog));
         }
+        refreshCatalogDisplay();
+        updateTomSelectOptions();
     }
 
     function isDishInCatalog(dishName, catalog) {
+        if (!dishName) return false;
         const trimmed = dishName.trim().toLowerCase();
         return catalog.some(dish => dish.trim().toLowerCase() === trimmed);
     }
 
-    // Datalist creation disabled for demo (dropdown only)
-
-    // Reusable "Pridať do zoznamu" button
-    let addButton = null;
-    let activeDishInput = null;
-
-    function createAddButton() {
-        if (!addButton) {
-            addButton = document.createElement('button');
-            addButton.type = 'button';
-            addButton.textContent = 'Pridať do zoznamu';
-            addButton.className = 'btn btn-sm btn-outline-primary';
-            addButton.style.fontSize = '0.75rem';
-            addButton.addEventListener('mousedown', function(e) {
-                e.preventDefault();
-            });
-            addButton.addEventListener('click', function() {
-                if (activeDishInput && activeDishInput.value.trim()) {
-                    const dishName = activeDishInput.value.trim();
-                    const catalog = loadDishCatalog();
-                    if (!isDishInCatalog(dishName, catalog)) {
-                        catalog.push(dishName);
-                        saveDishCatalog(catalog);
-                        refreshDatalist();
-                        refreshCatalogDisplay();
-                        addButton.style.display = 'none';
-                        // Re-check if button should still show after adding
-                        setTimeout(() => {
-                            if (activeDishInput === document.activeElement) {
-                                handleInputChange(activeDishInput);
-                            }
-                        }, 10);
-                    }
+    // Update choices in all Tom Select widgets
+    function updateTomSelectOptions() {
+        const options = cachedCatalog.map(dish => ({ value: dish, text: dish }));
+        Object.values(tomSelectInstances).forEach(ts => {
+            // Keep current value if not in options
+            const currentVal = ts.getValue();
+            ts.clearOptions();
+            ts.addOption(options);
+            if (currentVal) {
+                if (!ts.options[currentVal]) {
+                    ts.addOption({ value: currentVal, text: currentVal });
                 }
-            });
-        }
-        return addButton;
+                ts.setValue(currentVal, true);
+            }
+        });
     }
 
-    function refreshDatalist() {
-        const catalog = loadDishCatalog();
-        dishCatalogList.innerHTML = '';
-        catalog.forEach(dish => {
-            const option = document.createElement('option');
-            option.value = dish;
-            dishCatalogList.appendChild(option);
+    // Initialize Tom Select widget on input element
+    function initTomSelect(input) {
+        if (!input) return;
+        const id = input.id;
+        if (tomSelectInstances[id]) {
+            tomSelectInstances[id].destroy();
+        }
+
+        const options = cachedCatalog.map(dish => ({ value: dish, text: dish }));
+        const currentVal = input.value;
+
+        const ts = new TomSelect(input, {
+            create: true,
+            maxItems: 1,
+            valueField: 'value',
+            labelField: 'text',
+            searchField: ['text'],
+            options: options,
+            placeholder: input.placeholder || 'Vyberte alebo napíšte...',
+            createFilter: function(input) {
+                return input.trim().length > 1;
+            },
+            onChange: function(val) {
+                // Ensure form element matches
+                input.value = val;
+                const event = new Event('input', { bubbles: true });
+                input.dispatchEvent(event);
+            }
         });
+
+        if (currentVal) {
+            if (!ts.options[currentVal]) {
+                ts.addOption({ value: currentVal, text: currentVal });
+            }
+            ts.setValue(currentVal, true);
+        }
+
+        tomSelectInstances[id] = ts;
     }
 
     function refreshCatalogDisplay() {
@@ -109,247 +243,199 @@ document.addEventListener('DOMContentLoaded', function() {
         const listContainer = catalogSection.querySelector('.catalog-list');
         if (!listContainer) return;
 
-        const catalog = loadDishCatalog();
         listContainer.innerHTML = '';
 
-        if (catalog.length === 0) {
+        if (cachedCatalog.length === 0) {
             listContainer.innerHTML = '<p class="text-muted small mb-0">Zoznam je prázdny</p>';
             return;
         }
 
-        catalog.forEach((dish, index) => {
+        cachedCatalog.forEach((dish, index) => {
             const row = document.createElement('div');
             row.className = 'd-flex justify-content-between align-items-center border-bottom pb-2 mb-2';
             row.innerHTML = `
-                <span>${dish}</span>
-                <button type="button" class="btn btn-sm btn-outline-danger" style="font-size: 0.75rem; padding: 2px 8px;">✕</button>
+                <span class="small">${dish}</span>
+                <button type="button" class="btn btn-sm btn-outline-danger" style="font-size: 0.7rem; padding: 1px 6px;">✕</button>
             `;
-            row.querySelector('button').addEventListener('click', function() {
-                const updatedCatalog = loadDishCatalog();
-                updatedCatalog.splice(index, 1);
-                saveDishCatalog(updatedCatalog);
-                refreshDatalist();
-                refreshCatalogDisplay();
-                // Update add button visibility if needed
-                if (activeDishInput) {
-                    handleInputChange(activeDishInput);
+            row.querySelector('button').addEventListener('click', async function() {
+                if (confirm(`Naozaj chcete vymazať "${dish}" z našepkávača?`)) {
+                    const updated = cachedCatalog.filter((_, i) => i !== index);
+                    await saveDishCatalog(updated);
                 }
             });
             listContainer.appendChild(row);
         });
     }
 
-    function handleInputChange(input) {
-        const value = input.value.trim();
-        const catalog = loadDishCatalog();
-        const shouldShow = value && !isDishInCatalog(value, catalog);
-
-        // Find the wrapper div for this input
-        let wrapper = input.parentElement;
-        if (!wrapper || !wrapper.classList.contains('dish-input-wrapper')) {
-            return; // Input not wrapped yet, skip
-        }
-
-        // Update "🧹 Nahradiť" button visibility
-        const replaceButton = wrapper.querySelector('.replace-dish-button');
-        if (replaceButton) {
-            replaceButton.style.display = value ? 'inline-block' : 'none';
-        }
-
-        if (shouldShow) {
-            const btn = createAddButton();
-            // Remove button from previous location if exists
-            if (btn.parentNode) {
-                btn.parentNode.removeChild(btn);
-            }
-            // Add button to wrapper (after input)
-            wrapper.appendChild(btn);
-            btn.style.display = 'inline-block';
-        } else {
-            if (addButton && addButton.parentNode) {
-                addButton.style.display = 'none';
-            }
-        }
-    }
-
-    function setupChangeButton(input) {
-        const wrapper = input.parentElement;
-        if (!wrapper || !wrapper.classList.contains('dish-input-wrapper')) {
-            return;
-        }
-
-        // Create "🧹 Nahradiť" button
-        let replaceButton = wrapper.querySelector('.replace-dish-button');
-        if (!replaceButton) {
-            replaceButton = document.createElement('button');
-            replaceButton.type = 'button';
-            replaceButton.textContent = '🧹 Nahradiť';
-            replaceButton.className = 'replace-dish-button btn btn-sm btn-outline-secondary';
-            replaceButton.style.fontSize = '0.75rem';
-            replaceButton.addEventListener('click', function() {
+    // Setup direct manual addition to catalog
+    document.getElementById('btnAddDirectDish')?.addEventListener('click', async function() {
+        const input = document.getElementById('newDirectDish');
+        const value = input?.value.trim();
+        if (value) {
+            if (!isDishInCatalog(value, cachedCatalog)) {
+                const updated = [...cachedCatalog, value];
+                await saveDishCatalog(updated);
                 input.value = '';
-                input.focus();
-                activeDishInput = input;
-                handleInputChange(input);
-            });
-            wrapper.appendChild(replaceButton);
+            } else {
+                alert('Toto jedlo už v katalógu existuje.');
+            }
         }
+    });
 
-        // Set initial visibility
-        replaceButton.style.display = input.value.trim() ? 'inline-block' : 'none';
-    }
-
-    function createCatalogSection() {
-        // Disabled for demo (dropdown only)
-    }
-
-    function setupDishDropdown(input) {
-        const wrapper = input.parentElement;
-        if (!wrapper || !wrapper.classList.contains('dish-input-wrapper')) {
+    // Smart Text Parser Logika
+    document.getElementById('btnParseText')?.addEventListener('click', function() {
+        const rawText = document.getElementById('rawMenuText').value;
+        if (!rawText.trim()) {
+            alert('Vložte najskôr nejaký text menu.');
             return;
         }
 
-        // Check if dropdown already exists
-        let inputGroup = wrapper.querySelector('.dish-input-group');
-        if (inputGroup) {
-            return; // Already exists
-        }
-
-        // Make the input visible and editable (remove any hiding)
-        input.style.display = '';
-        input.readOnly = false;
-
-        // Create flex container (not Bootstrap input-group)
-        inputGroup = document.createElement('div');
-        inputGroup.className = 'dish-input-group';
-        inputGroup.style.width = '100%';
-        inputGroup.style.position = 'relative';
-        inputGroup.style.display = 'flex';
-        inputGroup.style.gap = '5px';
-        inputGroup.style.alignItems = 'stretch';
-
-        // Create arrow button
-        const arrowButton = document.createElement('button');
-        arrowButton.type = 'button';
-        arrowButton.className = 'btn btn-outline-secondary';
-        arrowButton.innerHTML = '▼';
-        arrowButton.style.cursor = 'pointer';
-        arrowButton.style.position = 'relative';
-        arrowButton.style.display = 'flex';
-        arrowButton.style.alignItems = 'center';
-        arrowButton.style.justifyContent = 'center';
-        arrowButton.style.height = 'auto';
-
-
-        // Create hidden select dropdown (overlay on arrow button)
-        const dropdown = document.createElement('select');
-        dropdown.className = 'dish-dropdown-select';
-        dropdown.style.position = 'absolute';
-        dropdown.style.opacity = '0';
-        dropdown.style.pointerEvents = 'auto';
-        dropdown.style.cursor = 'pointer';
-        dropdown.style.zIndex = '10';
-        dropdown.style.border = 'none';
-        dropdown.style.background = 'transparent';
-        dropdown.style.appearance = 'none';
-        dropdown.style.webkitAppearance = 'none';
-
-        // Add placeholder option (selected by default)
-        const placeholderOption = document.createElement('option');
-        placeholderOption.value = '';
-        placeholderOption.textContent = '— vyber jedlo —';
-        placeholderOption.selected = true;
-        dropdown.appendChild(placeholderOption);
-
-        // Add options from DEMO_DISH_OPTIONS
-        DEMO_DISH_OPTIONS.forEach(dish => {
-            const option = document.createElement('option');
-            option.value = dish;
-            option.textContent = dish;
-            dropdown.appendChild(option);
-        });
-
-        // Keep select at placeholder (don't sync with input value)
-        dropdown.value = '';
-
-        // Set input to flex:1
-        input.style.flex = '1';
-
-        // Move input into flex container
-        wrapper.removeChild(input);
-        inputGroup.appendChild(input);
-        inputGroup.appendChild(arrowButton);
-        inputGroup.appendChild(dropdown);
-        wrapper.appendChild(inputGroup);
-
-        // Measure input height after render and set button height to match (pixel-perfect)
-        setTimeout(() => {
-            const inputHeight = input.offsetHeight; // Includes padding and border
-            const inputStyle = window.getComputedStyle(input);
-            const inputPaddingTop = parseFloat(inputStyle.paddingTop);
-            const inputPaddingBottom = parseFloat(inputStyle.paddingBottom);
-            
-            // Set button to exact same height and padding as input
-            arrowButton.style.height = inputHeight + 'px';
-            arrowButton.style.paddingTop = inputPaddingTop + 'px';
-            arrowButton.style.paddingBottom = inputPaddingBottom + 'px';
-            arrowButton.style.paddingLeft = '12px';
-            arrowButton.style.paddingRight = '12px';
-        }, 0);
-
-        // Position select overlay exactly over arrow button
-        const updateSelectPosition = () => {
-            const buttonRect = arrowButton.getBoundingClientRect();
-            const groupRect = inputGroup.getBoundingClientRect();
-            dropdown.style.left = (buttonRect.left - groupRect.left) + 'px';
-            dropdown.style.top = (buttonRect.top - groupRect.top) + 'px';
-            dropdown.style.width = buttonRect.width + 'px';
-            dropdown.style.height = buttonRect.height + 'px';
+        const lines = rawText.split('\n').map(l => l.trim()).filter(Boolean);
+        const parsedData = {
+            pondelok: { polievka: '', menu1: '', menu2: '', menu3: '' },
+            utorok: { polievka: '', menu1: '', menu2: '', menu3: '' },
+            streda: { polievka: '', menu1: '', menu2: '', menu3: '' },
+            stvrtok: { polievka: '', menu1: '', menu2: '', menu3: '' },
+            piatok: { polievka: '', menu1: '', menu2: '', menu3: '' }
         };
 
-        // Update position initially and on resize
-        setTimeout(updateSelectPosition, 0);
-        window.addEventListener('resize', updateSelectPosition);
+        let currentDay = null;
+        let menuIndexForDay = 1; // Fallback index if lines are not numbered
+        let dayLinesCount = 0; // Count lines processed within current day block
 
-        // On select change, update the input value
-        dropdown.addEventListener('change', function() {
-            if (this.value) {
-                input.value = this.value;
-                // Trigger input event for existing save logic
-                const inputEvent = new Event('input', { bubbles: true });
-                input.dispatchEvent(inputEvent);
-            } else {
-                input.value = '';
-                const inputEvent = new Event('input', { bubbles: true });
-                input.dispatchEvent(inputEvent);
+        const dayRegex = /^(pondelok|utorok|streda|štvrtok|stvrtok|piatok)/i;
+        const numberRegex = /^([1-3])\.\s*(.*)/;
+
+        lines.forEach(line => {
+            const dayMatch = line.match(dayRegex);
+            if (dayMatch) {
+                let dayName = dayMatch[1].toLowerCase();
+                if (dayName === 'štvrtok') dayName = 'stvrtok';
+                currentDay = dayName;
+                menuIndexForDay = 1; // reset counter
+                dayLinesCount = 0;
+                
+                // Check if soup text is on the same line (e.g. "pondelok držková/kurací vývar")
+                const soupPart = line.replace(dayRegex, '').trim();
+                if (soupPart) {
+                    parsedData[currentDay].polievka = cleanDishText(soupPart);
+                    dayLinesCount = 1;
+                }
+                return;
             }
-            // Reset select to placeholder after selection
-            this.value = '';
+
+            if (currentDay) {
+                dayLinesCount++;
+                const cleanLine = cleanDishText(line);
+
+                // Check if it starts with 1., 2., 3.
+                const numMatch = line.match(numberRegex);
+                if (numMatch) {
+                    const menuNum = 'menu' + numMatch[1];
+                    parsedData[currentDay][menuNum] = cleanDishText(numMatch[2]);
+                    menuIndexForDay = parseInt(numMatch[1]) + 1;
+                } else {
+                    // It doesn't start with a number. Let's guess:
+                    // Rule 1: The very first line of a day block is always the Soup
+                    if (dayLinesCount === 1 && !parsedData[currentDay].polievka) {
+                        parsedData[currentDay].polievka = cleanLine;
+                    } else if (line.toLowerCase().includes('/') && !parsedData[currentDay].polievka && dayLinesCount <= 2) {
+                        // Guess as soup if it has a slash and is early in the day block
+                        parsedData[currentDay].polievka = cleanLine;
+                    } else {
+                        // Otherwise it's the next Menu item sequentially
+                        if (menuIndexForDay <= 3) {
+                            parsedData[currentDay]['menu' + menuIndexForDay] = cleanLine;
+                            menuIndexForDay++;
+                        }
+                    }
+                }
+            }
         });
+
+        // Fill data to form inputs and refresh Tom Selects
+        dayOrder.forEach(dayKey => {
+            const data = parsedData[dayKey];
+            if (!data) return;
+
+            setTomSelectValue(`${dayKey}_polievka_name`, data.polievka);
+            setTomSelectValue(`${dayKey}_menu1_name`, data.menu1);
+            setTomSelectValue(`${dayKey}_menu2_name`, data.menu2);
+            setTomSelectValue(`${dayKey}_menu3_name`, data.menu3);
+        });
+
+        alert('Text bol úspešne spracovaný a rozdelený do formulára! Skontrolujte prosím výsledok.');
+    });
+
+    function cleanDishText(text) {
+        // Remove weight/portion annotations (e.g., "130 g", "130g", "0,3 l", "0,3l", "250 g") and allergen indices (e.g., "1,3,7", "1,7")
+        return text
+            .replace(/^\d+(?:,\d+)?\s*(?:g|l)\s+/gi, '') // "130 g", "130g", "0,3 l", "0,3l"
+            .replace(/\s+\d+(?:,\d+)*$/g, '') // trailing allergens like " 1,3,7" or " 1"
+            .trim();
     }
 
-    // Načítať menu z JSON (fallback, neskôr Google Sheets)
+    function setTomSelectValue(inputId, value) {
+        const input = document.getElementById(inputId);
+        if (!input) return;
+        
+        input.value = value;
+        const ts = tomSelectInstances[inputId];
+        if (ts) {
+            if (value) {
+                if (!ts.options[value]) {
+                    ts.addOption({ value: value, text: value });
+                }
+                ts.setValue(value);
+            } else {
+                ts.clear();
+            }
+        }
+    }
+
+    // Načítať menu z JSON
     loadMenu();
 
     // Načítanie menu
     function loadMenu() {
-        // Skontrolovať, či je Google Sheets nakonfigurované
         let dataPromise;
         
-        if (typeof GOOGLE_SHEETS_CONFIG !== 'undefined' && GOOGLE_SHEETS_CONFIG.enabled && GOOGLE_SHEETS_CONFIG.apiKey && GOOGLE_SHEETS_CONFIG.spreadsheetId) {
-            // Načítať z Google Sheets
-            dataPromise = loadFromGoogleSheets()
-                .then(sheetsData => {
-                    // Konvertovať Google Sheets dáta na formát menu
-                    return convertSheetsDataToMenuFormat(sheetsData);
+        if (typeof db !== 'undefined') {
+            dataPromise = db.collection('menu').doc('daily').get()
+                .then(doc => {
+                    if (doc.exists) {
+                        return doc.data();
+                    } else {
+                        throw new Error('Dokument daily v Firestore neexistuje.');
+                    }
+                })
+                .catch(error => {
+                    console.warn('Nepodarilo sa načítať z Firestore pre admina:', error);
+                    return loadFallbackMenu();
                 });
         } else {
-            // Načítať z JSON (fallback)
-            dataPromise = fetch('data/daily-menu.json')
-                .then(response => response.json());
+            dataPromise = loadFallbackMenu();
         }
         
-        dataPromise.then(data => {
+        function loadFallbackMenu() {
+            const saved = localStorage.getItem('dailyMenuData');
+            if (saved) {
+                try {
+                    return Promise.resolve(JSON.parse(saved));
+                } catch (e) {}
+            }
+            if (typeof GOOGLE_SHEETS_CONFIG !== 'undefined' && GOOGLE_SHEETS_CONFIG.enabled && GOOGLE_SHEETS_CONFIG.apiKey && GOOGLE_SHEETS_CONFIG.spreadsheetId) {
+                return loadFromGoogleSheets().then(sheetsData => convertSheetsDataToMenuFormat(sheetsData));
+            } else {
+                return fetch('/data/daily-menu.json').then(response => response.json());
+            }
+        }
+        
+        dataPromise.then(async data => {
+                // Load dish catalog first so we have the autocompletes ready
+                await loadDishCatalog();
+                refreshCatalogDisplay();
+
                 // Vyplniť formulár
                 document.getElementById('week').value = data.week || '';
                 document.getElementById('price').value = data.price || '';
@@ -373,7 +459,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                 <label><strong>Polievka:</strong></label>
                                 <div class="row">
                                     <div class="col-md-8">
-                                        <div class="dish-input-wrapper" style="display:flex; align-items:center; gap:8px;">
+                                        <div class="dish-input-wrapper">
                                             <input type="text" class="form-control mb-2" 
                                                 id="${dayKey}_polievka_name" 
                                                 placeholder="Názov polievky" 
@@ -384,7 +470,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                         <input type="text" class="form-control mb-2" 
                                             id="${dayKey}_polievka_portion" 
                                             placeholder="0,3l" 
-                                            value="${dayData.polievka?.portion || ''}">
+                                            value="${dayData.polievka?.portion || '0,3l'}">
                                     </div>
                                     <div class="col-md-2">
                                         <input type="text" class="form-control mb-2" 
@@ -399,7 +485,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         <div class="row">
                             <div class="col-md-4 mb-3">
                                 <label><strong>Menu 1:</strong></label>
-                                <div class="dish-input-wrapper" style="display:flex; align-items:center; gap:8px;">
+                                <div class="dish-input-wrapper">
                                     <input type="text" class="form-control mb-2" 
                                         id="${dayKey}_menu1_name" 
                                         placeholder="Názov menu 1" 
@@ -416,7 +502,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label><strong>Menu 2:</strong></label>
-                                <div class="dish-input-wrapper" style="display:flex; align-items:center; gap:8px;">
+                                <div class="dish-input-wrapper">
                                     <input type="text" class="form-control mb-2" 
                                         id="${dayKey}_menu2_name" 
                                         placeholder="Názov menu 2" 
@@ -433,7 +519,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label><strong>Menu 3:</strong></label>
-                                <div class="dish-input-wrapper" style="display:flex; align-items:center; gap:8px;">
+                                <div class="dish-input-wrapper">
                                     <input type="text" class="form-control mb-2" 
                                         id="${dayKey}_menu3_name" 
                                         placeholder="Názov menu 3" 
@@ -453,31 +539,22 @@ document.addEventListener('DOMContentLoaded', function() {
                     daysContainer.appendChild(daySection);
                 });
 
-                // Setup dropdown selects for dish name inputs (demo mode)
+                // Initialize Tom Select on all name fields
                 dayOrder.forEach(dayKey => {
-                    // Polievka name input
-                    const polievkaInput = document.getElementById(`${dayKey}_polievka_name`);
-                    if (polievkaInput) {
-                        setupDishDropdown(polievkaInput);
-                    }
-
-                    // Menu 1, 2, 3 name inputs
+                    initTomSelect(document.getElementById(`${dayKey}_polievka_name`));
                     ['menu1', 'menu2', 'menu3'].forEach(menuKey => {
-                        const menuInput = document.getElementById(`${dayKey}_${menuKey}_name`);
-                        if (menuInput) {
-                            setupDishDropdown(menuInput);
-                        }
+                        initTomSelect(document.getElementById(`${dayKey}_${menuKey}_name`));
                     });
                 });
             })
             .catch(error => {
                 console.error('Chyba pri načítaní menu:', error);
-                alert('Nepodarilo sa načítať menu. Skontrolujte, či existuje súbor data/daily-menu.json');
+                alert('Nepodarilo sa načítať menu: ' + error.message);
             });
     }
 
     // Uloženie formulára
-    document.getElementById('menuForm').addEventListener('submit', function(e) {
+    document.getElementById('menuForm').addEventListener('submit', async function(e) {
         e.preventDefault();
         
         // Zozbierať dáta z formulára
@@ -488,33 +565,69 @@ document.addEventListener('DOMContentLoaded', function() {
             days: {}
         };
 
+        const newDishes = [];
+
         dayOrder.forEach(dayKey => {
+            const polName = document.getElementById(`${dayKey}_polievka_name`).value.trim();
+            const m1Name = document.getElementById(`${dayKey}_menu1_name`).value.trim();
+            const m2Name = document.getElementById(`${dayKey}_menu2_name`).value.trim();
+            const m3Name = document.getElementById(`${dayKey}_menu3_name`).value.trim();
+
+            if (polName) newDishes.push(polName);
+            if (m1Name) newDishes.push(m1Name);
+            if (m2Name) newDishes.push(m2Name);
+            if (m3Name) newDishes.push(m3Name);
+
             menuData.days[dayKey] = {
                 polievka: {
-                    name: document.getElementById(`${dayKey}_polievka_name`).value,
+                    name: polName,
                     portion: document.getElementById(`${dayKey}_polievka_portion`).value,
                     price: document.getElementById(`${dayKey}_polievka_price`).value || 'V cene'
                 },
                 menu1: {
-                    name: document.getElementById(`${dayKey}_menu1_name`).value,
+                    name: m1Name,
                     description: document.getElementById(`${dayKey}_menu1_description`).value,
                     price: document.getElementById(`${dayKey}_menu1_price`).value || 'V cene'
                 },
                 menu2: {
-                    name: document.getElementById(`${dayKey}_menu2_name`).value,
+                    name: m2Name,
                     description: document.getElementById(`${dayKey}_menu2_description`).value,
                     price: document.getElementById(`${dayKey}_menu2_price`).value || 'V cene'
                 },
                 menu3: {
-                    name: document.getElementById(`${dayKey}_menu3_name`).value,
+                    name: m3Name,
                     description: document.getElementById(`${dayKey}_menu3_description`).value,
                     price: document.getElementById(`${dayKey}_menu3_price`).value || 'V cene'
                 }
             };
         });
 
-        // Uložiť do Google Sheets (ak je nakonfigurované) alebo localStorage
-        if (typeof GOOGLE_SHEETS_CONFIG !== 'undefined' && GOOGLE_SHEETS_CONFIG.enabled && GOOGLE_SHEETS_CONFIG.apiKey && GOOGLE_SHEETS_CONFIG.spreadsheetId) {
+        // Auto-save newly added dishes to catalog
+        let catalogChanged = false;
+        const updatedCatalog = [...cachedCatalog];
+        newDishes.forEach(dish => {
+            if (!isDishInCatalog(dish, updatedCatalog)) {
+                updatedCatalog.push(dish);
+                catalogChanged = true;
+            }
+        });
+
+        if (catalogChanged) {
+            await saveDishCatalog(updatedCatalog);
+        }
+
+        // Uložiť do Firestore, Google Sheets (ak je nakonfigurované) alebo localStorage
+        if (typeof db !== 'undefined') {
+            db.collection('menu').doc('daily').set(menuData)
+                .then(() => {
+                    saveToLocalStorage(menuData);
+                    showSuccessAndRedirect();
+                })
+                .catch(error => {
+                    console.error('Chyba pri ukladaní do Firestore:', error);
+                    alert('Chyba pri ukladaní do Firestore: ' + error.message);
+                });
+        } else if (typeof GOOGLE_SHEETS_CONFIG !== 'undefined' && GOOGLE_SHEETS_CONFIG.enabled && GOOGLE_SHEETS_CONFIG.apiKey && GOOGLE_SHEETS_CONFIG.spreadsheetId) {
             // Uložiť do Google Sheets
             saveToGoogleSheets(menuData)
                 .then(() => {

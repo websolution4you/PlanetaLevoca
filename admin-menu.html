@@ -78,18 +78,10 @@
 <body>
     <div class="container-xxl bg-white p-0">
         <!-- Navbar Start -->
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4 px-lg-5 py-3 py-lg-0">
-            <a href="index.html" class="navbar-brand p-0">
-                <h1 class="text-primary m-0"><i class="fa fa-utensils me-3"></i>Planéta Levoča</h1>
-            </a>
-            <div class="ms-auto">
-                <a href="daily-menu.html" class="btn btn-outline-light me-2">
-                    <i class="fa fa-eye me-2"></i>Zobraziť Menu
-                </a>
-                <a href="index.html" class="btn btn-primary">
-                    <i class="fa fa-home me-2"></i>Domov
-                </a>
-            </div>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4 py-3">
+            <span class="navbar-text text-white font-weight-bold m-0" style="font-size: 1.25rem;">
+                <i class="fa fa-utensils me-3 text-primary"></i>Administrácia menu
+            </span>
         </nav>
         <!-- Navbar End -->
 
@@ -101,21 +93,39 @@
                     <p class="text-muted">Upravte menu pre aktuálny týždeň</p>
                 </div>
 
-                <!-- Google Sheets Info -->
-                <div class="alert alert-info mb-4">
-                    <h5><i class="fa fa-info-circle me-2"></i>Google Sheets Integrácia</h5>
-                    <p class="mb-2">Menu sa načítava z Google Sheets. Pre úpravu:</p>
-                    <ol class="mb-0">
-                        <li>Otvorte <a href="#" id="sheetsLink" target="_blank">Google Sheets dokument</a></li>
-                        <li>Upravte menu priamo v tabuľke</li>
-                        <li>Zmeny sa automaticky zobrazia na webe</li>
-                    </ol>
+                <!-- Smart Text Import Card -->
+                <div class="card mb-4 border-warning">
+                    <div class="card-header bg-warning text-dark d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0"><i class="fa fa-paste me-2"></i>Smart Textový Import (Copy & Paste z Facebooku/Wordu)</h5>
+                        <button type="button" class="btn btn-sm btn-outline-dark" id="btnHelpImport" data-bs-toggle="collapse" data-bs-target="#importHelp">
+                            <i class="fa fa-question-circle"></i> Návod
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <div id="importHelp" class="collapse mb-3 alert alert-light text-muted small">
+                            Sem jednoducho skopírujte a vložte text menu na celý týždeň. Napríklad:
+                            <pre class="bg-dark text-white p-2 mt-1 rounded" style="font-size:0.75rem;">
+pondelok šošovicová/kurací vývar 
+1. Bravčový špíz, pečené zemiaky, šalát 
+2. Kurací steak s broskyňou, ryža 
+3. Bryndzové halušky
+                            </pre>
+                            Systém automaticky rozpozná dni a rozdelí jedlá do správnych políčok.
+                        </div>
+                        <div class="form-group mb-3">
+                            <textarea id="rawMenuText" class="form-control" rows="8" placeholder="Sem vložte skopírovaný text menu z Facebooku..."></textarea>
+                        </div>
+                        <div class="text-end">
+                            <button type="button" class="btn btn-warning" id="btnParseText">
+                                <i class="fa fa-magic me-2"></i>Rozdeliť text do formulára
+                            </button>
+                        </div>
+                    </div>
                 </div>
-
                 <!-- Manual Editor (Fallback) -->
                 <div class="card mb-4">
                     <div class="card-header bg-primary text-white">
-                        <h5 class="mb-0"><i class="fa fa-edit me-2"></i>Manuálna úprava (ak Google Sheets nie je dostupné)</h5>
+                        <h5 class="mb-0"><i class="fa fa-edit me-2"></i>Manuálna úprava</h5>
                     </div>
                     <div class="card-body">
                         <form id="menuForm">
@@ -154,6 +164,32 @@
                         </form>
                     </div>
                 </div>
+
+                <!-- Dish Catalog Manager -->
+                <div class="card mb-4" id="catalogSection">
+                    <div class="card-header bg-secondary text-white">
+                        <h5 class="mb-0"><i class="fa fa-database me-2"></i>Zoznam a správa jedál v katalógu (Našepkávač)</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="catalog-list" style="max-height: 300px; overflow-y: auto; padding-right: 10px;">
+                                    <p class="text-muted small">Načítavam zoznam jedál...</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4 border-start">
+                                <h6>Pridať nové jedlo priamo</h6>
+                                <div class="input-group mb-3">
+                                    <input type="text" id="newDirectDish" class="form-control" placeholder="napr. Rezeň s ryžou">
+                                    <button class="btn btn-primary" type="button" id="btnAddDirectDish">Pridať</button>
+                                </div>
+                                <div class="text-muted small">
+                                    Tip: Jedlá pridané priamo alebo tie, ktoré uložíte vo formulári menu, sa automaticky uložia sem do katalógu.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <!-- Admin Content End -->
@@ -177,6 +213,17 @@
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
     
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    
+    <!-- Firebase Config -->
+    <script src="js/firebase-config.js"></script>
+    
+    <!-- Auth Handling -->
+    <script src="js/auth.js"></script>
+
     <!-- Google Sheets Config -->
     <script src="js/google-sheets-config.js"></script>
     
