@@ -142,12 +142,12 @@ document.addEventListener('DOMContentLoaded', function() {
             const snapshot = await db.collection('catalog').doc('dishes').get();
             if (snapshot.exists) {
                 const data = snapshot.data();
-                if (data && Array.isArray(data.items)) {
+                if (data && Array.isArray(data.items) && data.items.length > 15) {
                     cachedCatalog = data.items.sort();
                     return cachedCatalog;
                 }
             }
-            // Seed database if empty
+            // Seed database if empty or has too few items from previous draft
             await db.collection('catalog').doc('dishes').set({ items: SEED_DISHES });
             cachedCatalog = SEED_DISHES.sort();
             return cachedCatalog;
@@ -206,10 +206,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const options = cachedCatalog.map(dish => ({ value: dish, text: dish }));
         const currentVal = input.value;
+        let isEditing = false;
+        let originalValueBeforeEdit = '';
 
         const ts = new TomSelect(input, {
+            plugins: ['clear_button'],
             create: true,
             maxItems: 1,
+            maxOptions: 150,
             valueField: 'value',
             labelField: 'text',
             searchField: ['text'],
@@ -218,11 +222,90 @@ document.addEventListener('DOMContentLoaded', function() {
             createFilter: function(input) {
                 return input.trim().length > 1;
             },
+            openOnFocus: true,
+            shouldOpen: function() {
+                return true;
+            },
+            selectOnTab: true,
+            render: {
+                option_create: function(data, escape) {
+                    return '<div class="create">Pridať jedlo: <strong>' + escape(data.input) + '</strong> do zoznamu...</div>';
+                }
+            },
+            onFocus: function() {
+                const self = this;
+                // Vymazať vyhľadávací input pri kliknutí
+                setTimeout(() => {
+                    if (isEditing) {
+                        isEditing = false;
+                        return;
+                    }
+                    const activeInput = self.control_input;
+                    if (activeInput) {
+                        activeInput.value = '';
+                        const currentVal = self.getValue();
+                        if (currentVal) {
+                            // Zneviditeľniť text a kurzor kým nezačne písať (len ak je niečo vybraté)
+                            activeInput.style.color = 'transparent';
+                            activeInput.style.textShadow = '0 0 0 transparent'; // Aby nebol vidieť ani tieň písma
+                            activeInput.style.caretColor = 'transparent';
+                        } else {
+                            // Zviditeľniť text a kurzor ak je pole prázdne
+                            activeInput.style.color = '';
+                            activeInput.style.textShadow = '';
+                            activeInput.style.caretColor = '';
+                        }
+                    }
+                }, 10);
+            },
+            onType: function(str) {
+                const activeInput = this.control_input;
+                if (activeInput) {
+                    if (str) {
+                        activeInput.style.color = '';
+                        activeInput.style.textShadow = '';
+                        activeInput.style.caretColor = '';
+                    } else {
+                        activeInput.style.color = 'transparent';
+                        activeInput.style.textShadow = '0 0 0 transparent';
+                        activeInput.style.caretColor = 'transparent';
+                    }
+                }
+            },
             onChange: function(val) {
-                // Ensure form element matches
+                const self = this;
                 input.value = val;
                 const event = new Event('input', { bubbles: true });
                 input.dispatchEvent(event);
+                
+                originalValueBeforeEdit = ''; // Reset when a value is selected or explicitly cleared via (x)
+                
+                if (val) {
+                    setTimeout(() => {
+                        self.blur();
+                    }, 50);
+                } else {
+                    setTimeout(() => {
+                        self.focus();
+                        const activeInput = self.control_input;
+                        if (activeInput) {
+                            activeInput.style.color = '';
+                            activeInput.style.textShadow = '';
+                            activeInput.style.caretColor = '';
+                        }
+                    }, 50);
+                }
+            },
+            onBlur: function() {
+                const self = this;
+                setTimeout(() => {
+                    const currentVal = self.getValue();
+                    if (!currentVal && originalValueBeforeEdit) {
+                        // Restore original value if they changed their mind
+                        self.setValue(originalValueBeforeEdit, true);
+                        originalValueBeforeEdit = '';
+                    }
+                }, 100);
             }
         });
 
@@ -232,6 +315,37 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             ts.setValue(currentVal, true);
         }
+
+        // Pridať tlačidlo na úpravu (ceruzku)
+        const editBtn = document.createElement('a');
+        editBtn.className = 'edit-button';
+        editBtn.title = 'Upraviť text';
+        editBtn.innerHTML = '<i class="fas fa-pencil-alt"></i>';
+        ts.control.appendChild(editBtn);
+
+        editBtn.addEventListener('mousedown', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            const val = ts.getValue();
+            if (val) {
+                originalValueBeforeEdit = val; // Store original value to restore on blur
+                isEditing = true;
+                // Vymazať ticho vybratú hodnotu
+                ts.clear(true);
+                // Predvyplniť vstup pôvodným textom
+                ts.control_input.value = val;
+                // Zamerať vstup a zviditeľniť text/kurzor
+                setTimeout(() => {
+                    ts.focus();
+                    ts.control_input.style.color = '';
+                    ts.control_input.style.textShadow = '';
+                    ts.control_input.style.caretColor = '';
+                    // Presunúť kurzor na koniec textu
+                    const len = ts.control_input.value.length;
+                    ts.control_input.setSelectionRange(len, len);
+                }, 50);
+            }
+        });
 
         tomSelectInstances[id] = ts;
     }

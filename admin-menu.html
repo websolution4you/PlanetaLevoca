@@ -72,6 +72,31 @@
         .btn-save:hover {
             background: #e8910d;
         }
+        
+        /* Edit button styles for Tom Select */
+        .ts-wrapper .ts-control {
+            padding-right: 50px !important; /* Make room for both buttons */
+        }
+        .ts-wrapper .clear-button {
+            right: 8px !important;
+        }
+        .ts-wrapper .edit-button {
+            position: absolute;
+            right: 28px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6c757d;
+            font-size: 13px;
+            text-decoration: none;
+            cursor: pointer;
+            z-index: 10;
+        }
+        .ts-wrapper .edit-button:hover {
+            color: var(--primary) !important;
+        }
+        .ts-wrapper:not(.has-items) .edit-button {
+            display: none !important;
+        }
     </style>
 </head>
 
