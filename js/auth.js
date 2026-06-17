@@ -77,21 +77,33 @@ function logout() {
 }
 
 function showAdminButton() {
-    document.getElementById('adminButtonContainer').style.display = 'block';
-    document.getElementById('loginFormContainer').style.display = 'none';
+    const adminBtn = document.getElementById('adminButtonContainer');
+    const loginForm = document.getElementById('loginFormContainer');
+    if (adminBtn) adminBtn.style.display = 'block';
+    if (loginForm) loginForm.style.display = 'none';
 }
 
 function showLoginForm() {
-    document.getElementById('adminButtonContainer').style.display = 'none';
-    document.getElementById('loginFormContainer').style.display = 'block';
-    document.getElementById('loginForm').style.display = 'block';
-    // Clear forms
-    document.getElementById('loginForm').reset();
-    document.getElementById('loginError').style.display = 'none';
-    // Reset error color
+    const adminBtn = document.getElementById('adminButtonContainer');
+    const loginFormContainer = document.getElementById('loginFormContainer');
+    const loginForm = document.getElementById('loginForm');
+    
+    if (adminBtn) adminBtn.style.display = 'none';
+    if (loginFormContainer) loginFormContainer.style.display = 'block';
+    if (loginForm) {
+        loginForm.style.display = 'block';
+        loginForm.reset();
+    }
+    
     const errorDiv = document.getElementById('loginError');
     if (errorDiv) {
+        errorDiv.style.display = 'none';
         errorDiv.style.color = 'red';
+    }
+
+    // Safe check if we are on the admin page. If so, redirect to login on daily-menu
+    if (window.location.pathname.includes('admin-menu.html')) {
+        window.location.href = 'daily-menu.html';
     }
 }
 

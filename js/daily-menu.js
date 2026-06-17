@@ -85,30 +85,23 @@ document.addEventListener('DOMContentLoaded', function() {
     // Aktualizovať dátum hneď pri načítaní
     updateCurrentDayDate();
 
-    // Načítať menu (najprv z localStorage, potom z Google Sheets alebo JSON)
+    // Načítať menu (najprv Firestore, inak LocalStorage / JSON)
     let loadMenuPromise;
-    
-    // Skontrolovať localStorage najprv
-    const savedMenuData = localStorage.getItem('dailyMenuData');
-    if (savedMenuData) {
-        try {
-            const parsedData = JSON.parse(savedMenuData);
-            loadMenuPromise = Promise.resolve(parsedData);
-        } catch (error) {
-            console.error('Chyba pri parsovaní dát z localStorage:', error);
-            // Pokračovať s načítaním z iného zdroja
-            loadMenuPromise = null;
+
+    function getFallbackMenuData() {
+        const savedMenuData = localStorage.getItem('dailyMenuData');
+        if (savedMenuData) {
+            try {
+                return Promise.resolve(JSON.parse(savedMenuData));
+            } catch (error) {
+                console.error('Chyba pri parsovaní dát z localStorage:', error);
+            }
         }
-    }
-    
-    // Ak nie sú dáta v localStorage, načítať z iného zdroja
-    if (!loadMenuPromise) {
+        
         if (typeof GOOGLE_SHEETS_CONFIG !== 'undefined' && GOOGLE_SHEETS_CONFIG.enabled && GOOGLE_SHEETS_CONFIG.apiKey && GOOGLE_SHEETS_CONFIG.spreadsheetId) {
-            // Načítať z Google Sheets
-            loadMenuPromise = loadFromGoogleSheets();
+            return loadFromGoogleSheets();
         } else {
-            // Načítať z JSON (fallback)
-            loadMenuPromise = fetch('data/daily-menu.json')
+            return fetch('/data/daily-menu.json')
                 .then(response => {
                     if (!response.ok) {
                         throw new Error('Nepodarilo sa načítať denné menu');
@@ -117,6 +110,26 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
         }
     }
+
+    if (typeof db !== 'undefined') {
+        loadMenuPromise = db.collection('menu').doc('daily').get()
+            .then(doc => {
+                if (doc.exists) {
+                    const data = doc.data();
+                    localStorage.setItem('dailyMenuData', JSON.stringify(data));
+                    return data;
+                } else {
+                    throw new Error('Dokument daily v Firestore neexistuje.');
+                }
+            })
+            .catch(error => {
+                console.warn('Nepodarilo sa načítať z Firestore, prechádzam na fallbacky:', error);
+                return getFallbackMenuData();
+            });
+    } else {
+        loadMenuPromise = getFallbackMenuData();
+    }
+
     
     loadMenuPromise
         .then(data => {
@@ -252,7 +265,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (weekPriceInfo) {
                 weekPriceInfo.textContent = 'Chyba pri načítaní menu';
             }
-            document.getElementById('dayContent').innerHTML = '<p class="text-danger">Nepodarilo sa načítať denné menu. Skontrolujte, či existuje súbor data/daily-menu.json</p>';
+            document.getElementById('dayContent').innerHTML = '<p class="text-danger">Nepodarilo sa načítať denné menu: ' + error.message + '</p>';
         });
 });
 
