@@ -97,6 +97,153 @@
         .ts-wrapper:not(.has-items) .edit-button {
             display: none !important;
         }
+
+        /* Mobilná navigácia a Bottom Sheet */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 10px 15px !important;
+            }
+            .admin-container {
+                padding: 10px;
+                padding-bottom: 90px; /* Priestor pre bottom nav */
+            }
+            
+            /* Prepínanie dní na mobile */
+            .day-section {
+                display: none; /* Skryť všetky dni predvolene */
+                margin-bottom: 15px;
+                padding: 15px;
+            }
+            .day-section.active-day {
+                display: block !important; /* Zobraziť iba aktívny deň */
+                animation: fadeIn 0.3s ease;
+            }
+            @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(10px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+            
+            /* Spodná navigácia dní */
+            .mobile-day-nav {
+                display: flex !important;
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 60px;
+                background: #11141a;
+                border-top: 1px solid rgba(255,255,255,0.1);
+                z-index: 1000;
+                box-shadow: 0 -5px 15px rgba(0,0,0,0.3);
+            }
+            .mobile-day-nav .nav-item {
+                flex: 1;
+                background: none;
+                border: none;
+                color: #8a94a6;
+                font-weight: 700;
+                font-size: 11px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                transition: all 0.2s;
+            }
+            .mobile-day-nav .nav-item.active {
+                color: var(--primary);
+                background: rgba(255, 158, 13, 0.05);
+                border-top: 3px solid var(--primary);
+            }
+            
+            /* Plávajúce ukladacie tlačidlo (FAB) */
+            .mobile-save-fab {
+                display: flex !important;
+                position: fixed;
+                bottom: 75px;
+                right: 20px;
+                width: 56px;
+                height: 56px;
+                border-radius: 50%;
+                background: var(--primary);
+                color: white;
+                border: none;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+                z-index: 1001;
+                justify-content: center;
+                align-items: center;
+                font-size: 20px;
+                cursor: pointer;
+                transition: transform 0.2s;
+            }
+            .mobile-save-fab:active {
+                transform: scale(0.9);
+            }
+
+            /* Tom Select Bottom Sheet pre mobil */
+            .ts-dropdown {
+                position: fixed !important;
+                bottom: 0 !important;
+                left: 0 !important;
+                right: 0 !important;
+                top: auto !important;
+                width: 100% !important;
+                max-height: 55vh !important;
+                border-radius: 20px 20px 0 0 !important;
+                border: none !important;
+                box-shadow: 0 -10px 30px rgba(0,0,0,0.25) !important;
+                z-index: 9999 !important;
+                transform: translateY(100%) !important;
+                transition: transform 0.3s cubic-bezier(0.1, 0.76, 0.55, 0.94) !important;
+                background: #fff !important;
+                padding: 15px 10px 30px 10px !important;
+                overflow-y: auto !important;
+            }
+            
+            /* Zobraziť vysúvací panel, keď sa otvorí dropdown */
+            .ts-wrapper.dropdown-active .ts-dropdown {
+                transform: translateY(0) !important;
+            }
+            
+            /* Väčšie riadky v našepkávači na mobile, aby sa dalo dobre klikať prstom */
+            .ts-dropdown .option, .ts-dropdown .create {
+                padding: 14px 16px !important;
+                font-size: 15px !important;
+                border-bottom: 1px solid #f1f1f1;
+            }
+            .ts-dropdown .active {
+                background-color: rgba(255, 158, 13, 0.1) !important;
+                color: var(--primary) !important;
+            }
+            
+            /* Pridať peknú úchytku (handle) navrchu bottom sheetu */
+            .ts-dropdown::before {
+                content: '';
+                display: block;
+                width: 40px;
+                height: 4px;
+                background: #ccc;
+                border-radius: 2px;
+                margin: -5px auto 15px auto;
+            }
+        }
+        
+        /* Backdrop overlay pre mobilné dropdowny */
+        .ts-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 9998;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        .ts-backdrop.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
     </style>
 </head>
 
@@ -233,6 +380,23 @@ pondelok šošovicová/kurací vývar
         </div>
         <!-- Footer End -->
     </div>
+    
+    <!-- Mobile Backdrop for Bottom Sheet -->
+    <div class="ts-backdrop" id="tsBackdrop"></div>
+
+    <!-- Mobile Bottom Navigation (Day Selector) -->
+    <div class="mobile-day-nav d-none">
+        <button type="button" class="nav-item active" data-day="pondelok">PO</button>
+        <button type="button" class="nav-item" data-day="utorok">UT</button>
+        <button type="button" class="nav-item" data-day="streda">ST</button>
+        <button type="button" class="nav-item" data-day="stvrtok">ŠT</button>
+        <button type="button" class="nav-item" data-day="piatok">PI</button>
+    </div>
+
+    <!-- Mobile Floating Action Button (FAB) for Saving -->
+    <button type="button" class="mobile-save-fab d-none" id="mobileSaveBtn" title="Uložiť zmeny">
+        <i class="fas fa-save"></i>
+    </button>
 
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>

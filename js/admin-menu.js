@@ -306,6 +306,14 @@ document.addEventListener('DOMContentLoaded', function() {
                         originalValueBeforeEdit = '';
                     }
                 }, 100);
+            },
+            onDropdownOpen: function() {
+                if (window.innerWidth <= 768) {
+                    document.getElementById('tsBackdrop')?.classList.add('active');
+                }
+            },
+            onDropdownClose: function() {
+                document.getElementById('tsBackdrop')?.classList.remove('active');
             }
         });
 
@@ -565,6 +573,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
                     const daySection = document.createElement('div');
                     daySection.className = 'day-section';
+                    daySection.id = 'day-section-' + dayKey;
+                    if (dayKey === 'pondelok') {
+                        daySection.classList.add('active-day');
+                    }
                     daySection.innerHTML = `
                         <h4 class="day-title">${dayNames[dayKey]}</h4>
                         
@@ -658,6 +670,33 @@ document.addEventListener('DOMContentLoaded', function() {
                     initTomSelect(document.getElementById(`${dayKey}_polievka_name`));
                     ['menu1', 'menu2', 'menu3'].forEach(menuKey => {
                         initTomSelect(document.getElementById(`${dayKey}_${menuKey}_name`));
+                    });
+                });
+
+                // Inicializácia mobilného prepínania dní
+                document.querySelectorAll('.mobile-day-nav .nav-item').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        document.querySelectorAll('.mobile-day-nav .nav-item').forEach(b => b.classList.remove('active'));
+                        this.classList.add('active');
+                        
+                        const selectedDay = this.getAttribute('data-day');
+                        document.querySelectorAll('.day-section').forEach(sec => {
+                            sec.classList.remove('active-day');
+                        });
+                        document.getElementById('day-section-' + selectedDay)?.classList.add('active-day');
+                        window.scrollTo(0, 0); // Posunúť na začiatok pre lepší UX
+                    });
+                });
+
+                // Nastavenie akcie pre mobilné ukladacie tlačidlo (FAB)
+                document.getElementById('mobileSaveBtn')?.addEventListener('click', function() {
+                    document.querySelector('#menuForm button[type="submit"]')?.click();
+                });
+
+                // Nastavenie kliknutia na mobilný overlay na zatvorenie našepkávačov
+                document.getElementById('tsBackdrop')?.addEventListener('click', function() {
+                    Object.values(tomSelectInstances).forEach(ts => {
+                        ts.close();
                     });
                 });
             })
