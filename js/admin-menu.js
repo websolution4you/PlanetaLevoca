@@ -362,6 +362,39 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
 
+        // Prepojiť tlačidlo vymazania (krížik) s editačným režimom a klávesnicou
+        const clearBtn = ts.control.querySelector('.clear-button');
+        if (clearBtn) {
+            clearBtn.addEventListener('mousedown', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                originalValueBeforeEdit = ''; // Keďže čistia text, nechceme obnovovať pôvodný pri blure
+                isEditing = true;
+                ts.wrapper.classList.add('is-editing');
+
+                // Povoliť písanie na mobile
+                ts.control_input.readOnly = false;
+                ts.control_input.removeAttribute('inputmode');
+
+                // Vymazať ticho vybratú hodnotu bez spustenia autofocus eventov
+                ts.isProgrammaticChange = true;
+                ts.clear(true);
+                delete ts.isProgrammaticChange;
+
+                // Zamerať vstup synchrónne, aby na mobile vyskočila klávesnica
+                ts.focus();
+                ts.control_input.style.color = '';
+                ts.control_input.style.textShadow = '';
+                ts.control_input.style.caretColor = '';
+
+                // Scroll do horného okraja, aby klávesnica neprekrývala vstup
+                setTimeout(() => {
+                    ts.wrapper.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 80);
+            });
+        }
+
         // Pridať tlačidlo na úpravu (ceruzku)
         const editBtn = document.createElement('a');
         editBtn.className = 'edit-button';
