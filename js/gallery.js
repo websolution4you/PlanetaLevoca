@@ -227,6 +227,7 @@ async function handleAddPhoto(e) {
             galleryPhotos.unshift({ src: url, category, title });
             await savePhotos();
             renderGallery();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
             e.target.reset();
             togglePhotoSource();
         }
@@ -268,6 +269,7 @@ async function handleAddPhoto(e) {
                     galleryPhotos.unshift({ src: dataUrl, category, title });
                     await savePhotos();
                     renderGallery();
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
                     
                     addPhotoForm.reset();
                     togglePhotoSource();
