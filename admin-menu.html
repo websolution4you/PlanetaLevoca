@@ -107,6 +107,25 @@
             body, html {
                 overflow-x: hidden;
             }
+            /* Keď sa edituje text (is-editing), dropdown sa zobrazí ako bežný zoznam pod políčkom namiesto bottom sheetu */
+            .ts-wrapper.is-editing .ts-dropdown {
+                position: absolute !important;
+                top: 100% !important;
+                bottom: auto !important;
+                left: 0 !important;
+                right: 0 !important;
+                width: 100% !important;
+                max-height: 200px !important;
+                border-radius: 0 0 10px 10px !important;
+                transform: none !important;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.15) !important;
+                padding: 5px 0 !important;
+                background: #fff !important;
+                z-index: 1000 !important;
+            }
+            .ts-wrapper.is-editing .ts-dropdown::before {
+                display: none !important; /* Skryť úchytku bottom sheetu */
+            }
             .navbar {
                 padding: 10px 15px !important;
             }
@@ -424,7 +443,7 @@ pondelok šošovicová/kurací vývar
     <script src="js/google-sheets-config.js"></script>
     
     <!-- Admin Menu Script -->
-    <script src="js/admin-menu.js?v=1.0.5"></script>
+    <script src="js/admin-menu.js?v=1.0.6"></script>
     
     <!-- Tom Select JS -->
     <script src="https://cdn.jsdelivr.net/npm/tom-select@2.4.3/dist/js/tom-select.complete.min.js"></script>

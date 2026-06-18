@@ -224,9 +224,6 @@ document.addEventListener('DOMContentLoaded', function() {
             },
             openOnFocus: true,
             shouldOpen: function() {
-                if (isEditing) {
-                    return false;
-                }
                 return true;
             },
             selectOnTab: true,
@@ -305,14 +302,18 @@ document.addEventListener('DOMContentLoaded', function() {
                 const self = this;
                 setTimeout(() => {
                     if (isEditing) {
-                        const newVal = self.control_input.value.trim();
-                        if (newVal) {
-                            if (!self.options[newVal]) {
-                                self.addOption({ value: newVal, text: newVal });
+                        const currentVal = self.getValue();
+                        // Ak už má priradenú hodnotu (napr. z výberu v našepkávači), tak ju necháme
+                        if (!currentVal) {
+                            const newVal = self.control_input.value.trim();
+                            if (newVal) {
+                                if (!self.options[newVal]) {
+                                    self.addOption({ value: newVal, text: newVal });
+                                }
+                                self.setValue(newVal);
+                            } else if (originalValueBeforeEdit) {
+                                self.setValue(originalValueBeforeEdit, true);
                             }
-                            self.setValue(newVal);
-                        } else if (originalValueBeforeEdit) {
-                            self.setValue(originalValueBeforeEdit, true);
                         }
                         isEditing = false;
                         self.wrapper.classList.remove('is-editing');
