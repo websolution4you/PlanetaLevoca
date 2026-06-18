@@ -130,12 +130,12 @@
                                 <form id="addPhotoForm">
                                     <div class="mb-3">
                                         <label class="form-label fw-bold">Vybrať fotku z mobilu/PC:</label>
-                                        <div class="d-flex align-items-center flex-wrap gap-2 mb-2">
+                                        <div class="mb-2">
                                             <input type="file" id="photoFile" accept="image/*" required style="display: none;">
                                             <button type="button" class="btn btn-outline-primary" onclick="document.getElementById('photoFile').click()">
                                                 <i class="fa fa-image me-1"></i>Vybrať súbor
                                             </button>
-                                            <span id="file-chosen" class="text-muted small">Nie je vybraný žiadny súbor</span>
+                                            <div id="file-chosen" class="text-muted small mt-1">Nie je vybraný žiadny súbor</div>
                                         </div>
                                         <small class="text-muted d-block">Fotka bude automaticky zmenšená pre rýchle načítanie stránky.</small>
                                     </div>
@@ -304,7 +304,7 @@
     <script src="js/auth.js"></script>
 
     <!-- Gallery Script -->
-    <script src="js/gallery.js?v=1.1.2"></script>
+    <script src="js/gallery.js?v=1.1.3"></script>
 </body>
 
 </html>
