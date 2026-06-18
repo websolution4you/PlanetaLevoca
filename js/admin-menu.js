@@ -363,11 +363,16 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         // Prepojiť tlačidlo vymazania (krížik) s editačným režimom a klávesnicou
-        const clearBtn = ts.control.querySelector('.clear-button');
-        if (clearBtn) {
-            clearBtn.addEventListener('mousedown', function(e) {
+        const originalClearBtn = ts.control.querySelector('.clear-button');
+        if (originalClearBtn) {
+            // Naklonujeme tlačidlo, aby sme vymazali pôvodné event listenery naviazané pluginom Tom Selectu
+            const clearBtn = originalClearBtn.cloneNode(true);
+            originalClearBtn.parentNode.replaceChild(clearBtn, originalClearBtn);
+
+            const handleClear = function(e) {
                 e.preventDefault();
                 e.stopPropagation();
+                e.stopImmediatePropagation();
                 
                 originalValueBeforeEdit = ''; // Keďže čistia text, nechceme obnovovať pôvodný pri blure
                 isEditing = true;
@@ -392,7 +397,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 setTimeout(() => {
                     ts.wrapper.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }, 80);
-            });
+            };
+
+            clearBtn.addEventListener('mousedown', handleClear);
+            clearBtn.addEventListener('touchstart', handleClear);
+            clearBtn.addEventListener('click', handleClear);
         }
 
         // Pridať tlačidlo na úpravu (ceruzku)
