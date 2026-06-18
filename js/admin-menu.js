@@ -684,7 +684,8 @@ document.addEventListener('DOMContentLoaded', function() {
                             sec.classList.remove('active-day');
                         });
                         document.getElementById('day-section-' + selectedDay)?.classList.add('active-day');
-                        window.scrollTo(0, 0); // Posunúť na začiatok pre lepší UX
+                        // Scroll to the active day container instead of the top of the page
+                        document.getElementById('daysContainer')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
                     });
                 });
 
