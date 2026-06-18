@@ -240,7 +240,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Vymazať vyhľadávací input pri kliknutí
                 setTimeout(() => {
                     if (isEditing) {
-                        isEditing = false;
                         return;
                     }
                     const activeInput = self.control_input;
@@ -383,26 +382,28 @@ document.addEventListener('DOMContentLoaded', function() {
                 ts.control_input.readOnly = false;
                 ts.control_input.removeAttribute('inputmode');
 
-                // Vymazať ticho vybratú hodnotu
+                // Vymazať ticho vybratú hodnotu bez spustenia autofocus eventov
+                ts.isProgrammaticChange = true;
                 ts.clear(true);
+                delete ts.isProgrammaticChange;
+
                 // Predvyplniť vstup pôvodným textom
                 ts.control_input.value = val;
+
+                // Zamerať vstup synchrónne, aby na mobile vyskočila klávesnica
+                ts.focus();
+                ts.control_input.style.color = '';
+                ts.control_input.style.textShadow = '';
+                ts.control_input.style.caretColor = '';
+                
+                // Presunúť kurzor na koniec textu
+                const len = ts.control_input.value.length;
+                ts.control_input.setSelectionRange(len, len);
 
                 // Scroll do horného okraja, aby klávesnica neprekrývala vstup
                 setTimeout(() => {
                     ts.wrapper.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }, 80);
-
-                // Zamerať vstup a zviditeľniť text/kurzor
-                setTimeout(() => {
-                    ts.focus();
-                    ts.control_input.style.color = '';
-                    ts.control_input.style.textShadow = '';
-                    ts.control_input.style.caretColor = '';
-                    // Presunúť kurzor na koniec textu
-                    const len = ts.control_input.value.length;
-                    ts.control_input.setSelectionRange(len, len);
-                }, 150);
             }
         });
 
