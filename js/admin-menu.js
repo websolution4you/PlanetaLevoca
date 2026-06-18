@@ -224,6 +224,9 @@ document.addEventListener('DOMContentLoaded', function() {
             },
             openOnFocus: true,
             shouldOpen: function() {
+                if (isEditing) {
+                    return false;
+                }
                 return true;
             },
             selectOnTab: true,
@@ -285,30 +288,52 @@ document.addEventListener('DOMContentLoaded', function() {
                         self.blur();
                     }, 50);
                 } else {
-                    setTimeout(() => {
-                        self.focus();
-                        const activeInput = self.control_input;
-                        if (activeInput) {
-                            activeInput.style.color = '';
-                            activeInput.style.textShadow = '';
-                            activeInput.style.caretColor = '';
-                        }
-                    }, 50);
+                    // Automaticky zamerať len pri manuálnom premazaní používateľom
+                    if (!self.isProgrammaticChange) {
+                        setTimeout(() => {
+                            self.focus();
+                            const activeInput = self.control_input;
+                            if (activeInput) {
+                                activeInput.style.color = '';
+                                activeInput.style.textShadow = '';
+                                activeInput.style.caretColor = '';
+                            }
+                        }, 50);
+                    }
                 }
             },
             onBlur: function() {
                 const self = this;
                 setTimeout(() => {
-                    const currentVal = self.getValue();
-                    if (!currentVal && originalValueBeforeEdit) {
-                        // Restore original value if they changed their mind
-                        self.setValue(originalValueBeforeEdit, true);
-                        originalValueBeforeEdit = '';
+                    if (isEditing) {
+                        const newVal = self.control_input.value.trim();
+                        if (newVal) {
+                            if (!self.options[newVal]) {
+                                self.addOption({ value: newVal, text: newVal });
+                            }
+                            self.setValue(newVal);
+                        } else if (originalValueBeforeEdit) {
+                            self.setValue(originalValueBeforeEdit, true);
+                        }
+                        isEditing = false;
+                        self.wrapper.classList.remove('is-editing');
+                    } else {
+                        const currentVal = self.getValue();
+                        if (!currentVal && originalValueBeforeEdit) {
+                            // Restore original value if they changed their mind
+                            self.setValue(originalValueBeforeEdit, true);
+                            originalValueBeforeEdit = '';
+                        }
                     }
-                }, 100);
+                    
+                    if (window.innerWidth <= 768) {
+                        self.control_input.readOnly = true;
+                        self.control_input.setAttribute('inputmode', 'none');
+                    }
+                }, 150);
             },
             onDropdownOpen: function() {
-                if (window.innerWidth <= 768) {
+                if (window.innerWidth <= 768 && !isEditing) {
                     document.getElementById('tsBackdrop')?.classList.add('active');
                 }
             },
@@ -324,6 +349,20 @@ document.addEventListener('DOMContentLoaded', function() {
             ts.setValue(currentVal, true);
         }
 
+        // Ak je to mobil, nastav vstup na readOnly pre výber (potlačí klávesnicu)
+        if (window.innerWidth <= 768) {
+            ts.control_input.readOnly = true;
+            ts.control_input.setAttribute('inputmode', 'none');
+        }
+
+        // Enter zatvorí/uloží úpravu
+        ts.control_input.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                ts.blur();
+            }
+        });
+
         // Pridať tlačidlo na úpravu (ceruzku)
         const editBtn = document.createElement('a');
         editBtn.className = 'edit-button';
@@ -338,10 +377,22 @@ document.addEventListener('DOMContentLoaded', function() {
             if (val) {
                 originalValueBeforeEdit = val; // Store original value to restore on blur
                 isEditing = true;
+                ts.wrapper.classList.add('is-editing');
+
+                // Povoliť písanie na mobile
+                ts.control_input.readOnly = false;
+                ts.control_input.removeAttribute('inputmode');
+
                 // Vymazať ticho vybratú hodnotu
                 ts.clear(true);
                 // Predvyplniť vstup pôvodným textom
                 ts.control_input.value = val;
+
+                // Scroll do horného okraja, aby klávesnica neprekrývala vstup
+                setTimeout(() => {
+                    ts.wrapper.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 80);
+
                 // Zamerať vstup a zviditeľniť text/kurzor
                 setTimeout(() => {
                     ts.focus();
@@ -351,7 +402,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     // Presunúť kurzor na koniec textu
                     const len = ts.control_input.value.length;
                     ts.control_input.setSelectionRange(len, len);
-                }, 50);
+                }, 150);
             }
         });
 
@@ -504,6 +555,7 @@ document.addEventListener('DOMContentLoaded', function() {
         input.value = value;
         const ts = tomSelectInstances[inputId];
         if (ts) {
+            ts.isProgrammaticChange = true;
             if (value) {
                 if (!ts.options[value]) {
                     ts.addOption({ value: value, text: value });
@@ -512,6 +564,7 @@ document.addEventListener('DOMContentLoaded', function() {
             } else {
                 ts.clear();
             }
+            delete ts.isProgrammaticChange;
         }
     }
 
