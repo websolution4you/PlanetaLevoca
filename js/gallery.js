@@ -25,6 +25,21 @@ function getFilteredPhotos() {
         : galleryPhotos.filter(p => p.category === currentFilter);
 }
 
+function selectFilter(filterValue) {
+    currentFilter = filterValue;
+    
+    // Update active state in UI
+    document.querySelectorAll('[data-filter]').forEach(btn => {
+        if (btn.getAttribute('data-filter') === filterValue) {
+            btn.classList.add('active');
+        } else {
+            btn.classList.remove('active');
+        }
+    });
+    
+    filterGalleryDisplay();
+}
+
 // Initialize Gallery
 document.addEventListener('DOMContentLoaded', async function() {
     // 1. Load Photos
@@ -43,15 +58,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     // 3. Setup filter button listeners
     document.querySelectorAll('[data-filter]').forEach(button => {
         button.addEventListener('click', function() {
-            currentFilter = this.getAttribute('data-filter');
-            
-            // Update active state in UI
-            document.querySelectorAll('[data-filter]').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            this.classList.add('active');
-            
-            filterGalleryDisplay();
+            selectFilter(this.getAttribute('data-filter'));
         });
     });
 
@@ -289,7 +296,13 @@ async function handleAddPhoto(e) {
             galleryPhotos.unshift({ src: url, category, title });
             await savePhotos();
             renderGallery();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            selectFilter(category);
+            const filterContainer = document.getElementById('gallery-filter-container');
+            if (filterContainer) {
+                filterContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+            
             e.target.reset();
             togglePhotoSource();
         }
@@ -331,7 +344,12 @@ async function handleAddPhoto(e) {
                     galleryPhotos.unshift({ src: dataUrl, category, title });
                     await savePhotos();
                     renderGallery();
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    
+                    selectFilter(category);
+                    const filterContainer = document.getElementById('gallery-filter-container');
+                    if (filterContainer) {
+                        filterContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
                     
                     addPhotoForm.reset();
                     togglePhotoSource();
