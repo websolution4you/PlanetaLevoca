@@ -68,6 +68,23 @@ document.addEventListener('DOMContentLoaded', async function() {
         addPhotoForm.addEventListener('submit', handleAddPhoto);
     }
 
+    // Update chosen file name text
+    const photoFile = document.getElementById('photoFile');
+    const fileChosen = document.getElementById('file-chosen');
+    if (photoFile && fileChosen) {
+        photoFile.addEventListener('change', function() {
+            if (this.files && this.files.length > 0) {
+                fileChosen.textContent = this.files[0].name;
+                fileChosen.classList.remove('text-muted');
+                fileChosen.classList.add('text-dark', 'fw-bold');
+            } else {
+                fileChosen.textContent = 'Nie je vybraný žiadny súbor';
+                fileChosen.classList.remove('text-dark', 'fw-bold');
+                fileChosen.classList.add('text-muted');
+            }
+        });
+    }
+
     // 5. Setup modal navigation listeners
     const prevBtn = document.getElementById('prevImageBtn');
     const nextBtn = document.getElementById('nextImageBtn');
@@ -313,6 +330,11 @@ async function handleAddPhoto(e) {
                 }
                 
                 addPhotoForm.reset();
+                if (fileChosen) {
+                    fileChosen.textContent = 'Nie je vybraný žiadny súbor';
+                    fileChosen.classList.remove('text-dark', 'fw-bold');
+                    fileChosen.classList.add('text-muted');
+                }
                 submitBtn.disabled = false;
                 submitBtn.innerHTML = originalBtnText;
             };

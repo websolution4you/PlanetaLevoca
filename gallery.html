@@ -129,9 +129,15 @@
                             <div class="card-body">
                                 <form id="addPhotoForm">
                                     <div class="mb-3">
-                                        <label for="photoFile" class="form-label fw-bold" style="color: #fea116;">Vybrať fotku z mobilu/PC:</label>
-                                        <input type="file" class="form-control" id="photoFile" accept="image/*" required style="border: 2px dashed #fea116; padding: 12px; background-color: #fffaf0; cursor: pointer;">
-                                        <small class="text-muted d-block mt-1">Fotka bude automaticky zmenšená pre rýchle načítanie stránky.</small>
+                                        <label class="form-label fw-bold">Vybrať fotku z mobilu/PC:</label>
+                                        <div class="d-flex align-items-center flex-wrap gap-2 mb-2">
+                                            <input type="file" id="photoFile" accept="image/*" required style="display: none;">
+                                            <button type="button" class="btn btn-outline-primary" onclick="document.getElementById('photoFile').click()">
+                                                <i class="fa fa-image me-1"></i>Vybrať súbor
+                                            </button>
+                                            <span id="file-chosen" class="text-muted small">Nie je vybraný žiadny súbor</span>
+                                        </div>
+                                        <small class="text-muted d-block">Fotka bude automaticky zmenšená pre rýchle načítanie stránky.</small>
                                     </div>
                                     <div class="mb-3">
                                         <label for="photoCategory" class="form-label">Sekcia (Kategória):</label>
@@ -298,7 +304,7 @@
     <script src="js/auth.js"></script>
 
     <!-- Gallery Script -->
-    <script src="js/gallery.js?v=1.1.1"></script>
+    <script src="js/gallery.js?v=1.1.2"></script>
 </body>
 
 </html>
