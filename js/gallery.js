@@ -224,7 +224,7 @@ async function handleAddPhoto(e) {
     if (type === 'url') {
         const url = document.getElementById('photoUrl').value.trim();
         if (url) {
-            galleryPhotos.push({ src: url, category, title });
+            galleryPhotos.unshift({ src: url, category, title });
             await savePhotos();
             renderGallery();
             e.target.reset();
@@ -265,7 +265,7 @@ async function handleAddPhoto(e) {
                     // Compress to JPEG with 75% quality to save space
                     const dataUrl = canvas.toDataURL('image/jpeg', 0.75);
                     
-                    galleryPhotos.push({ src: dataUrl, category, title });
+                    galleryPhotos.unshift({ src: dataUrl, category, title });
                     await savePhotos();
                     renderGallery();
                     
