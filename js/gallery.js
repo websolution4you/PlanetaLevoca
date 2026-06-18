@@ -16,6 +16,14 @@ const DEFAULT_PHOTOS = [
 
 let galleryPhotos = [];
 let currentFilter = 'all';
+let currentFilteredPhotos = [];
+let currentPhotoIndex = -1;
+
+function getFilteredPhotos() {
+    return currentFilter === 'all' 
+        ? galleryPhotos 
+        : galleryPhotos.filter(p => p.category === currentFilter);
+}
 
 // Initialize Gallery
 document.addEventListener('DOMContentLoaded', async function() {
@@ -52,6 +60,58 @@ document.addEventListener('DOMContentLoaded', async function() {
     if (addPhotoForm) {
         addPhotoForm.addEventListener('submit', handleAddPhoto);
     }
+
+    // 5. Setup modal navigation listeners
+    const prevBtn = document.getElementById('prevImageBtn');
+    const nextBtn = document.getElementById('nextImageBtn');
+    if (prevBtn) {
+        prevBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            showPrevPhoto();
+        });
+    }
+    if (nextBtn) {
+        nextBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            showNextPhoto();
+        });
+    }
+
+    // Swipe gestures on mobile
+    const modalEl = document.getElementById('imageModal');
+    if (modalEl) {
+        let touchStartX = 0;
+        let touchEndX = 0;
+        
+        modalEl.addEventListener('touchstart', function(e) {
+            touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+        
+        modalEl.addEventListener('touchend', function(e) {
+            touchEndX = e.changedTouches[0].screenX;
+            const swipeThreshold = 50;
+            const diff = touchEndX - touchStartX;
+            if (Math.abs(diff) > swipeThreshold) {
+                if (diff > 0) {
+                    showPrevPhoto();
+                } else {
+                    showNextPhoto();
+                }
+            }
+        }, { passive: true });
+    }
+
+    // Keyboard navigation
+    document.addEventListener('keydown', function(e) {
+        const modalEl = document.getElementById('imageModal');
+        if (modalEl && modalEl.classList.contains('show')) {
+            if (e.key === 'ArrowRight') {
+                showNextPhoto();
+            } else if (e.key === 'ArrowLeft') {
+                showPrevPhoto();
+            }
+        }
+    });
 });
 
 // Load photos from Firestore or fallback to localStorage / defaults
@@ -146,7 +206,9 @@ function renderGallery() {
         // Click to open in modal
         const img = itemCol.querySelector('img');
         img.addEventListener('click', function() {
-            openModal(photo.src, photo.title);
+            const filtered = getFilteredPhotos();
+            const filteredIndex = filtered.findIndex(p => p.src === photo.src);
+            openPhoto(filteredIndex);
             // Open modal via bootstrap
             const modalEl = document.getElementById('imageModal');
             if (modalEl) {
@@ -303,10 +365,33 @@ function setupAdminForm(user) {
     }
 }
 
-// Modal helper
-function openModal(imageSrc, imageTitle) {
+// Modal helpers and navigation
+function openPhoto(index) {
+    currentFilteredPhotos = getFilteredPhotos();
+    if (index < 0 || index >= currentFilteredPhotos.length) return;
+    currentPhotoIndex = index;
+    const photo = currentFilteredPhotos[index];
+    
     const modalImg = document.getElementById('modalImage');
     const modalTitle = document.getElementById('imageModalLabel');
-    if (modalImg) modalImg.src = imageSrc;
-    if (modalTitle) modalTitle.textContent = imageTitle;
+    if (modalImg) modalImg.src = photo.src;
+    if (modalTitle) modalTitle.textContent = photo.title;
 }
+
+window.showNextPhoto = function() {
+    if (currentFilteredPhotos.length <= 1) return;
+    let newIndex = currentPhotoIndex + 1;
+    if (newIndex >= currentFilteredPhotos.length) {
+        newIndex = 0;
+    }
+    openPhoto(newIndex);
+};
+
+window.showPrevPhoto = function() {
+    if (currentFilteredPhotos.length <= 1) return;
+    let newIndex = currentPhotoIndex - 1;
+    if (newIndex < 0) {
+        newIndex = currentFilteredPhotos.length - 1;
+    }
+    openPhoto(newIndex);
+};

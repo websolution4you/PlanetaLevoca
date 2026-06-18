@@ -200,8 +200,17 @@
                         <h5 class="modal-title" id="imageModalLabel"></h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body text-center">
-                        <img id="modalImage" src="" alt="" class="img-fluid rounded">
+                    <div class="modal-body text-center position-relative p-0 overflow-hidden">
+                        <!-- Navigation Buttons -->
+                        <button type="button" class="btn btn-dark position-absolute top-50 start-0 translate-middle-y ms-2 rounded-circle d-flex align-items-center justify-content-center" id="prevImageBtn" style="width: 45px; height: 45px; opacity: 0.7; z-index: 10; border: none; background-color: rgba(0,0,0,0.6);">
+                            <i class="fa fa-chevron-left text-white" style="font-size: 1.25rem;"></i>
+                        </button>
+                        
+                        <img id="modalImage" src="" alt="" class="img-fluid w-100" style="max-height: 80vh; object-fit: contain;">
+                        
+                        <button type="button" class="btn btn-dark position-absolute top-50 end-0 translate-middle-y me-2 rounded-circle d-flex align-items-center justify-content-center" id="nextImageBtn" style="width: 45px; height: 45px; opacity: 0.7; z-index: 10; border: none; background-color: rgba(0,0,0,0.6);">
+                            <i class="fa fa-chevron-right text-white" style="font-size: 1.25rem;"></i>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -298,7 +307,7 @@
     <script src="js/auth.js"></script>
 
     <!-- Gallery Script -->
-    <script src="js/gallery.js?v=1.0.8"></script>
+    <script src="js/gallery.js?v=1.0.9"></script>
 </body>
 
 </html>
