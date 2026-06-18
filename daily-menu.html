@@ -79,9 +79,9 @@
                 </div>
             </nav>
 
-            <div class="container-xxl py-5 bg-dark hero-header mb-5">
-                <div class="container text-center my-5 pt-5 pb-4">
-                    <h1 class="display-3 text-white mb-3 animated slideInDown">Denné Menu</h1>
+            <div class="container-xxl py-4 bg-dark hero-header mb-4">
+                <div class="container text-center my-3 pt-3 pb-2">
+                    <h1 class="display-4 text-white mb-2 animated slideInDown">Denné Menu</h1>
                 </div>
             </div>
         </div>
@@ -89,24 +89,24 @@
 
 
         <!-- Daily Menu Start -->
-        <div class="container-xxl py-5">
+        <div class="container-xxl py-3">
             <div class="container">
                 <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
                     <h5 class="section-title ff-secondary text-center text-primary fw-normal">Denné Menu</h5>
-                    <h1 class="mb-4">Týždenné Menu</h1>
-                    <p class="text-muted mb-3" id="weekPriceInfo">Načítavam...</p>
+                    <h1 class="mb-3">Týždenné Menu</h1>
+                    <p class="text-muted mb-2" id="weekPriceInfo">Načítavam...</p>
                     <p class="text-muted small mb-2" id="timeInfo">Dostupné Po-Pia 11:00-14:00</p>
-                    <p class="text-muted small mb-4" id="weekendInfo" style="display: none;">Denné menu je k dispozícii len počas pracovných dní. Zobrazuje sa menu z piatka.</p>
+                    <p class="text-muted small mb-3" id="weekendInfo" style="display: none;">Denné menu je k dispozícii len počas pracovných dní. Zobrazuje sa menu z piatka.</p>
                     
                     <!-- Prepínanie medzi režimami -->
-                    <div class="btn-group mb-4" role="group" id="viewToggle">
-                        <button type="button" class="btn btn-outline-primary active d-flex flex-column align-items-center py-2 px-3" id="btnToday" onclick="switchView('today')">
-                            <div class="d-flex align-items-center">
+                    <div class="btn-group btn-group-sm mb-4" role="group" id="viewToggle" style="max-width: 300px; width: 100%;">
+                        <button type="button" class="btn btn-outline-primary active d-flex flex-column align-items-center py-1 px-2" id="btnToday" onclick="switchView('today')">
+                            <div class="d-flex align-items-center fw-bold" style="font-size: 0.85rem;">
                                 Dnešný deň
                             </div>
-                            <small class="mt-1 text-danger fw-bold" id="currentDayDate" style="font-size: 0.75rem;">Načítavam...</small>
+                            <small class="text-danger fw-bold" id="currentDayDate" style="font-size: 0.65rem; margin-top: 2px;">Načítavam...</small>
                         </button>
-                        <button type="button" class="btn btn-outline-primary" id="btnWeek" onclick="switchView('week')">
+                        <button type="button" class="btn btn-outline-primary d-flex align-items-center justify-content-center fw-bold" id="btnWeek" onclick="switchView('week')" style="font-size: 0.85rem;">
                             Celý týždeň
                         </button>
                     </div>
@@ -248,7 +248,7 @@
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
     <!-- Daily Menu Loader -->
-    <script src="js/daily-menu.js"></script>
+    <script src="js/daily-menu.js?v=1.0.1"></script>
     <!-- Auth -->
     <script src="js/auth.js"></script>
 </body>

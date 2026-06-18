@@ -190,13 +190,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 dayContainer.className = `day-container ${dayKey === currentDayKey ? 'active' : ''}`;
                 // Pridať väčší rozostup medzi dňami (okrem prvého)
                 if (index > 0) {
-                    dayContainer.style.marginTop = '7rem';
+                    dayContainer.style.marginTop = '3.5rem';
                 }
                 
                 // Pridať nadpis dňa pre režim "Celý týždeň"
-                let menuHTML = `<div class="day-header mb-4" style="display: none;">
-                    <h4 class="text-primary mb-3">${day.name}</h4>
-                    <hr class="mb-4">
+                let menuHTML = `<div class="day-header mb-2" style="display: none;">
+                    <h4 class="text-primary mb-2">${day.name}</h4>
+                    <hr class="mt-0 mb-3">
                 </div>`;
                 menuHTML += '<div class="row g-4">';
 
