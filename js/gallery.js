@@ -258,111 +258,70 @@ window.deletePhoto = async function(index) {
     }
 };
 
-// Toggle Photo Input fields
-window.togglePhotoSource = function() {
-    const type = document.getElementById('photoSourceType').value;
-    const fileContainer = document.getElementById('photoFileInputContainer');
-    const urlContainer = document.getElementById('photoUrlInputContainer');
-
-    if (type === 'file') {
-        fileContainer.style.display = 'block';
-        urlContainer.style.display = 'none';
-        document.getElementById('photoFile').setAttribute('required', 'required');
-        document.getElementById('photoUrl').removeAttribute('required');
-    } else {
-        fileContainer.style.display = 'none';
-        urlContainer.style.display = 'block';
-        document.getElementById('photoUrl').setAttribute('required', 'required');
-        document.getElementById('photoFile').removeAttribute('required');
-    }
-};
-
 // Handle adding new photo
 async function handleAddPhoto(e) {
     e.preventDefault();
 
     const category = document.getElementById('photoCategory').value;
     const title = document.getElementById('photoTitle').value.trim();
-    const type = document.getElementById('photoSourceType').value;
     
     const submitBtn = e.target.querySelector('button[type="submit"]');
     const originalBtnText = submitBtn.innerHTML;
     submitBtn.disabled = true;
     submitBtn.innerHTML = '<i class="fa fa-spinner fa-spin me-2"></i>Ukladám...';
 
-    if (type === 'url') {
-        const url = document.getElementById('photoUrl').value.trim();
-        if (url) {
-            galleryPhotos.unshift({ src: url, category, title });
-            await savePhotos();
-            renderGallery();
-            
-            selectFilter(category);
-            const filterContainer = document.getElementById('gallery-filter-container');
-            if (filterContainer) {
-                filterContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
-            
-            e.target.reset();
-            togglePhotoSource();
-        }
+    const fileInput = document.getElementById('photoFile');
+    const file = fileInput.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(event) {
+            const img = new Image();
+            img.onload = async function() {
+                const canvas = document.createElement('canvas');
+                let width = img.width;
+                let height = img.height;
+                const max_size = 1000;
+                
+                if (width > height) {
+                    if (width > max_size) {
+                        height *= max_size / width;
+                        width = max_size;
+                    }
+                } else {
+                    if (height > max_size) {
+                        width *= max_size / height;
+                        height = max_size;
+                    }
+                }
+                
+                canvas.width = width;
+                canvas.height = height;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0, width, height);
+                
+                // Compress to JPEG with 75% quality to save space
+                const dataUrl = canvas.toDataURL('image/jpeg', 0.75);
+                
+                galleryPhotos.unshift({ src: dataUrl, category, title });
+                await savePhotos();
+                renderGallery();
+                
+                selectFilter(category);
+                const filterContainer = document.getElementById('gallery-filter-container');
+                if (filterContainer) {
+                    filterContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+                
+                addPhotoForm.reset();
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalBtnText;
+            };
+            img.src = event.target.result;
+        };
+        reader.readAsDataURL(file);
+    } else {
         submitBtn.disabled = false;
         submitBtn.innerHTML = originalBtnText;
-    } else {
-        const fileInput = document.getElementById('photoFile');
-        const file = fileInput.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function(event) {
-                const img = new Image();
-                img.onload = async function() {
-                    const canvas = document.createElement('canvas');
-                    let width = img.width;
-                    let height = img.height;
-                    const max_size = 1000;
-                    
-                    if (width > height) {
-                        if (width > max_size) {
-                            height *= max_size / width;
-                            width = max_size;
-                        }
-                    } else {
-                        if (height > max_size) {
-                            width *= max_size / height;
-                            height = max_size;
-                        }
-                    }
-                    
-                    canvas.width = width;
-                    canvas.height = height;
-                    const ctx = canvas.getContext('2d');
-                    ctx.drawImage(img, 0, 0, width, height);
-                    
-                    // Compress to JPEG with 75% quality to save space
-                    const dataUrl = canvas.toDataURL('image/jpeg', 0.75);
-                    
-                    galleryPhotos.unshift({ src: dataUrl, category, title });
-                    await savePhotos();
-                    renderGallery();
-                    
-                    selectFilter(category);
-                    const filterContainer = document.getElementById('gallery-filter-container');
-                    if (filterContainer) {
-                        filterContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    }
-                    
-                    addPhotoForm.reset();
-                    togglePhotoSource();
-                    submitBtn.disabled = false;
-                    submitBtn.innerHTML = originalBtnText;
-                };
-                img.src = event.target.result;
-            };
-            reader.readAsDataURL(file);
-        } else {
-            submitBtn.disabled = false;
-            submitBtn.innerHTML = originalBtnText;
-        }
     }
 }
 
@@ -374,9 +333,6 @@ function setupAdminForm(user) {
     if (user) {
         if (formContainer) formContainer.style.display = 'block';
         if (loginForm) loginForm.style.display = 'none';
-        
-        // Ensure default file input is configured correctly
-        togglePhotoSource();
     } else {
         if (formContainer) formContainer.style.display = 'none';
         if (loginForm) loginForm.style.display = 'block';
