@@ -136,6 +136,39 @@ document.addEventListener('DOMContentLoaded', async function() {
             }
         }
     });
+
+    // 6. Setup edit photo form submission
+    const editPhotoForm = document.getElementById('editPhotoForm');
+    if (editPhotoForm) {
+        editPhotoForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const index = parseInt(document.getElementById('editPhotoIndex').value);
+            const category = document.getElementById('editPhotoCategory').value;
+            const title = document.getElementById('editPhotoTitle').value.trim();
+            
+            if (index >= 0 && index < galleryPhotos.length) {
+                galleryPhotos[index].category = category;
+                galleryPhotos[index].title = title;
+                
+                await savePhotos();
+                renderGallery();
+                
+                // Close modal
+                const editModalEl = document.getElementById('editPhotoModal');
+                if (editModalEl) {
+                    const modal = bootstrap.Modal.getInstance(editModalEl) || bootstrap.Modal.getOrCreateInstance(editModalEl);
+                    if (modal) modal.hide();
+                }
+                
+                // Scroll to the updated category and select it
+                selectFilter(category);
+                const filterContainer = document.getElementById('gallery-filter-container');
+                if (filterContainer) {
+                    filterContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }
+        });
+    }
 });
 
 // Load photos from Firestore or fallback to localStorage / defaults
@@ -220,9 +253,14 @@ function renderGallery() {
                     <h6 class="mb-0 text-white">${photo.title}</h6>
                 </div>
                 ${isLoggedIn ? `
-                    <button class="btn btn-sm btn-danger position-absolute top-0 end-0 m-3" style="z-index: 10;" onclick="deletePhoto(${index})">
-                        <i class="fa fa-trash me-1"></i>Vymazať
-                    </button>
+                    <div class="position-absolute top-0 end-0 m-3 d-flex gap-1" style="z-index: 10;">
+                        <button class="btn btn-sm btn-primary" onclick="editPhoto(${index}, event)">
+                            <i class="fa fa-pencil-alt me-1"></i>Upraviť
+                        </button>
+                        <button class="btn btn-sm btn-danger" onclick="deletePhoto(${index}, event)">
+                            <i class="fa fa-trash me-1"></i>Vymazať
+                        </button>
+                    </div>
                 ` : ''}
             </div>
         `;
@@ -267,7 +305,8 @@ function filterGalleryDisplay() {
 }
 
 // Delete Photo
-window.deletePhoto = async function(index) {
+window.deletePhoto = async function(index, event) {
+    if (event) event.stopPropagation();
     if (confirm('Naozaj chcete vymazať túto fotku z galérie?')) {
         galleryPhotos.splice(index, 1);
         await savePhotos();
@@ -390,4 +429,21 @@ window.showPrevPhoto = function() {
         newIndex = currentFilteredPhotos.length - 1;
     }
     openPhoto(newIndex);
+};
+
+window.editPhoto = function(index, event) {
+    if (event) event.stopPropagation();
+    
+    const photo = galleryPhotos[index];
+    if (!photo) return;
+    
+    document.getElementById('editPhotoIndex').value = index;
+    document.getElementById('editPhotoCategory').value = photo.category;
+    document.getElementById('editPhotoTitle').value = photo.title;
+    
+    const editModalEl = document.getElementById('editPhotoModal');
+    if (editModalEl) {
+        const modal = bootstrap.Modal.getInstance(editModalEl) || new bootstrap.Modal(editModalEl);
+        modal.show();
+    }
 };
