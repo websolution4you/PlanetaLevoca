@@ -100,6 +100,11 @@
 
         /* Mobilná navigácia a Bottom Sheet */
         @media (max-width: 768px) {
+            /* Vynútiť viditeľnosť krížika (vymazania) na mobile ak má pole hodnotu */
+            .ts-wrapper.has-items .clear-button {
+                opacity: 1 !important;
+                visibility: visible !important;
+            }
             /* Zabrániť automatickému priblíženiu (auto-zoom) na mobiloch vynútením aspoň 16px písma */
             input, textarea, select, .ts-wrapper .ts-control, .ts-wrapper .ts-control input {
                 font-size: 16px !important;
@@ -443,7 +448,7 @@ pondelok šošovicová/kurací vývar
     <script src="js/google-sheets-config.js"></script>
     
     <!-- Admin Menu Script -->
-    <script src="js/admin-menu.js?v=1.0.8"></script>
+    <script src="js/admin-menu.js?v=1.0.9"></script>
     
     <!-- Tom Select JS -->
     <script src="https://cdn.jsdelivr.net/npm/tom-select@2.4.3/dist/js/tom-select.complete.min.js"></script>
