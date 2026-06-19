@@ -352,7 +352,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Rýchly výber pre dotykové zariadenia (rieši nutnosť dvojitého ťuknutia na možnosť v zozname a umožňuje scrolovanie)
         let touchStartPos = null;
+        let isScrolling = false;
+        let touchSelected = false;
+        let touchSelectedTimeout = null;
+
         ts.dropdown.addEventListener('touchstart', function(e) {
+            isScrolling = false;
             if (e.touches && e.touches.length === 1) {
                 touchStartPos = {
                     x: e.touches[0].clientX,
@@ -361,49 +366,69 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }, { passive: true });
 
+        ts.dropdown.addEventListener('touchmove', function(e) {
+            if (!touchStartPos) return;
+            if (e.touches && e.touches.length === 1) {
+                const dx = e.touches[0].clientX - touchStartPos.x;
+                const dy = e.touches[0].clientY - touchStartPos.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                if (distance > 10) {
+                    isScrolling = true;
+                }
+            }
+        }, { passive: true });
+
         ts.dropdown.addEventListener('touchend', function(e) {
             if (!touchStartPos) return;
-            let touchEndPos = null;
-            if (e.changedTouches && e.changedTouches.length === 1) {
-                touchEndPos = {
-                    x: e.changedTouches[0].clientX,
-                    y: e.changedTouches[0].clientY
-                };
-            }
-            if (touchEndPos) {
-                const dx = touchEndPos.x - touchStartPos.x;
-                const dy = touchEndPos.y - touchStartPos.y;
-                const distance = Math.sqrt(dx * dx + dy * dy);
+            
+            if (!isScrolling) {
+                const option = e.target.closest('.option');
+                const createOpt = e.target.closest('.create');
                 
-                // Ak sa prst pohol o menej ako 10px, ide o kliknutie/ťuknutie
-                if (distance < 10) {
-                    const option = e.target.closest('.option');
-                    const createOpt = e.target.closest('.create');
-                    
-                    if (option) {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        const value = option.getAttribute('data-value');
-                        if (value) {
-                            ts.setValue(value);
-                            ts.blur();
+                if (option) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const value = option.getAttribute('data-value');
+                    if (value) {
+                        touchSelected = true;
+                        if (touchSelectedTimeout) clearTimeout(touchSelectedTimeout);
+                        touchSelectedTimeout = setTimeout(() => { touchSelected = false; }, 500);
+                        
+                        ts.setValue(value);
+                        ts.blur();
+                    }
+                } else if (createOpt) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const newVal = ts.control_input.value.trim();
+                    if (newVal) {
+                        touchSelected = true;
+                        if (touchSelectedTimeout) clearTimeout(touchSelectedTimeout);
+                        touchSelectedTimeout = setTimeout(() => { touchSelected = false; }, 500);
+
+                        if (!ts.options[newVal]) {
+                            ts.addOption({ value: newVal, text: newVal });
                         }
-                    } else if (createOpt) {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        const newVal = ts.control_input.value.trim();
-                        if (newVal) {
-                            if (!ts.options[newVal]) {
-                                ts.addOption({ value: newVal, text: newVal });
-                            }
-                            ts.setValue(newVal);
-                            ts.blur();
-                        }
+                        ts.setValue(newVal);
+                        ts.blur();
                     }
                 }
             }
             touchStartPos = null;
         }, { passive: false });
+
+        // Odchytávame eventy v capturing fáze pred tým, než ich spracuje Tom Select
+        const blockEvent = function(e) {
+            if (isScrolling || touchSelected) {
+                e.preventDefault();
+                e.stopPropagation();
+                e.stopImmediatePropagation();
+            }
+        };
+
+        ts.dropdown.addEventListener('mousedown', blockEvent, { capture: true });
+        ts.dropdown.addEventListener('click', blockEvent, { capture: true });
+        ts.dropdown.addEventListener('pointerdown', blockEvent, { capture: true });
 
         // Ak je to mobil, nastav vstup na readOnly pre výber (potlačí klávesnicu)
         if (window.innerWidth <= 768) {
