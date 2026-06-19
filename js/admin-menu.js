@@ -227,6 +227,22 @@ document.addEventListener('DOMContentLoaded', function() {
                 return true;
             },
             selectOnTab: true,
+            score: function(search) {
+                if (originalValueBeforeEdit && search === originalValueBeforeEdit) {
+                    return function(item) {
+                        return 1;
+                    };
+                }
+                const query = search.toLowerCase().trim();
+                if (!query) {
+                    return function(item) {
+                        return 1;
+                    };
+                }
+                return function(item) {
+                    return item.text.toLowerCase().includes(query) ? 1 : 0;
+                };
+            },
             render: {
                 option_create: function(data, escape) {
                     return '<div class="create">Pridať jedlo: <strong>' + escape(data.input) + '</strong> do zoznamu...</div>';
@@ -486,27 +502,23 @@ document.addEventListener('DOMContentLoaded', function() {
             clearBtn.addEventListener('click', handleClear);
         }
 
-        // Pridať tlačidlo na úpravu (ceruzku) späť pre manuálny prepis existujúceho textu
-        const editBtn = document.createElement('a');
-        editBtn.className = 'edit-button';
-        editBtn.title = 'Upraviť text';
-        editBtn.innerHTML = '<i class="fas fa-pencil-alt"></i>';
-        ts.control.appendChild(editBtn);
+        // Automatické prepnutie do editačného režimu pri kliknutí na pole / zameraní
+        const enterEditMode = function(e) {
+            if (e && e.target && e.target.closest('.clear-button')) {
+                return;
+            }
+            if (isEditing) return;
 
-        const handleEdit = function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            e.stopImmediatePropagation();
             const val = ts.getValue();
+            originalValueBeforeEdit = val || '';
+            isEditing = true;
+            ts.wrapper.classList.add('is-editing');
+
+            // Povoliť písanie na mobile
+            ts.control_input.readOnly = false;
+            ts.control_input.removeAttribute('inputmode');
+
             if (val) {
-                originalValueBeforeEdit = val; // Store original value to restore on blur
-                isEditing = true;
-                ts.wrapper.classList.add('is-editing');
-
-                // Povoliť písanie na mobile
-                ts.control_input.readOnly = false;
-                ts.control_input.removeAttribute('inputmode');
-
                 // Vymazať ticho vybratú hodnotu bez spustenia autofocus eventov
                 ts.isProgrammaticChange = true;
                 ts.clear(true);
@@ -514,59 +526,37 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 // Predvyplniť vstup pôvodným textom
                 ts.control_input.value = val;
+            }
 
-                // Zamerať vstup synchrónne, aby na mobile vyskočila klávesnica
-                ts.focus();
-                ts.control_input.style.color = '';
-                ts.control_input.style.textShadow = '';
-                ts.control_input.style.caretColor = '';
-                
-                // Presunúť kurzor na koniec textu
+            // Zobraziť vstupný text a kurzor
+            ts.control_input.style.color = '';
+            ts.control_input.style.textShadow = '';
+            ts.control_input.style.caretColor = '';
+
+            // Zamerať vstup synchrónne
+            ts.focus();
+
+            // Presunúť kurzor na koniec textu
+            setTimeout(() => {
                 const len = ts.control_input.value.length;
                 ts.control_input.setSelectionRange(len, len);
+            }, 10);
 
-                // Scroll do horného okraja, aby klávesnica neprekrývala vstup
-                setTimeout(() => {
-                    ts.wrapper.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }, 80);
-            }
-        };
-
-        editBtn.addEventListener('mousedown', handleEdit);
-        editBtn.addEventListener('touchstart', handleEdit);
-        editBtn.addEventListener('click', handleEdit);
-
-        // Automatické prepnutie do režimu vyhľadávania pri kliknutí na pole / zameraní (zobrazí všetky ponuky)
-        const enterSearchMode = function(e) {
-            if (e && e.target && e.target.closest('.clear-button')) {
-                return;
-            }
-            if (e && e.target && e.target.closest('.edit-button')) {
-                return;
-            }
-            
-            // Povoliť písanie (vyhľadávanie) na mobile
-            ts.control_input.readOnly = false;
-            ts.control_input.removeAttribute('inputmode');
-
-            // Zamerať vstup a otvoriť dropdown so všetkými možnosťami
-            ts.focus();
-            
-            // Scroll do horného okraja
+            // Scroll do horného okraja, aby klávesnica neprekrývala vstup
             setTimeout(() => {
                 ts.wrapper.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }, 80);
         };
 
-        // Zaregistrovať spustenie editačného/vyhľadávacieho režimu na kliknutie do celého elementu alebo zameranie
+        // Zaregistrovať spustenie editačného režimu na kliknutie do celého elementu alebo zameranie
         ts.control.addEventListener('mousedown', function(e) {
-            if (e.target.tagName !== 'INPUT' && !e.target.closest('.clear-button') && !e.target.closest('.edit-button')) {
+            if (e.target.tagName !== 'INPUT' && !e.target.closest('.clear-button')) {
                 e.preventDefault();
-                enterSearchMode(e);
+                enterEditMode(e);
             }
         });
         ts.control_input.addEventListener('focus', function(e) {
-            enterSearchMode(e);
+            enterEditMode(e);
         });
 
         tomSelectInstances[id] = ts;

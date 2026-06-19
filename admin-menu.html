@@ -75,35 +75,26 @@
         
         /* Edit button styles for Tom Select */
         .ts-wrapper .ts-control {
-            padding-right: 50px !important; /* Make room for both buttons */
+            padding-right: 36px !important; /* Make room for clear button */
         }
         .ts-wrapper .clear-button {
             right: 8px !important;
         }
-        .ts-wrapper .edit-button {
-            position: absolute;
-            right: 28px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #6c757d;
-            font-size: 13px;
-            text-decoration: none;
-            cursor: pointer;
-            z-index: 10;
-        }
-        .ts-wrapper .edit-button:hover {
-            color: var(--primary) !important;
-        }
-        .ts-wrapper:not(.has-items) .edit-button {
-            display: none !important;
+        /* Vynútiť viditeľnosť krížika (vymazania) v editačnom režime */
+        .ts-wrapper.is-editing .clear-button {
+            opacity: 1 !important;
+            visibility: visible !important;
+            display: block !important;
         }
 
         /* Mobilná navigácia a Bottom Sheet */
         @media (max-width: 768px) {
-            /* Vynútiť viditeľnosť krížika (vymazania) na mobile ak má pole hodnotu */
-            .ts-wrapper.has-items .clear-button {
+            /* Vynútiť viditeľnosť krížika (vymazania) na mobile */
+            .ts-wrapper.has-items .clear-button,
+            .ts-wrapper.is-editing .clear-button {
                 opacity: 1 !important;
                 visibility: visible !important;
+                display: block !important;
             }
             /* Zabrániť automatickému priblíženiu (auto-zoom) na mobiloch vynútením aspoň 16px písma */
             input, textarea, select, .ts-wrapper .ts-control, .ts-wrapper .ts-control input {
@@ -399,7 +390,7 @@ pondelok šošovicová/kurací vývar
     <script src="js/google-sheets-config.js"></script>
     
     <!-- Admin Menu Script -->
-    <script src="js/admin-menu.js?v=1.1.4"></script>
+    <script src="js/admin-menu.js?v=1.1.5"></script>
     
     <!-- Tom Select JS -->
     <script src="https://cdn.jsdelivr.net/npm/tom-select@2.4.3/dist/js/tom-select.complete.min.js"></script>
