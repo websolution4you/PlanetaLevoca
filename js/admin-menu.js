@@ -412,9 +412,10 @@ document.addEventListener('DOMContentLoaded', function() {
         editBtn.innerHTML = '<i class="fas fa-pencil-alt"></i>';
         ts.control.appendChild(editBtn);
 
-        editBtn.addEventListener('mousedown', function(e) {
+        const handleEdit = function(e) {
             e.preventDefault();
             e.stopPropagation();
+            e.stopImmediatePropagation();
             const val = ts.getValue();
             if (val) {
                 originalValueBeforeEdit = val; // Store original value to restore on blur
@@ -448,7 +449,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     ts.wrapper.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }, 80);
             }
-        });
+        };
+
+        editBtn.addEventListener('mousedown', handleEdit);
+        editBtn.addEventListener('touchstart', handleEdit);
+        editBtn.addEventListener('click', handleEdit);
 
         tomSelectInstances[id] = ts;
     }
@@ -791,12 +796,16 @@ document.addEventListener('DOMContentLoaded', function() {
                     document.querySelector('#menuForm button[type="submit"]')?.click();
                 });
 
-                // Nastavenie kliknutia na mobilný overlay na zatvorenie našepkávačov
-                document.getElementById('tsBackdrop')?.addEventListener('click', function() {
-                    Object.values(tomSelectInstances).forEach(ts => {
-                        ts.close();
-                    });
-                });
+                // Nastavenie kliknutia mimo našepkávačov na ich zatvorenie (vyrieši problém s double-tap na iné polia na mobiloch)
+                const handleOutsideClick = function(e) {
+                    if (!e.target.closest('.ts-wrapper')) {
+                        Object.values(tomSelectInstances).forEach(ts => {
+                            ts.close();
+                        });
+                    }
+                };
+                document.addEventListener('click', handleOutsideClick);
+                document.addEventListener('touchstart', handleOutsideClick, { passive: true });
             })
             .catch(error => {
                 console.error('Chyba pri načítaní menu:', error);
