@@ -112,25 +112,6 @@
             body, html {
                 overflow-x: hidden;
             }
-            /* Keď sa edituje text (is-editing), dropdown sa zobrazí ako bežný zoznam pod políčkom namiesto bottom sheetu */
-            .ts-wrapper.is-editing .ts-dropdown {
-                position: absolute !important;
-                top: 100% !important;
-                bottom: auto !important;
-                left: 0 !important;
-                right: 0 !important;
-                width: 100% !important;
-                max-height: 200px !important;
-                border-radius: 0 0 10px 10px !important;
-                transform: none !important;
-                box-shadow: 0 5px 15px rgba(0,0,0,0.15) !important;
-                padding: 5px 0 !important;
-                background: #fff !important;
-                z-index: 1000 !important;
-            }
-            .ts-wrapper.is-editing .ts-dropdown::before {
-                display: none !important; /* Skryť úchytku bottom sheetu */
-            }
             .navbar {
                 padding: 10px 15px !important;
             }
@@ -210,34 +191,28 @@
                 transform: scale(0.9);
             }
 
-            /* Tom Select Bottom Sheet pre mobil */
+            /* Tom Select Dropdown pre mobil - vždy zobrazený ako bežný zoznam pod políčkom */
             .ts-dropdown {
-                position: fixed !important;
-                bottom: 0 !important;
+                position: absolute !important;
+                top: 100% !important;
+                bottom: auto !important;
                 left: 0 !important;
                 right: 0 !important;
-                top: auto !important;
                 width: 100% !important;
-                max-height: 55vh !important;
-                border-radius: 20px 20px 0 0 !important;
-                border: none !important;
-                box-shadow: 0 -10px 30px rgba(0,0,0,0.25) !important;
-                z-index: 9999 !important;
-                transform: translateY(100%) !important;
-                transition: transform 0.3s cubic-bezier(0.1, 0.76, 0.55, 0.94) !important;
+                max-height: 200px !important;
+                border-radius: 0 0 10px 10px !important;
+                transform: none !important;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.15) !important;
                 background: #fff !important;
-                padding: 15px 10px 30px 10px !important;
+                padding: 5px 0 !important;
                 overflow-y: auto !important;
-            }
-            
-            /* Zobraziť vysúvací panel, keď sa otvorí dropdown */
-            .ts-wrapper.dropdown-active .ts-dropdown {
-                transform: translateY(0) !important;
+                z-index: 1000 !important;
+                border: 1px solid #ced4da !important;
             }
             
             /* Väčšie riadky v našepkávači na mobile, aby sa dalo dobre klikať prstom */
             .ts-dropdown .option, .ts-dropdown .create {
-                padding: 14px 16px !important;
+                padding: 12px 16px !important;
                 font-size: 15px !important;
                 border-bottom: 1px solid #f1f1f1;
             }
@@ -245,35 +220,11 @@
                 background-color: rgba(255, 158, 13, 0.1) !important;
                 color: var(--primary) !important;
             }
-            
-            /* Pridať peknú úchytku (handle) navrchu bottom sheetu */
-            .ts-dropdown::before {
-                content: '';
-                display: block;
-                width: 40px;
-                height: 4px;
-                background: #ccc;
-                border-radius: 2px;
-                margin: -5px auto 15px auto;
-            }
         }
         
-        /* Backdrop overlay pre mobilné dropdowny */
+        /* Skryť overlay clonu, ktorá už nie je potrebná */
         .ts-backdrop {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0,0,0,0.5);
-            z-index: 9998;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-        }
-        .ts-backdrop.active {
-            opacity: 1;
-            pointer-events: none;
+            display: none !important;
         }
     </style>
 </head>
@@ -448,7 +399,7 @@ pondelok šošovicová/kurací vývar
     <script src="js/google-sheets-config.js"></script>
     
     <!-- Admin Menu Script -->
-    <script src="js/admin-menu.js?v=1.0.9"></script>
+    <script src="js/admin-menu.js?v=1.1.0"></script>
     
     <!-- Tom Select JS -->
     <script src="https://cdn.jsdelivr.net/npm/tom-select@2.4.3/dist/js/tom-select.complete.min.js"></script>

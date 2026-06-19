@@ -333,12 +333,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 }, 150);
             },
             onDropdownOpen: function() {
-                if (window.innerWidth <= 768 && !isEditing) {
-                    document.getElementById('tsBackdrop')?.classList.add('active');
-                }
+                const self = this;
+                setTimeout(() => {
+                    self.wrapper.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 80);
             },
             onDropdownClose: function() {
-                document.getElementById('tsBackdrop')?.classList.remove('active');
+                // No backdrop needed anymore
             }
         });
 
