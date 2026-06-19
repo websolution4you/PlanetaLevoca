@@ -834,6 +834,16 @@
     <!-- Menu Item Modal Script -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Automatické odscrolovanie na začiatok menu na mobilných zariadeniach
+            if (window.innerWidth <= 768) {
+                setTimeout(() => {
+                    const sectionTitle = document.querySelector('.section-title');
+                    if (sectionTitle) {
+                        sectionTitle.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                }, 400);
+            }
+
             // Pridať CSS pre hover efekt
             const style = document.createElement('style');
             style.textContent = `

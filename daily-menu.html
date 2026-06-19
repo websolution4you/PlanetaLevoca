@@ -124,7 +124,7 @@
                 <div class="text-center">
                     <!-- Admin Button (shown when logged in) -->
                     <div id="adminButtonContainer" style="display: none;">
-                        <a href="admin-menu.html" class="btn btn-outline-primary btn-sm d-block mx-auto mb-2" style="max-width: 200px;">
+                        <a href="admin-menu.html" onclick="window.location.href='admin-menu.html'; return false;" class="btn btn-outline-primary btn-sm d-block mx-auto mb-2" style="max-width: 200px;">
                             <i class="fa fa-edit me-1"></i>Upraviť Menu (Admin)
                         </a>
                         <button class="btn btn-outline-secondary btn-sm d-block mx-auto" onclick="logout()" style="max-width: 200px;">
@@ -247,7 +247,7 @@
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
     <!-- Daily Menu Loader -->
-    <script src="js/daily-menu.js?v=1.0.2"></script>
+    <script src="js/daily-menu.js?v=1.0.3"></script>
     <!-- Auth -->
     <script src="js/auth.js"></script>
 </body>

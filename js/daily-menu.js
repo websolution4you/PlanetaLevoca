@@ -258,6 +258,16 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Automaticky zobraziť aktuálny deň po načítaní
             switchView('today');
+
+            // Automatické odscrolovanie na začiatok menu na mobilných zariadeniach
+            if (window.innerWidth <= 768) {
+                setTimeout(() => {
+                    const sectionTitle = document.querySelector('.section-title');
+                    if (sectionTitle) {
+                        sectionTitle.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                }, 400);
+            }
         })
         .catch(error => {
             console.error('Chyba pri načítaní denného menu:', error);
