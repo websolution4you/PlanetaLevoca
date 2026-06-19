@@ -350,31 +350,59 @@ document.addEventListener('DOMContentLoaded', function() {
             ts.setValue(currentVal, true);
         }
 
-        // Rýchly výber pre dotykové zariadenia (rieši nutnosť dvojitého ťuknutia na možnosť v zozname)
+        // Rýchly výber pre dotykové zariadenia (rieši nutnosť dvojitého ťuknutia na možnosť v zozname a umožňuje scrolovanie)
+        let touchStartPos = null;
         ts.dropdown.addEventListener('touchstart', function(e) {
-            const option = e.target.closest('.option');
-            const createOpt = e.target.closest('.create');
-            
-            if (option) {
-                e.preventDefault();
-                e.stopPropagation();
-                const value = option.getAttribute('data-value');
-                if (value) {
-                    ts.setValue(value);
-                    ts.blur();
-                }
-            } else if (createOpt) {
-                e.preventDefault();
-                e.stopPropagation();
-                const newVal = ts.control_input.value.trim();
-                if (newVal) {
-                    if (!ts.options[newVal]) {
-                        ts.addOption({ value: newVal, text: newVal });
+            if (e.touches && e.touches.length === 1) {
+                touchStartPos = {
+                    x: e.touches[0].clientX,
+                    y: e.touches[0].clientY
+                };
+            }
+        }, { passive: true });
+
+        ts.dropdown.addEventListener('touchend', function(e) {
+            if (!touchStartPos) return;
+            let touchEndPos = null;
+            if (e.changedTouches && e.changedTouches.length === 1) {
+                touchEndPos = {
+                    x: e.changedTouches[0].clientX,
+                    y: e.changedTouches[0].clientY
+                };
+            }
+            if (touchEndPos) {
+                const dx = touchEndPos.x - touchStartPos.x;
+                const dy = touchEndPos.y - touchStartPos.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                
+                // Ak sa prst pohol o menej ako 10px, ide o kliknutie/ťuknutie
+                if (distance < 10) {
+                    const option = e.target.closest('.option');
+                    const createOpt = e.target.closest('.create');
+                    
+                    if (option) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        const value = option.getAttribute('data-value');
+                        if (value) {
+                            ts.setValue(value);
+                            ts.blur();
+                        }
+                    } else if (createOpt) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        const newVal = ts.control_input.value.trim();
+                        if (newVal) {
+                            if (!ts.options[newVal]) {
+                                ts.addOption({ value: newVal, text: newVal });
+                            }
+                            ts.setValue(newVal);
+                            ts.blur();
+                        }
                     }
-                    ts.setValue(newVal);
-                    ts.blur();
                 }
             }
+            touchStartPos = null;
         }, { passive: false });
 
         // Ak je to mobil, nastav vstup na readOnly pre výber (potlačí klávesnicu)
