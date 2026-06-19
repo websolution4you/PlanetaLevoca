@@ -349,6 +349,33 @@ document.addEventListener('DOMContentLoaded', function() {
             ts.setValue(currentVal, true);
         }
 
+        // Rýchly výber pre dotykové zariadenia (rieši nutnosť dvojitého ťuknutia na možnosť v zozname)
+        ts.dropdown.addEventListener('touchstart', function(e) {
+            const option = e.target.closest('.option');
+            const createOpt = e.target.closest('.create');
+            
+            if (option) {
+                e.preventDefault();
+                e.stopPropagation();
+                const value = option.getAttribute('data-value');
+                if (value) {
+                    ts.setValue(value);
+                    ts.blur();
+                }
+            } else if (createOpt) {
+                e.preventDefault();
+                e.stopPropagation();
+                const newVal = ts.control_input.value.trim();
+                if (newVal) {
+                    if (!ts.options[newVal]) {
+                        ts.addOption({ value: newVal, text: newVal });
+                    }
+                    ts.setValue(newVal);
+                    ts.blur();
+                }
+            }
+        }, { passive: false });
+
         // Ak je to mobil, nastav vstup na readOnly pre výber (potlačí klávesnicu)
         if (window.innerWidth <= 768) {
             ts.control_input.readOnly = true;
