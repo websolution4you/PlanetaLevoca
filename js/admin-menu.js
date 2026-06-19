@@ -485,6 +485,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 ts.clear(true);
                 delete ts.isProgrammaticChange;
 
+                // Explicitne vymazať text vo vyhľadávacom poli
+                ts.control_input.value = '';
+
                 // Zamerať vstup synchrónne, aby na mobile vyskočila klávesnica
                 ts.focus();
                 ts.control_input.style.color = '';
