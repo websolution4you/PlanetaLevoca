@@ -318,10 +318,12 @@ window.deletePhoto = async function(index, event) {
 async function handleAddPhoto(e) {
     e.preventDefault();
 
+    const formEl = e.target;
+    const fileChosen = document.getElementById('file-chosen');
     const category = document.getElementById('photoCategory').value;
     const title = document.getElementById('photoTitle').value.trim();
     
-    const submitBtn = e.target.querySelector('button[type="submit"]');
+    const submitBtn = formEl.querySelector('button[type="submit"]');
     const originalBtnText = submitBtn.innerHTML;
     submitBtn.disabled = true;
     submitBtn.innerHTML = '<i class="fa fa-spinner fa-spin me-2"></i>Ukladám...';
@@ -368,7 +370,7 @@ async function handleAddPhoto(e) {
                     filterContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }
                 
-                addPhotoForm.reset();
+                formEl.reset();
                 if (fileChosen) {
                     fileChosen.textContent = 'Nie je vybraný žiadny súbor';
                     fileChosen.classList.remove('text-dark', 'fw-bold');
