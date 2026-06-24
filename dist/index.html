@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="sk">
+
+<head>
+    <meta charset="utf-8">
+    <script>
+        // Nastav base tag len pre GitHub Pages
+        if (window.location.hostname.includes('github.io')) {
+            var base = document.createElement('base');
+            base.href = '/PlanetaLevoca/';
+            document.head.appendChild(base);
+        }
+    </script>
+    <title>Planéta Levoča - Café Restaurant</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Planéta Levoča, reštaurácia Levoča, catering Levoča, denné menu, oslavy Levoča" name="keywords">
+    <meta content="Café Restaurant Planéta Levoča - kvalitná gastronómia v srdci historického mesta Levoča od roku 2005. Catering, organizovanie osláv a eventov." name="description">
+
+    <!-- Favicon -->
+    <link href="./assets/faviconPlaneta-ByX5-iLa.png" rel="icon" type="image/png">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&family=Pacifico&display=swap" rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+
+    <!-- Customized Bootstrap Stylesheet -->
+
+    <!-- Template Stylesheet -->
+  <link rel="stylesheet" crossorigin href="./assets/index-BFxpd4TC.css">
+</head>
+
+<body>
+    <div class="container-xxl bg-white p-0">
+        <!-- Spinner Start -->
+        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+        <!-- Spinner End -->
+
+
+        <!-- Navbar & Hero Start -->
+        <div class="container-xxl position-relative p-0">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4 px-lg-5 py-3 py-lg-0">
+                <a href="index.html" class="navbar-brand p-0">
+                    <h1 class="text-primary m-0"><i class="fa fa-utensils me-3"></i>Planéta Levoča</h1>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                    <span class="fa fa-bars"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <div class="navbar-nav ms-auto py-0 pe-4">
+                        <a href="index.html" class="nav-item nav-link active">Domov</a>
+                        <a href="about.html" class="nav-item nav-link">O nás</a>
+                        <a href="gallery.html" class="nav-item nav-link">Galéria</a>
+                        <a href="menu.html" class="nav-item nav-link">Jedálny lístok</a>
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Catering</a>
+                            <div class="dropdown-menu m-0">
+                                <a href="catering.html" class="dropdown-item">Cateringové služby</a>
+                                <a href="oslavy.html" class="dropdown-item">Miesto pre Vaše oslavy</a>
+                            </div>
+                        </div>
+                        <a href="contact.html" class="nav-item nav-link">Kontakt</a>
+                    </div>
+                    <a href="daily-menu.html" class="btn btn-primary py-2 px-4">Denné Menu</a>
+                </div>
+            </nav>
+
+            <div class="container-xxl py-5 bg-dark hero-header mb-5">
+                <div class="container my-5 py-5">
+                    <div class="row align-items-center g-5">
+                        <div class="col-lg-6 text-center text-lg-start">
+                            <h1 class="display-3 text-white animated slideInLeft">Vítajte v<br>Planéte Levoča</h1>
+                            <p class="text-white animated slideInLeft mb-4 pb-2">Café Restaurant Planéta Levoča - miesto, kde sa spája bohatá história s vynikajúcou gastronómiou. Užite si jedinečný zážitok v srdci historického mesta Levoča. Od roku 2005 prinášame kvalitné jedlá a profesionálne služby.</p>
+                            <a href="https://planeta.3-d.sk/" target="_blank" class="btn btn-primary py-sm-3 px-sm-5 me-3 animated slideInLeft" style="text-shadow: 2px 2px 0px rgba(0,0,0,0.3), 4px 4px 0px rgba(0,0,0,0.2), 6px 6px 0px rgba(0,0,0,0.1); font-weight: bold;">Planéta v 3D</a>
+                        </div>
+                        <div class="col-lg-6 text-center text-lg-end overflow-hidden position-relative">
+                            <img class="img-fluid" src="./assets/hero-C1kqU1A4.png" alt="" style="max-width: 360px; width: 360px; height: 360px;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Navbar & Hero End -->
+
+
+        <!-- About Start -->
+        <div class="container-xxl py-5">
+            <div class="container">
+                <div class="row g-5 align-items-center">
+                    <div class="col-lg-6">
+                        <div class="row g-3">
+                            <div class="col-6 text-start">
+                                <img class="img-fluid rounded w-100 wow zoomIn" data-wow-delay="0.1s" src="./assets/about-1-BRrKLMXc.jpg">
+                            </div>
+                            <div class="col-6 text-start">
+                                <img class="img-fluid rounded w-75 wow zoomIn" data-wow-delay="0.3s" src="./assets/about-2-DihtYXdx.jpg" style="margin-top: 25%;">
+                            </div>
+                            <div class="col-6 text-end">
+                                <img class="img-fluid rounded w-75 wow zoomIn" data-wow-delay="0.5s" src="./assets/about-3-iD2SK0os.jpg">
+                            </div>
+                            <div class="col-6 text-end">
+                                <img class="img-fluid rounded w-100 wow zoomIn" data-wow-delay="0.7s" src="./assets/about-4-lfhFfsPK.jpg">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <h5 class="section-title ff-secondary text-start text-primary fw-normal">O nás</h5>
+                        <h1 class="mb-4">Vitajte v <i class="fa fa-utensils text-primary me-2"></i>Planete Levoča</h1>
+                        <p class="mb-4">Café Restaurant Planéta Levoča bola založená v roku 2005 a odvtedy prináša svojim hosťom nezabudnuteľné gastronomické zážitky. Nachádza sa na Námestí Majstra Pavla v srdci historického centra Levoče.</p>
+                        <p class="mb-4">Naša reštaurácia sa špecializuje na kvalitnú slovenskú a medzinárodnú kuchyňu, cateringové služby a organizovanie osláv a eventov. Ponúkame príjemné prostredie s kapacitou 80 miest a letnými terasami.</p>
+                        <div class="row g-4 mb-4">
+                            <div class="col-sm-6">
+                                <div class="d-flex align-items-center border-start border-5 border-primary px-3">
+                                    <h1 class="flex-shrink-0 display-5 text-primary mb-0" data-toggle="counter-up">20</h1>
+                                    <div class="ps-4">
+                                        <p class="mb-0">Rokov</p>
+                                        <h6 class="text-uppercase mb-0">Skúseností</h6>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="d-flex align-items-center border-start border-5 border-primary px-3">
+                                    <h1 class="flex-shrink-0 display-5 text-primary mb-0" data-toggle="counter-up">80</h1>
+                                    <div class="ps-4">
+                                        <p class="mb-0">Miest</p>
+                                        <h6 class="text-uppercase mb-0">Kapacita</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <a class="btn btn-primary py-3 px-5 mt-2" href="about.html">Viac informácií</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- About End -->
+
+
+        <!-- Service Start -->
+        <div class="container-xxl py-5">
+            <div class="container">
+                <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                    <h5 class="section-title ff-secondary text-center text-primary fw-normal">Naše služby</h5>
+                    <h1 class="mb-5">Čo ponúkame</h1>
+                </div>
+                <div class="row g-4">
+                    <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="service-item rounded pt-3 position-relative overflow-hidden">
+                            <div class="position-absolute top-0 start-0 w-100 h-100 service-bg-image" style="background-image: url('./assets/catering2-DYKKaos5.jpg'); background-size: cover; background-position: center; z-index: 0;"></div>
+                            <div class="p-4 position-relative" style="z-index: 1;">
+                                <i class="fa fa-3x fa-birthday-cake text-primary mb-4"></i>
+                                <h5>Catering & Oslavy</h5>
+                                <p>Profesionálne cateringové služby a organizovanie osláv, svadieb a firemných podujatí</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.3s">
+                        <div class="service-item rounded pt-3 position-relative overflow-hidden">
+                            <div class="position-absolute top-0 start-0 w-100 h-100 service-bg-image" style="background-image: url('./assets/jedlo1-BWnbt3h1.jpg'); background-size: cover; background-position: center; z-index: 0;"></div>
+                            <div class="p-4 position-relative" style="z-index: 1;">
+                                <i class="fa fa-3x fa-utensils text-primary mb-4"></i>
+                                <h5>Kvalitné Jedlá</h5>
+                                <p>Denné menu z čerstvých surovín a široká ponuka slovenskej a medzinárodnej kuchyne</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.5s">
+                        <div class="service-item rounded pt-3 position-relative overflow-hidden">
+                            <div class="position-absolute top-0 start-0 w-100 h-100 service-bg-image" style="background-image: url('./assets/event1-BUN0w9hi.jpg'); background-size: cover; background-position: center; z-index: 0;"></div>
+                            <div class="p-4 position-relative" style="z-index: 1;">
+                                <i class="fa fa-3x fa-calendar-alt text-primary mb-4"></i>
+                                <h5>Organizovanie Eventov</h5>
+                                <p>Kompletná organizácia rôznych podujatí a osláv podľa vašich požiadaviek</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.7s">
+                        <div class="service-item rounded pt-3 position-relative overflow-hidden">
+                            <div class="position-absolute top-0 start-0 w-100 h-100 service-bg-image" style="background-image: url('./assets/suvenir1-C3OZCW_1.jpg'); background-size: cover; background-position: center; z-index: 0;"></div>
+                            <div class="p-4 position-relative" style="z-index: 1;">
+                                <i class="fa fa-3x fa-gift text-primary mb-4"></i>
+                                <h5>Suveníry</h5>
+                                <p>Predaj suvenírov spojených s Levočou - pamiatka na návštevu nášho krásneho mesta</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Service End -->
+
+
+        <!-- Testimonial Start -->
+        <div id="testimonial" class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
+            <div class="container">
+                <div class="text-center">
+                    <h5 class="section-title ff-secondary text-center text-primary fw-normal">Recenzie</h5>
+                    <h1 class="mb-5">Čo hovoria naši hostia</h1>
+                    <p class="mb-5">Planéta Levoča je na trhu už od roku 2005 a získala množstvo pozitívnych recenzií od našich spokojných hostí. Pozrite si, čo o nás hovoria na Google.</p>
+                </div>
+                <div class="owl-carousel testimonial-carousel">
+                    <div class="testimonial-item bg-transparent border rounded p-4">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="text-warning">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </div>
+                        </div>
+                        <i class="fa fa-quote-left fa-2x text-primary mb-3"></i>
+                        <p>Výborná reštaurácia v srdci Levoče! Jedlo bolo chutné, obsluha príjemná a ceny rozumné. Určite sa vrátime. Odporúčam denné menu - skvelá hodnota za peniaze.</p>
+                        <div class="d-flex align-items-center">
+                            <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                                <span class="text-white fw-bold">MK</span>
+                            </div>
+                            <div class="ps-3">
+                                <h5 class="mb-1">Mária K.</h5>
+                                <small><i class="fab fa-google me-1"></i>Google Recenzia</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-item bg-transparent border rounded p-4">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="text-warning">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </div>
+                        </div>
+                        <i class="fa fa-quote-left fa-2x text-primary mb-3"></i>
+                        <p>Organizovali sme tu firemnú oslavu a bolo to perfektné! Profesionálny prístup, výborné jedlo a krásne prostredie. Všetci boli nadšení. Ďakujeme za skvelý zážitok!</p>
+                        <div class="d-flex align-items-center">
+                            <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                                <span class="text-white fw-bold">JP</span>
+                            </div>
+                            <div class="ps-3">
+                                <h5 class="mb-1">Ján P.</h5>
+                                <small><i class="fab fa-google me-1"></i>Google Recenzia</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-item bg-transparent border rounded p-4">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="text-warning">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </div>
+                        </div>
+                        <i class="fa fa-quote-left fa-2x text-primary mb-3"></i>
+                        <p>Navštívili sme Levoču a táto reštaurácia bola skvelý nález. Autentická slovenská kuchyňa, príjemná atmosféra a skvelá poloha na námestí. Určite odporúčam!</p>
+                        <div class="d-flex align-items-center">
+                            <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                                <span class="text-white fw-bold">AS</span>
+                            </div>
+                            <div class="ps-3">
+                                <h5 class="mb-1">Anna S.</h5>
+                                <small><i class="fab fa-google me-1"></i>Google Recenzia</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-item bg-transparent border rounded p-4">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="text-warning">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </div>
+                        </div>
+                        <i class="fa fa-quote-left fa-2x text-primary mb-3"></i>
+                        <p>Skvelá reštaurácia s dlhou históriou. Jedlo je vždy čerstvé a chutné, obsluha je milá a ochotná. Letná terasa je perfektná na relax. Jedna z najlepších reštaurácií v Levoči!</p>
+                        <div class="d-flex align-items-center">
+                            <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                                <span class="text-white fw-bold">PT</span>
+                            </div>
+                            <div class="ps-3">
+                                <h5 class="mb-1">Peter T.</h5>
+                                <small><i class="fab fa-google me-1"></i>Google Recenzia</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-item bg-transparent border rounded p-4">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="text-warning">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </div>
+                        </div>
+                        <i class="fa fa-quote-left fa-2x text-primary mb-3"></i>
+                        <p>Catering služby na našej svadbe boli vynikajúce! Všetko bolo perfektne zorganizované, jedlo bolo výborné a hostia boli nadšení. Profesionálny prístup od začiatku do konca.</p>
+                        <div class="d-flex align-items-center">
+                            <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                                <span class="text-white fw-bold">LM</span>
+                            </div>
+                            <div class="ps-3">
+                                <h5 class="mb-1">Lucia M.</h5>
+                                <small><i class="fab fa-google me-1"></i>Google Recenzia</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center mt-5">
+                    <a href="https://www.google.com/maps/place/Planéta+Levoča" target="_blank" class="btn btn-primary py-3 px-5">
+                        <i class="fab fa-google me-2"></i>Pozrieť všetky recenzie na Google
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-- Testimonial End -->
+
+
+        <!-- Gallery Start -->
+        <div class="container-xxl py-5">
+            <div class="container">
+                <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                    <h5 class="section-title ff-secondary text-center text-primary fw-normal">Galéria</h5>
+                    <h1 class="mb-5">Naša Reštaurácia</h1>
+                    <p class="mb-5">Pozrite si fotografie z našej reštaurácie, jedál, interiéru a podujatí</p>
+                </div>
+                <div class="row g-4">
+                    <!-- Interiér -->
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="position-relative overflow-hidden">
+                            <img class="img-fluid rounded w-100" src="./assets/interier-Bu2pUw1T.jpg" alt="Interiér reštaurácie Planéta Levoča" style="height: 300px; object-fit: cover;">
+                            <div class="position-absolute top-0 start-0 rounded mt-3 ms-3 py-1 px-2 bg-primary text-white">Interiér</div>
+                            <div class="position-absolute bottom-0 start-0 w-100 p-3 bg-dark bg-opacity-50 text-white">
+                                <h6 class="mb-0">Príjemná atmosféra</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Jedlá -->
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.2s">
+                        <div class="position-relative overflow-hidden">
+                            <img class="img-fluid rounded w-100" src="./assets/jedlo2-BUDOwCpg.jpg" alt="Jedlá v Planete Levoča" style="height: 300px; object-fit: cover;">
+                            <div class="position-absolute top-0 start-0 rounded mt-3 ms-3 py-1 px-2 bg-primary text-white">Jedlá</div>
+                            <div class="position-absolute bottom-0 start-0 w-100 p-3 bg-dark bg-opacity-50 text-white">
+                                <h6 class="mb-0">Kvalitné jedlá</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Terasa -->
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                        <div class="position-relative overflow-hidden">
+                            <img class="img-fluid rounded w-100" src="./assets/terasa-BHqqkQdv.jpg" alt="Letná terasa" style="height: 300px; object-fit: cover;">
+                            <div class="position-absolute top-0 start-0 rounded mt-3 ms-3 py-1 px-2 bg-primary text-white">Terasa</div>
+                            <div class="position-absolute bottom-0 start-0 w-100 p-3 bg-dark bg-opacity-50 text-white">
+                                <h6 class="mb-0">Letná terasa</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Oslavy -->
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.4s">
+                        <div class="position-relative overflow-hidden">
+                            <img class="img-fluid rounded w-100" src="./assets/event1-BUN0w9hi.jpg" alt="Organizovanie osláv" style="height: 300px; object-fit: cover;">
+                            <div class="position-absolute top-0 start-0 rounded mt-3 ms-3 py-1 px-2 bg-primary text-white">Oslavy</div>
+                            <div class="position-absolute bottom-0 start-0 w-100 p-3 bg-dark bg-opacity-50 text-white">
+                                <h6 class="mb-0">Organizovanie osláv</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Špeciality -->
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+                        <div class="position-relative overflow-hidden">
+                            <img class="img-fluid rounded w-100" src="./assets/speciality-BRdAxhdV.jpg" alt="Špeciality" style="height: 300px; object-fit: cover;">
+                            <div class="position-absolute top-0 start-0 rounded mt-3 ms-3 py-1 px-2 bg-primary text-white">Špeciality</div>
+                            <div class="position-absolute bottom-0 start-0 w-100 p-3 bg-dark bg-opacity-50 text-white">
+                                <h6 class="mb-0">Naše špeciality</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Atmosféra -->
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.6s">
+                        <div class="position-relative overflow-hidden">
+                            <img class="img-fluid rounded w-100" src="./assets/atmosfera-C4iqXCl_.jpg" alt="Atmosféra reštaurácie" style="height: 300px; object-fit: cover;">
+                            <div class="position-absolute top-0 start-0 rounded mt-3 ms-3 py-1 px-2 bg-primary text-white">Atmosféra</div>
+                            <div class="position-absolute bottom-0 start-0 w-100 p-3 bg-dark bg-opacity-50 text-white">
+                                <h6 class="mb-0">Jedinečná atmosféra</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Historické mesto Levoča -->
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
+                        <div class="position-relative overflow-hidden">
+                            <img class="img-fluid rounded w-100" src="./assets/levoca-DQED_nbR.jpg" alt="Historické mesto Levoča" style="height: 300px; object-fit: cover;">
+                            <div class="position-absolute top-0 start-0 rounded mt-3 ms-3 py-1 px-2 bg-primary text-white">Levoča</div>
+                            <div class="position-absolute bottom-0 start-0 w-100 p-3 bg-dark bg-opacity-50 text-white">
+                                <h6 class="mb-0">Historické mesto</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Denné menu -->
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.8s">
+                        <div class="position-relative overflow-hidden">
+                            <img class="img-fluid rounded w-100" src="./assets/jedlo1-BWnbt3h1.jpg" alt="Denné menu" style="height: 300px; object-fit: cover;">
+                            <div class="position-absolute top-0 start-0 rounded mt-3 ms-3 py-1 px-2 bg-primary text-white">Menu</div>
+                            <div class="position-absolute bottom-0 start-0 w-100 p-3 bg-dark bg-opacity-50 text-white">
+                                <h6 class="mb-0">Denné menu</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Catering -->
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.9s">
+                        <div class="position-relative overflow-hidden">
+                            <img class="img-fluid rounded w-100" src="./assets/catering2-DYKKaos5.jpg" alt="Catering služby" style="height: 300px; object-fit: cover;">
+                            <div class="position-absolute top-0 start-0 rounded mt-3 ms-3 py-1 px-2 bg-primary text-white">Catering</div>
+                            <div class="position-absolute bottom-0 start-0 w-100 p-3 bg-dark bg-opacity-50 text-white">
+                                <h6 class="mb-0">Catering služby</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Námestie Majstra Pavla -->
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="position-relative overflow-hidden">
+                            <img class="img-fluid rounded w-100" src="./assets/namestie-hyOB4LEM.jpg" alt="Námestie Majstra Pavla" style="height: 300px; object-fit: cover;">
+                            <div class="position-absolute top-0 start-0 rounded mt-3 ms-3 py-1 px-2 bg-primary text-white">Námestie</div>
+                            <div class="position-absolute bottom-0 start-0 w-100 p-3 bg-dark bg-opacity-50 text-white">
+                                <h6 class="mb-0">Námestie Majstra Pavla</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Svadby -->
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.2s">
+                        <div class="position-relative overflow-hidden">
+                            <img class="img-fluid rounded w-100" src="./assets/svadby-kAd7g559.jpg" alt="Svadby" style="height: 300px; object-fit: cover;">
+                            <div class="position-absolute top-0 start-0 rounded mt-3 ms-3 py-1 px-2 bg-primary text-white">Svadby</div>
+                            <div class="position-absolute bottom-0 start-0 w-100 p-3 bg-dark bg-opacity-50 text-white">
+                                <h6 class="mb-0">Organizovanie svadieb</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Eventy -->
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                        <div class="position-relative overflow-hidden">
+                            <img class="img-fluid rounded w-100" src="./assets/event2-DK1FbKhQ.jpg" alt="Eventy" style="height: 300px; object-fit: cover;">
+                            <div class="position-absolute top-0 start-0 rounded mt-3 ms-3 py-1 px-2 bg-primary text-white">Eventy</div>
+                            <div class="position-absolute bottom-0 start-0 w-100 p-3 bg-dark bg-opacity-50 text-white">
+                                <h6 class="mb-0">Firemné eventy</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center mt-5">
+                    <a href="gallery.html" class="btn btn-primary py-3 px-5">Pozrieť celú galériu</a>
+                    <p class="text-muted mt-3">Pre viac fotografií nás navštívte na <a href="https://www.facebook.com/PlanetaLevoca" target="_blank" class="text-primary">Facebooku</a></p>
+                </div>
+            </div>
+        </div>
+        <!-- Gallery End -->
+
+
+
+
+
+
+        <!-- Footer Start -->
+        <div class="container-fluid bg-dark text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
+            <div class="container py-5">
+                <div class="row g-5">
+                    <div class="col-lg-3 col-md-6">
+                        <h4 class="section-title ff-secondary text-start text-primary fw-normal mb-4">Reštaurácia</h4>
+                        <a class="btn btn-link" href="about.html">O nás</a>
+                        <a class="btn btn-link" href="contact.html">Kontakt</a>
+                        <a class="btn btn-link" href="#testimonial">Recenzie</a>
+                        <a class="btn btn-link" href="gallery.html">Galéria</a>
+                        <a class="btn btn-link" href="menu.html">Jedálny lístok</a>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <h4 class="section-title ff-secondary text-start text-primary fw-normal mb-4">Kontakt</h4>
+                        <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>Námestie Majstra Pavla 26, 054 01 Levoča</p>
+                        <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>053/451 21 00</p>
+                        <p class="mb-2"><i class="fa fa-envelope me-3"></i>info@planetalevoca.sk</p>
+                        <div class="d-flex pt-2">
+                            <a class="btn btn-outline-light btn-social" href="https://www.facebook.com/PlanetaLevoca" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <h4 class="section-title ff-secondary text-start text-primary fw-normal mb-4">Otváracie hodiny</h4>
+                        <h5 class="text-light fw-normal">1. október - 30. apríl</h5>
+                        <p>Pon-Ne: 8:00 - 18:00</p>
+                        <h5 class="text-light fw-normal">1. máj - 30. september</h5>
+                        <p>Pon-Ne: 7:30 - 18:00</p>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <h4 class="section-title ff-secondary text-start text-primary fw-normal mb-4">Novinky</h4>
+                        <p>Sledujte nás na Facebooku pre aktuálne denné menu a novinky.</p>
+                        <div class="d-flex pt-2">
+                            <a class="btn btn-primary" href="https://www.facebook.com/PlanetaLevoca" target="_blank">
+                                <i class="fab fa-facebook-f me-2"></i>Facebook
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="copyright">
+                    <div class="row">
+                        <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                            &copy; <a class="border-bottom" href="index.html">Planéta Levoča</a>, Všetky práva vyhradené. <small>Design by <a href="https://websolution4you.github.io" target="_blank" class="text-primary">WebSolution4you</a></small>
+                        </div>
+                        <div class="col-md-6 text-center text-md-end">
+                            <div class="footer-menu">
+                                <a href="index.html">Domov</a>
+                                <a href="about.html">O nás</a>
+                                <a href="contact.html">Kontakt</a>
+                                <a href="menu.html">Jedálny lístok</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Footer End -->
+
+
+        <!-- Back to Top -->
+        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+    </div>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/wow/wow.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/counterup/counterup.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="lib/tempusdominus/js/moment.min.js"></script>
+    <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
+    <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="js/main.js"></script>
+    <!-- Google Reviews Loader -->
+    <script src="js/google-reviews.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,23 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Pravidlá pre denné menu
+    match /menu/daily {
+      // Ktokoľvek na internete môže menu čítať
+      allow read: if true;
+      
+      // Iba prihlásený administrátor môže menu upravovať (ukladať)
+      allow write: if request.auth != null;
+    }
+
+    // Pravidlá pre zdieľaný katalóg jedál
+    match /catalog/dishes {
+      // Ktokoľvek môže katalóg čítať (aby fungoval našepkávač na verejnej časti, ak bude treba)
+      allow read: if true;
+      
+      // Iba prihlásený administrátor ho môže meniť
+      allow write: if request.auth != null;
+    }
+  }
+}

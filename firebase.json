@@ -1,0 +1,30 @@
+{
+  "firestore": {
+    "rules": "firestore.rules"
+  },
+  "hosting": {
+    "site": "planetalevoca-info",
+    "public": ".",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**",
+      "src/**",
+      "electron/**",
+      "package.json",
+      "package-lock.json",
+      "vite.config.js",
+      "better-sqlite3/**",
+      "docs/**",
+      "README.md",
+      "READ-ME.txt",
+      "LICENSE.txt",
+      "MERGE_SUMMARY.md",
+      "PR_DESCRIPTION.md",
+      "AI_instructions.md",
+      "temp_index.html",
+      "temp_service.html"
+    ],
+    "cleanUrls": true
+  }
+}

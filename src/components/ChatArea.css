@@ -1,0 +1,46 @@
+.chat-area {
+  flex: 1;
+  overflow: hidden;
+  background: white;
+}
+
+.chat-area.empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.empty-state {
+  color: #999;
+  font-size: 16px;
+}
+
+.message {
+  padding: 16px 20px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.message.user {
+  background: #f9f9f9;
+}
+
+.message.assistant {
+  background: white;
+}
+
+.message-role {
+  font-weight: 600;
+  font-size: 12px;
+  color: #666;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+}
+
+.message-content {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #333;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
