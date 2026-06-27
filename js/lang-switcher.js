@@ -5,10 +5,10 @@
  */
 
 (function () {
-    // --- Vloženie vlajok do navbaru ---
+    // --- Vloženie lišty s vlajkami pod navbar ---
     function injectLangFlags() {
-        const navContent = document.querySelector('.navbar-nav');
-        if (!navContent) return;
+        const navbar = document.querySelector('.container-xxl.position-relative.p-0');
+        if (!navbar) return;
 
         const flags = [
             { code: 'sk', flag: 'sk', label: 'SK' },
@@ -17,22 +17,45 @@
             { code: 'pl', flag: 'pl', label: 'PL' },
         ];
 
-        const wrapper = document.createElement('div');
-        wrapper.className = 'd-flex align-items-center gap-1 ms-2 lang-flags-nav';
-        wrapper.style.cssText = 'border-left: 1px solid rgba(255,255,255,0.2); padding-left: 12px; margin-left: 4px;';
+        const bar = document.createElement('div');
+        bar.id = 'lang-bar';
+        bar.style.cssText = [
+            'position: absolute',
+            'bottom: 16px',
+            'right: 24px',
+            'z-index: 999',
+            'display: flex',
+            'align-items: center',
+            'gap: 6px',
+            'background: rgba(0,0,0,0.45)',
+            'backdrop-filter: blur(4px)',
+            'padding: 5px 10px',
+            'border-radius: 30px',
+        ].join(';');
 
         flags.forEach(f => {
             const btn = document.createElement('button');
-            btn.className = 'btn btn-sm lang-flag-btn p-0';
+            btn.className = 'lang-flag-btn';
             btn.setAttribute('data-lang', f.code);
             btn.title = f.label;
-            btn.style.cssText = 'background:none; border:2px solid transparent; border-radius:4px; padding:2px!important; opacity:0.6; transition:all 0.2s; cursor:pointer;';
-            btn.innerHTML = `<img src="https://flagcdn.com/w40/${f.flag}.png" alt="${f.label}" style="width:24px;height:16px;object-fit:cover;display:block;">`;
+            btn.style.cssText = [
+                'background: none',
+                'border: 2px solid transparent',
+                'border-radius: 5px',
+                'padding: 2px',
+                'opacity: 0.55',
+                'cursor: pointer',
+                'transition: all 0.2s',
+                'display: flex',
+                'align-items: center',
+            ].join(';');
+            btn.innerHTML = `<img src="https://flagcdn.com/w40/${f.flag}.png" alt="${f.label}" style="width:28px;height:19px;object-fit:cover;border-radius:2px;display:block;">`;
             btn.addEventListener('click', () => switchLang(f.code));
-            wrapper.appendChild(btn);
+            bar.appendChild(btn);
         });
 
-        navContent.appendChild(wrapper);
+        // Vlož lištu ako posledný element v hero kontajneri
+        navbar.appendChild(bar);
     }
 
     // --- Aplikovanie prekladov ---
