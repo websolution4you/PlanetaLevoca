@@ -827,16 +827,40 @@
             c.innerHTML = '<div class="tab-class text-center">' + navHtml + contentHtml + '</div>';
         }
 
-        function showLanguage(lang, btn) {
+                function showLanguage(lang, btn) {
             renderMenu(lang);
             document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
+            // Synchronizuj globálny prepínač
+            localStorage.setItem('planeta_lang', lang);
+            document.querySelectorAll('.lang-flag-btn').forEach(b => {
+                const isActive = b.getAttribute('data-lang') === lang;
+                b.style.opacity = isActive ? '1' : '0.5';
+                b.style.borderColor = isActive ? '#FEA116' : 'transparent';
+                b.style.transform = isActive ? 'scale(1.15)' : 'scale(1)';
+            });
             const st = document.querySelector('.section-title');
             if (st) st.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
+        // Hook pre globálny lang-switcher.js
+        function onLangChange(lang) {
+            renderMenu(lang);
+            document.querySelectorAll('.lang-btn').forEach(b => {
+                const isActive = b.getAttribute('onclick') && b.getAttribute('onclick').includes("'" + lang + "'");
+                b.classList.toggle('active', isActive);
+            });
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
-            renderMenu('sk');
+            // Načítaj jazyk z localStorage (synchronizácia s globálnym prepínačom)
+            const savedLang = localStorage.getItem('planeta_lang') || 'sk';
+            renderMenu(savedLang);
+            // Nastav aktívne menu tlačidlo
+            document.querySelectorAll('.lang-btn').forEach(b => {
+                const isActive = b.getAttribute('onclick') && b.getAttribute('onclick').includes("'" + savedLang + "'");
+                b.classList.toggle('active', isActive);
+            });
             const style = document.createElement('style');
             style.textContent = '.tab-content .d-flex.align-items-center{transition:all 0.3s ease;padding:10px;border-radius:8px}.tab-content .d-flex.align-items-center:hover{background-color:#f8f9fa;transform:translateX(5px);box-shadow:0 2px 8px rgba(0,0,0,0.1)}';
             document.head.appendChild(style);
