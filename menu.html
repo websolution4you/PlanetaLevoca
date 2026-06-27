@@ -37,8 +37,13 @@
     <!-- Customized Bootstrap Stylesheet -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Template Stylesheet -->
+        <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
+
+    <style>
+        .lang-btn { min-width: 80px; transition: all 0.3s ease; }
+        .lang-btn.active { background-color: #FEA116; color: white; border-color: #FEA116; }
+    </style>
 </head>
 
 <body>
@@ -89,13 +94,20 @@
         <!-- Navbar & Hero End -->
 
 
-        <!-- Menu Start -->
+                <!-- Menu Start -->
         <div class="container-xxl py-5">
             <div class="container">
                 <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-                    <h5 class="section-title ff-secondary text-center text-primary fw-normal mb-5">Jedálny lístok</h5>
+                    <h5 class="section-title ff-secondary text-center text-primary fw-normal mb-3">Jedálny lístok</h5>
+                    <div class="d-flex justify-content-center mb-5 gap-2 flex-wrap">
+                        <button class="btn btn-outline-primary lang-btn active" onclick="showLanguage('sk', this)"><img src="https://flagcdn.com/w40/sk.png" alt="SK" style="width:20px" class="me-1"> SK</button>
+                        <button class="btn btn-outline-primary lang-btn" onclick="showLanguage('en', this)"><img src="https://flagcdn.com/w40/gb.png" alt="EN" style="width:20px" class="me-1"> EN</button>
+                        <button class="btn btn-outline-primary lang-btn" onclick="showLanguage('de', this)"><img src="https://flagcdn.com/w40/de.png" alt="DE" style="width:20px" class="me-1"> DE</button>
+                        <button class="btn btn-outline-primary lang-btn" onclick="showLanguage('pl', this)"><img src="https://flagcdn.com/w40/pl.png" alt="PL" style="width:20px" class="me-1"> PL</button>
+                    </div>
                 </div>
-                <div class="tab-class text-center wow fadeInUp" data-wow-delay="0.1s">
+                <div id="menu-container" class="wow fadeInUp" data-wow-delay="0.1s"></div>
+                <div class="tab-class text-center d-none" id="menu-static">
                     <ul class="nav nav-pills d-inline-flex justify-content-center border-bottom mb-5">
                         <li class="nav-item">
                             <a class="d-flex align-items-center text-start mx-3 ms-0 pb-3 active" data-bs-toggle="pill" href="#tab-1">
@@ -765,9 +777,68 @@
     <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
     <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
 
-    <!-- Template Javascript -->
+        <!-- Template Javascript -->
     <script src="js/main.js"></script>
-    
+    <script src="js/menu-translations.js"></script>
+    <script>
+        function renderMenu(lang) {
+            const t = menuTranslations[lang];
+            const c = document.getElementById('menu-container');
+            document.querySelector('.section-title').textContent = t.title;
+            const h1 = document.querySelector('.hero-header h1');
+            if (h1) h1.textContent = t.title;
+
+            function ri(item, badge) {
+                if (!item) return '';
+                let b = '';
+                if (badge) {
+                    const isBadge = badge.includes('!');
+                    const cls = isBadge ? 'badge bg-primary ms-1 fw-normal' : 'text-primary';
+                    const sty = isBadge ? 'font-size:0.7rem;vertical-align:middle;color:white' : 'font-size:0.9rem;font-weight:normal';
+                    b = '<span class="' + cls + '" style="' + sty + '">' + badge + '</span>';
+                }
+                return '<div class="col-lg-6"><div class="d-flex align-items-center"><div class="w-100 d-flex flex-column text-start"><h5 class="d-flex justify-content-between border-bottom pb-2"><span>' + item.title + ' ' + b + '</span></h5>' + (item.desc ? '<small class="fst-italic">' + item.desc + '</small>' : '') + '</div></div></div>';
+            }
+
+            const tabs = [
+                { id: 1, icon: 'fa-coffee', items: [ri(t.items.levocske_ranajky,t.badges.regional),ri(t.items.vychodniarske_ranajky),ri(t.items.velke_ranajky),ri(t.items.mussli_ranajky),ri(t.items.planeta_ranajky),ri(t.items.male_ranajky),ri(t.items.omeleta),ri(t.items.parky,t.badges.daily),'<div class="col-12 text-center mt-5"><div class="p-3 bg-light rounded-3 d-inline-block"><p class="mb-0 text-dark fw-bold" style="font-size:0.9rem"><i class="far fa-clock me-2 text-primary"></i>' + t.info.breakfast_time + '</p></div></div>'] },
+                { id: 2, icon: 'fa-bowl-food', items: [ri(t.items.vyvar),ri(t.items.paradajkova),ri(t.items.cesnakova)] },
+                { id: 3, icon: 'fa-utensils', items: [ri(t.items.penne_halloumi),ri(t.items.penne_planeta),ri(t.items.spagety),ri(t.items.spissky_tanier),ri(t.items.syr),ri(t.items.toliare),ri(t.items.medajloniky),ri(t.items.gulas),ri(t.items.kridelka),ri(t.items.steak),ri(t.items.salat_planeta),ri(t.items.salat_sedliacky),ri(t.items.salat_grecky)] },
+                { id: 4, icon: 'fa-birthday-cake', items: [ri(t.items.torta,t.info.vitrina),ri(t.items.torta_slahacka,t.info.vitrina),ri(t.items.zavin_jablko),ri(t.items.zavin_jablko_sl),ri(t.items.zavin_mak),ri(t.items.zavin_mak_sl),ri(t.items.ovocny_salat),ri(t.items.ovocny_salat_sl),ri(t.items.zmrzlina)] },
+                { id: 5, icon: 'fa-glass', items: [ri(t.items.espresso),ri(t.items.doppio),ri(t.items.cappuccino),ri(t.items.latte),ri(t.items.kava_planeta),ri(t.items.caj),ri(t.items.caj_zazvor),ri(t.items.cokolada),ri(t.items.vino),ri(t.items.kofola),ri(t.items.dzus_rauch),ri(t.items.cocacola),ri(t.items.mineralka),ri(t.items.mojito),ri(t.items.colada)] }
+            ];
+            const tabNames = [t.tabs.tab1, t.tabs.tab2, t.tabs.tab3, t.tabs.tab4, t.tabs.tab5];
+
+            let navHtml = '<ul class="nav nav-pills d-inline-flex justify-content-center border-bottom mb-5 flex-wrap">';
+            tabs.forEach((tab, i) => {
+                navHtml += '<li class="nav-item"><a class="d-flex align-items-center text-start mx-3 pb-3' + (i === 0 ? ' ms-0 active' : '') + '" data-bs-toggle="pill" href="#tab-' + tab.id + '"><i class="fa ' + tab.icon + ' fa-2x text-primary"></i><div class="ps-3"><small class="text-body">' + tabNames[i].subtitle + '</small><h6 class="mt-n1 mb-0">' + tabNames[i].title + '</h6></div></a></li>';
+            });
+            navHtml += '</ul>';
+
+            let contentHtml = '<div class="tab-content">';
+            tabs.forEach((tab, i) => {
+                contentHtml += '<div id="tab-' + tab.id + '" class="tab-pane fade p-0' + (i === 0 ? ' show active' : '') + '"><div class="row g-4">' + tab.items.join('') + '</div></div>';
+            });
+            contentHtml += '</div>';
+
+            c.innerHTML = '<div class="tab-class text-center">' + navHtml + contentHtml + '</div>';
+        }
+
+        function showLanguage(lang, btn) {
+            renderMenu(lang);
+            document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            const st = document.querySelector('.section-title');
+            if (st) st.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            renderMenu('sk');
+            const style = document.createElement('style');
+            style.textContent = '.tab-content .d-flex.align-items-center{transition:all 0.3s ease;padding:10px;border-radius:8px}.tab-content .d-flex.align-items-center:hover{background-color:#f8f9fa;transform:translateX(5px);box-shadow:0 2px 8px rgba(0,0,0,0.1)}';
+            document.head.appendChild(style);
+        });
+    </script>
     <!-- Menu Item Modal Script -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
