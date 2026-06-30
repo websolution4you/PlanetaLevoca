@@ -1,11 +1,11 @@
-// Pomocný skript na nájdenie Place ID pre Planeta Levoča
+// Pomocný skript na nájdenie Place ID pre Planéta Levoča
 // Spustite tento kód v konzole prehliadača (F12) na stránke s Google Maps API
 
 const API_KEY = 'AIzaSyAFrSBwbwPvnYBL-Q2GqU0UkxkJaeM_Z54';
 
 // Funkcia na nájdenie Place ID podľa názvu a adresy
 async function findPlaceId() {
-    const query = 'Planeta Levoča, Námestie Majstra Pavla 26, Levoča';
+    const query = 'Planéta Levoča, Námestie Majstra Pavla 26, Levoča';
     
     try {
         const response = await fetch(

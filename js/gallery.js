@@ -1,4 +1,4 @@
-// Planeta Levoca - Gallery Management Script
+// Planéta Levoča - Gallery Management Script
 const DEFAULT_PHOTOS = [
     { src: 'img/interier.jpg', category: 'interior', title: 'Príjemná atmosféra v interiéri' },
     { src: 'img/jedlo2.jpg', category: 'food', title: 'Kvalitné jedlá z čerstvých surovín' },

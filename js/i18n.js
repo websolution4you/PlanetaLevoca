@@ -40,7 +40,7 @@ const siteTranslations = {
 
         // Index - About section
         about_label: 'O nás',
-        about_title: 'Vitajte v Planete Levoča',
+        about_title: 'Vitajte v Planéte Levoča',
         about_p1: 'Café Restaurant Planéta Levoča bola založená v roku 2005 a odvtedy prináša svojim hosťom nezabudnuteľné gastronomické zážitky. Nachádza sa na Námestí Majstra Pavla v srdci historického centra Levoče.',
         about_p2: 'Naša reštaurácia sa špecializuje na kvalitnú slovenskú a medzinárodnú kuchyňu, cateringové služby a organizovanie osláv a eventov. Ponúkame príjemné prostredie s kapacitou 80 miest a letnými terasami.',
         about_years_label: 'Rokov',
