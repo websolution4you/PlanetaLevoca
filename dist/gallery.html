@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="sk">
+
+<head>
+    <meta charset="utf-8">
+    <title>Galéria - Planéta Levoča</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="galéria Planéta Levoča, fotografie reštaurácie Levoča" name="keywords">
+    <meta content="Galéria fotografií z Café Restaurant Planéta Levoča - interiér, jedlá, terasa, oslavy a eventy." name="description">
+
+    <!-- Favicon -->
+    <link href="./assets/faviconPlaneta-ByX5-iLa.png" rel="icon" type="image/png">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&family=Pacifico&display=swap" rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+
+
+
+
+    <!-- Customized Bootstrap Stylesheet -->
+
+
+    <!-- Template Stylesheet -->
+
+  <link rel="stylesheet" crossorigin href="./assets/style-3jle0xKq.css">
+  <link rel="stylesheet" crossorigin href="./assets/tempusdominus-bootstrap-4-C-wP_6sh.css">
+</head>
+
+<body>
+    <div class="container-xxl bg-white p-0">
+        <!-- Spinner Start -->
+        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+        <!-- Spinner End -->
+
+
+        <!-- Navbar & Hero Start -->
+        <div class="container-xxl position-relative p-0">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4 px-lg-5 py-3 py-lg-0">
+                <a href="index.html" class="navbar-brand p-0">
+                    <h1 class="text-primary m-0"><i class="fa fa-utensils me-3"></i>Planéta Levoča</h1>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                    <span class="fa fa-bars"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <div class="navbar-nav ms-auto py-0 pe-4">
+                        <a href="index.html" class="nav-item nav-link" data-i18n="nav_home">Domov</a>
+                        <a href="about.html" class="nav-item nav-link" data-i18n="nav_about">O n&#225;s</a>
+                        <a href="gallery.html" class="nav-item nav-link active" data-i18n="nav_gallery">Gal&#233;ria</a>
+                        <a href="menu.html" class="nav-item nav-link" data-i18n="nav_menu">Jed&#225;lny l&#237;stok</a>
+                        <a href="daily-menu.html" class="nav-item nav-link" data-show-lang="sk" data-i18n="nav_daily">Denn&#233; menu</a>
+                        <a href="https://planeta.3-d.sk/" target="_blank" class="nav-item nav-link">3D</a>
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Catering</a>
+                            <div class="dropdown-menu m-0">
+                                <a href="catering.html" class="dropdown-item" data-i18n="nav_catering_services">Cateringov&#233; slu&#382;by</a>
+                                <a href="oslavy.html" class="dropdown-item" data-i18n="nav_catering_events">Miesto pre Va&#353;e oslavy</a>
+                            </div>
+                        </div>
+                        <a href="contact.html" class="nav-item nav-link" data-i18n="nav_contact">Kontakt</a>
+                        <a href="https://www.booking.com/Share-yOz3d9" target="_blank" class="nav-item nav-link" data-i18n="nav_accommodation">Ubytovanie</a>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="container-xxl py-5 bg-dark hero-header mb-5">
+                <div class="container text-center my-5 pt-5 pb-4">
+                    <h1 class="display-3 text-white mb-3 animated slideInDown">Galéria</h1>
+                </div>
+            </div>
+        </div>
+        <!-- Navbar & Hero End -->
+
+
+        <!-- Gallery Start -->
+        <div class="container-xxl py-5">
+            <div class="container">
+                <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                    <h5 class="section-title ff-secondary text-center text-primary fw-normal">Naša Galéria</h5>
+                    <h1 class="mb-5">Fotografie z Planety Levoča</h1>
+                    <p class="mb-5">Pozrite si našu bohatú galériu fotografií z reštaurácie, jedál, interiéru, terasy a organizovaných podujatí</p>
+                </div>
+
+                <!-- Filter Buttons -->
+                <div class="text-center mb-5" id="gallery-filter-container">
+                    <button class="btn btn-outline-primary active me-2 mb-2" data-filter="all">Všetko</button>
+                    <button class="btn btn-outline-primary me-2 mb-2" data-filter="interior">Interiér</button>
+                    <button class="btn btn-outline-primary me-2 mb-2" data-filter="food">Jedlá</button>
+                    <button class="btn btn-outline-primary me-2 mb-2" data-filter="terrace">Terasa</button>
+                    <button class="btn btn-outline-primary me-2 mb-2" data-filter="events">Oslavy & Eventy</button>
+                    <button class="btn btn-outline-primary me-2 mb-2" data-filter="levoca">Levoča</button>
+                </div>
+
+                <div class="row g-4" id="gallery-container">
+                    <!-- Načíta sa dynamicky cez JS -->
+                </div>
+
+                <div class="text-center mt-5">
+                    <p class="text-muted mb-3">Pre viac fotografií nás navštívte na Facebooku:</p>
+                    <a href="https://www.facebook.com/PlanetaLevoca" target="_blank" class="btn btn-primary mb-2">
+                        <i class="fab fa-facebook-f me-2"></i>Facebook Galéria
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-- Gallery End -->
+
+        <!-- Admin Link Start -->
+        <div class="container-xxl py-1">
+            <div class="container">
+                <div class="text-center">
+                    <!-- Admin Container (shown when logged in) -->
+                    <div id="adminButtonContainer" style="display: none;">
+                        <h4 class="mb-3 text-primary"><i class="fa fa-cog me-2"></i>Správa Galérie</h4>
+                        
+                        <!-- Form to Add Photo -->
+                        <div class="card mb-4 mx-auto" style="max-width: 600px; text-align: left;">
+                            <div class="card-header bg-primary text-white">
+                                <h5 class="mb-0 text-white"><i class="fa fa-plus me-2"></i>Pridať fotku do galérie</h5>
+                            </div>
+                            <div class="card-body">
+                                <form id="addPhotoForm">
+                                    <div class="mb-3">
+                                        <label class="form-label fw-bold">Vybrať fotku z mobilu/PC:</label>
+                                        <div class="mb-2">
+                                            <input type="file" id="photoFile" accept="image/*" required style="display: none;">
+                                            <button type="button" class="btn btn-outline-primary" onclick="document.getElementById('photoFile').click()">
+                                                <i class="fa fa-image me-1"></i>Vybrať súbor
+                                            </button>
+                                            <div id="file-chosen" class="text-muted small mt-1">Nie je vybraný žiadny súbor</div>
+                                        </div>
+                                        <small class="text-muted d-block">Fotka bude automaticky zmenšená pre rýchle načítanie stránky.</small>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="photoCategory" class="form-label">Sekcia (Kategória):</label>
+                                        <select class="form-select" id="photoCategory" required>
+                                            <option value="interior">Interiér</option>
+                                            <option value="food">Jedlá</option>
+                                            <option value="terrace">Terasa</option>
+                                            <option value="events">Oslavy & Eventy</option>
+                                            <option value="levoca">Levoča</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="photoTitle" class="form-label">Popis (Názov fotky):</label>
+                                        <input type="text" class="form-control" id="photoTitle" placeholder="napr. Výborný hovädzí steak" required>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary w-100">Pridať fotku</button>
+                                </form>
+                            </div>
+                        </div>
+                        
+                        <button class="btn btn-outline-secondary btn-sm d-block mx-auto mb-5" onclick="logout()" style="max-width: 200px;">
+                            <i class="fa fa-sign-out-alt me-1"></i>Odhlásiť sa
+                        </button>
+                    </div>
+                    
+                    <!-- Login Form (shown when not logged in) -->
+                    <div id="loginFormContainer" style="margin-top: 100px; margin-bottom: 50px;">
+                        <p class="mb-1" style="font-size: 0.8rem; color: #666;">Prihlásenie pre administrátora</p>
+                        <form id="loginForm" class="d-inline-block" style="max-width: 250px;">
+                            <div class="mb-1">
+                                <input type="email" class="form-control form-control-sm" id="loginEmail" placeholder="Email" required style="font-size: 0.85rem;">
+                            </div>
+                            <div class="mb-1">
+                                <input type="password" class="form-control form-control-sm" id="loginPassword" placeholder="Heslo" required style="font-size: 0.85rem;">
+                            </div>
+                            <div class="mb-1">
+                                <button type="submit" class="btn btn-link p-0" style="text-decoration: none; font-size: 0.85rem; color: #fea116;">
+                                    Prihlásiť sa
+                                </button>
+                            </div>
+                            <div>
+                                <a href="#" onclick="handlePasswordReset(); return false;" style="text-decoration: none; font-size: 0.75rem; color: #666;">Zabudol som heslo</a>
+                            </div>
+                        </form>
+                        <div id="loginError" class="text-danger mt-1" style="display: none; font-size: 0.8rem;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Admin Link End -->
+
+        <!-- Image Modal -->
+        <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="imageModalLabel"></h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body text-center position-relative p-0 overflow-hidden">
+                        <!-- Navigation Buttons -->
+                        <button type="button" class="btn btn-dark position-absolute top-50 start-0 translate-middle-y ms-2 rounded-circle d-flex align-items-center justify-content-center" id="prevImageBtn" style="width: 45px; height: 45px; opacity: 0.7; z-index: 10; border: none; background-color: rgba(0,0,0,0.6);">
+                            <i class="fa fa-chevron-left text-white" style="font-size: 1.25rem;"></i>
+                        </button>
+                        
+                        <img id="modalImage" src="" alt="" class="img-fluid w-100" style="max-height: 80vh; object-fit: contain;">
+                        
+                        <button type="button" class="btn btn-dark position-absolute top-50 end-0 translate-middle-y me-2 rounded-circle d-flex align-items-center justify-content-center" id="nextImageBtn" style="width: 45px; height: 45px; opacity: 0.7; z-index: 10; border: none; background-color: rgba(0,0,0,0.6);">
+                            <i class="fa fa-chevron-right text-white" style="font-size: 1.25rem;"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Edit Photo Modal -->
+        <div class="modal fade" id="editPhotoModal" tabindex="-1" aria-labelledby="editPhotoModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editPhotoModalLabel"><i class="fa fa-pencil-alt me-2 text-primary"></i>Upraviť fotku</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="editPhotoForm">
+                            <input type="hidden" id="editPhotoIndex">
+                            <div class="mb-3">
+                                <label for="editPhotoCategory" class="form-label fw-bold">Sekcia (Kategória):</label>
+                                <select class="form-select" id="editPhotoCategory" required>
+                                    <option value="interior">Interiér</option>
+                                    <option value="food">Jedlá</option>
+                                    <option value="terrace">Terasa</option>
+                                    <option value="events">Oslavy & Eventy</option>
+                                    <option value="levoca">Levoča</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="editPhotoTitle" class="form-label fw-bold">Popis (Názov fotky):</label>
+                                <input type="text" class="form-control" id="editPhotoTitle" required placeholder="napr. Výborný hovädzí steak">
+                            </div>
+                            <div class="text-center mt-4">
+                                <button type="submit" class="btn btn-primary px-4 me-2">Uložiť zmeny</button>
+                                <button type="button" class="btn btn-outline-secondary px-4" data-bs-dismiss="modal">Zrušiť</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer Start -->
+        <div class="container-fluid bg-dark text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
+            <div class="container py-5">
+                <div class="row g-5">
+                    <div class="col-lg-3 col-md-6">
+                        <h4 class="section-title ff-secondary text-start text-primary fw-normal mb-4">Reštaurácia</h4>
+                        <a class="btn btn-link" href="about.html">O nás</a>
+                        <a class="btn btn-link" href="contact.html">Kontakt</a>
+                        <a class="btn btn-link" href="testimonial.html">Recenzie</a>
+                        <a class="btn btn-link" href="gallery.html">Galéria</a>
+                        <a class="btn btn-link" href="menu.html">Jedálny lístok</a>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <h4 class="section-title ff-secondary text-start text-primary fw-normal mb-4">Kontakt</h4>
+                        <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>Námestie Majstra Pavla 26, 054 01 Levoča</p>
+                        <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>053/451 21 00</p>
+                        <p class="mb-2"><i class="fa fa-envelope me-3"></i>milan1970@centrum.sk</p>
+                        <div class="d-flex pt-2">
+                            <a class="btn btn-outline-light btn-social" href="https://www.facebook.com/PlanetaLevoca" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <h4 class="section-title ff-secondary text-start text-primary fw-normal mb-4">Otváracie hodiny</h4>
+                        <h5 class="text-light fw-normal">1. október - 30. apríl</h5>
+                        <p>Pon-Ne: 8:00 - 18:00</p>
+                        <h5 class="text-light fw-normal">1. máj - 30. september</h5>
+                        <p>Pon-Ne: 7:30 - 18:00</p>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <h4 class="section-title ff-secondary text-start text-primary fw-normal mb-4">Novinky</h4>
+                        <p>Sledujte nás na Facebooku pre aktuálne denné menu a novinky.</p>
+                        <div class="d-flex pt-2">
+                            <a class="btn btn-primary" href="https://www.facebook.com/PlanetaLevoca" target="_blank">
+                                <i class="fab fa-facebook-f me-2"></i>Facebook
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="copyright">
+                    <div class="row">
+                        <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                            &copy; <a class="border-bottom" href="index.html">Planéta Levoča</a>, Všetky práva vyhradené. <small>Design by <a href="https://teliolabs.sk" target="_blank" class="text-primary">TelioLabs.sk</a></small>
+                        </div>
+                        <div class="col-md-6 text-center text-md-end">
+                            <div class="footer-menu">
+                                <a href="index.html">Domov</a>
+                                <a href="about.html">O nás</a>
+                                <a href="contact.html">Kontakt</a>
+                                <a href="menu.html">Jedálny lístok</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Footer End -->
+
+
+        <!-- Back to Top -->
+        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+    </div>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/wow/wow.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/counterup/counterup.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="lib/tempusdominus/js/moment.min.js"></script>
+    <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
+    <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="js/main.js"></script>
+    <!-- i18n -->
+    <script src="js/i18n.js"></script>
+    <script src="js/lang-switcher.js"></script>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    
+    <!-- Firebase Config -->
+    <script src="js/firebase-config.js"></script>
+
+    <!-- Auth Handling -->
+    <script src="js/auth.js"></script>
+
+    <!-- Gallery Script -->
+    <script src="js/gallery.js?v=1.1.5"></script>
+</body>
+
+</html>
+
+
+
+

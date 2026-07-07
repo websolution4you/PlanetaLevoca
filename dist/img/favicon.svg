@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="32" height="32">
+  <!-- Dark background for better visibility -->
+  <rect width="512" height="512" fill="#1F2937" rx="80"/>
+  <!-- Light circle background -->
+  <circle cx="256" cy="256" r="200" fill="#F59E0B"/>
+  <!-- White inner circle -->
+  <circle cx="256" cy="256" r="160" fill="#FFFFFF"/>
+  <!-- Restaurant utensils icon -->
+  <g fill="#F59E0B" stroke="#F59E0B" stroke-width="8" stroke-linecap="round">
+    <!-- Fork (left) -->
+    <line x1="180" y1="180" x2="180" y2="340"/>
+    <line x1="160" y1="180" x2="160" y2="220"/>
+    <line x1="200" y1="180" x2="200" y2="220"/>
+    <line x1="150" y1="180" x2="150" y2="220"/>
+    <line x1="210" y1="180" x2="210" y2="220"/>
+    <!-- Knife (right) -->
+    <line x1="332" y1="180" x2="332" y2="340"/>
+    <path d="M332 180 L340 180 L340 220 L332 220 Z" fill="#F59E0B"/>
+  </g>
+</svg>

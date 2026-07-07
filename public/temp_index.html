@@ -1,0 +1,630 @@
+﻿<!DOCTYPE html>
+<html lang="sk">
+
+<head>
+    <meta charset="utf-8">
+    <script>
+        // Nastav base tag len pre GitHub Pages
+        if (window.location.hostname.includes('github.io')) {
+            var base = document.createElement('base');
+            base.href = '/PlanetaLevoca/';
+            document.head.appendChild(base);
+        }
+    </script>
+    <title>Plan├ęta Levo─Źa - Caf├ę Restaurant</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Plan├ęta Levo─Źa, re┼ítaur├ícia Levo─Źa, catering Levo─Źa, denn├ę menu, oslavy Levo─Źa" name="keywords">
+    <meta content="Caf├ę Restaurant Plan├ęta Levo─Źa - kvalitn├í gastron├│mia v srdci historick├ęho mesta Levo─Źa od roku 2005. Catering, organizovanie osl├ív a eventov." name="description">
+
+    <!-- Favicon -->
+    <link href="img/faviconPlaneta.png" rel="icon" type="image/png">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&family=Pacifico&display=swap" rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/animate/animate.min.css" rel="stylesheet">
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container-xxl bg-white p-0">
+        <!-- Spinner Start -->
+        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+        <!-- Spinner End -->
+
+
+        <!-- Navbar & Hero Start -->
+        <div class="container-xxl position-relative p-0">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4 px-lg-5 py-3 py-lg-0">
+                <a href="index.html" class="navbar-brand p-0">
+                    <h1 class="text-primary m-0"><i class="fa fa-utensils me-3"></i>Plan├ęta Levo─Źa</h1>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                    <span class="fa fa-bars"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <div class="navbar-nav ms-auto py-0 pe-4">
+                        <a href="index.html" class="nav-item nav-link active">Domov</a>
+                        <a href="about.html" class="nav-item nav-link">O n├ís</a>
+                        <a href="service.html" class="nav-item nav-link">Slu┼żby</a>
+                        <a href="menu.html" class="nav-item nav-link">Jed├ílny l├şstok</a>
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Str├ínky</a>
+                            <div class="dropdown-menu m-0">
+                                <a href="gallery.html" class="dropdown-item">Gal├ęria</a>
+                                <a href="team.html" class="dropdown-item">T├şm</a>
+                                <a href="testimonial.html" class="dropdown-item">Recenzie</a>
+                            </div>
+                        </div>
+                        <a href="contact.html" class="nav-item nav-link">Kontakt</a>
+                    </div>
+                    <a href="#testimonial" class="btn btn-primary py-2 px-4">Recenzie</a>
+                </div>
+            </nav>
+
+            <div class="container-xxl py-5 bg-dark hero-header mb-5">
+                <div class="container my-5 py-5">
+                    <div class="row align-items-center g-5">
+                        <div class="col-lg-6 text-center text-lg-start">
+                            <h1 class="display-3 text-white animated slideInLeft">V├ştajte v<br>Plan├ęte Levo─Źa</h1>
+                            <p class="text-white animated slideInLeft mb-4 pb-2">Caf├ę Restaurant Plan├ęta Levo─Źa - miesto, kde sa sp├íja bohat├í hist├│ria s vynikaj├║cou gastron├│miou. U┼żite si jedine─Źn├Ż z├í┼żitok v srdci historick├ęho mesta Levo─Źa. Od roku 2005 prin├í┼íame kvalitn├ę jedl├í a profesion├ílne slu┼żby.</p>
+                            <a href="daily-menu.html" class="btn btn-primary py-sm-3 px-sm-5 me-3 animated slideInLeft">Denn├ę Menu</a>
+                        </div>
+                        <div class="col-lg-6 text-center text-lg-end overflow-hidden position-relative">
+                            <img class="img-fluid" src="img/hero.png" alt="" style="max-width: 360px; width: 360px; height: 360px;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Navbar & Hero End -->
+
+
+        <!-- Service Start -->
+        <div class="container-xxl py-5">
+            <div class="container">
+                <div class="row g-4">
+                    <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="service-item rounded pt-3 position-relative overflow-hidden">
+                            <div class="position-absolute top-0 start-0 w-100 h-100 service-bg-image" style="background-image: url('img/catering2.jpg'); background-size: cover; background-position: center; z-index: 0;"></div>
+                            <div class="p-4 position-relative" style="z-index: 1;">
+                                <i class="fa fa-3x fa-birthday-cake text-primary mb-4"></i>
+                                <h5>Catering & Oslavy</h5>
+                                <p>Profesion├ílne cateringov├ę slu┼żby a organizovanie osl├ív, svadieb a firemn├Żch podujat├ş</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.3s">
+                        <div class="service-item rounded pt-3 position-relative overflow-hidden">
+                            <div class="position-absolute top-0 start-0 w-100 h-100 service-bg-image" style="background-image: url('img/jedlo1.jpg'); background-size: cover; background-position: center; z-index: 0;"></div>
+                            <div class="p-4 position-relative" style="z-index: 1;">
+                                <i class="fa fa-3x fa-utensils text-primary mb-4"></i>
+                                <h5>Kvalitn├ę Jedl├í</h5>
+                                <p>Denn├ę menu z ─Źerstv├Żch surov├şn a ┼íirok├í ponuka slovenskej a medzin├írodnej kuchyne</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.5s">
+                        <div class="service-item rounded pt-3 position-relative overflow-hidden">
+                            <div class="position-absolute top-0 start-0 w-100 h-100 service-bg-image" style="background-image: url('img/event1.jpg'); background-size: cover; background-position: center; z-index: 0;"></div>
+                            <div class="p-4 position-relative" style="z-index: 1;">
+                                <i class="fa fa-3x fa-calendar-alt text-primary mb-4"></i>
+                                <h5>Organizovanie Eventov</h5>
+                                <p>Kompletn├í organiz├ícia r├┤znych podujat├ş a osl├ív pod─ża va┼íich po┼żiadaviek</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.7s">
+                        <div class="service-item rounded pt-3 position-relative overflow-hidden">
+                            <div class="position-absolute top-0 start-0 w-100 h-100 service-bg-image" style="background-image: url('img/suvenir1.jpg'); background-size: cover; background-position: center; z-index: 0;"></div>
+                            <div class="p-4 position-relative" style="z-index: 1;">
+                                <i class="fa fa-3x fa-gift text-primary mb-4"></i>
+                                <h5>Suven├şry</h5>
+                                <p>Predaj suven├şrov spojen├Żch s Levo─Źou - pamiatka na n├ív┼ítevu n├í┼ího kr├ísneho mesta</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Service End -->
+
+
+        <!-- About Start -->
+        <div class="container-xxl py-5">
+            <div class="container">
+                <div class="row g-5 align-items-center">
+                    <div class="col-lg-6">
+                        <div class="row g-3">
+                            <div class="col-6 text-start">
+                                <img class="img-fluid rounded w-100 wow zoomIn" data-wow-delay="0.1s" src="img/about-1.jpg">
+                            </div>
+                            <div class="col-6 text-start">
+                                <img class="img-fluid rounded w-75 wow zoomIn" data-wow-delay="0.3s" src="img/about-2.jpg" style="margin-top: 25%;">
+                            </div>
+                            <div class="col-6 text-end">
+                                <img class="img-fluid rounded w-75 wow zoomIn" data-wow-delay="0.5s" src="img/about-3.jpg">
+                            </div>
+                            <div class="col-6 text-end">
+                                <img class="img-fluid rounded w-100 wow zoomIn" data-wow-delay="0.7s" src="img/about-4.jpg">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <h5 class="section-title ff-secondary text-start text-primary fw-normal">O n├ís</h5>
+                        <h1 class="mb-4">Vitajte v <i class="fa fa-utensils text-primary me-2"></i>Planete Levo─Źa</h1>
+                        <p class="mb-4">Caf├ę Restaurant Plan├ęta Levo─Źa bola zalo┼żen├í v roku 2005 a odvtedy prin├í┼ía svojim hos┼ąom nezabudnute─żn├ę gastronomick├ę z├í┼żitky. Nach├ídza sa na N├ímest├ş Majstra Pavla v srdci historick├ęho centra Levo─Źe.</p>
+                        <p class="mb-4">Na┼ía re┼ítaur├ícia sa ┼ípecializuje na kvalitn├║ slovensk├║ a medzin├írodn├║ kuchy┼łu, cateringov├ę slu┼żby a organizovanie osl├ív a eventov. Pon├║kame pr├şjemn├ę prostredie s kapacitou 80 miest a letn├Żmi terasami.</p>
+                        <div class="row g-4 mb-4">
+                            <div class="col-sm-6">
+                                <div class="d-flex align-items-center border-start border-5 border-primary px-3">
+                                    <h1 class="flex-shrink-0 display-5 text-primary mb-0" data-toggle="counter-up">20</h1>
+                                    <div class="ps-4">
+                                        <p class="mb-0">Rokov</p>
+                                        <h6 class="text-uppercase mb-0">Sk├║senost├ş</h6>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="d-flex align-items-center border-start border-5 border-primary px-3">
+                                    <h1 class="flex-shrink-0 display-5 text-primary mb-0" data-toggle="counter-up">80</h1>
+                                    <div class="ps-4">
+                                        <p class="mb-0">Miest</p>
+                                        <h6 class="text-uppercase mb-0">Kapacita</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <a class="btn btn-primary py-3 px-5 mt-2" href="about.html">Viac inform├íci├ş</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- About End -->
+
+
+        <!-- Testimonial Start -->
+        <div id="testimonial" class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
+            <div class="container">
+                <div class="text-center">
+                    <h5 class="section-title ff-secondary text-center text-primary fw-normal">Recenzie</h5>
+                    <h1 class="mb-5">─îo hovoria na┼íi hostia</h1>
+                    <p class="mb-5">Plan├ęta Levo─Źa je na trhu u┼ż od roku 2005 a z├şskala mno┼żstvo pozit├şvnych recenzi├ş od na┼íich spokojn├Żch host├ş. Pozrite si, ─Źo o n├ís hovoria na Google.</p>
+                </div>
+                <div class="owl-carousel testimonial-carousel">
+                    <div class="testimonial-item bg-transparent border rounded p-4">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="text-warning">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </div>
+                        </div>
+                        <i class="fa fa-quote-left fa-2x text-primary mb-3"></i>
+                        <p>V├Żborn├í re┼ítaur├ícia v srdci Levo─Źe! Jedlo bolo chutn├ę, obsluha pr├şjemn├í a ceny rozumn├ę. Ur─Źite sa vr├ítime. Odpor├║─Źam denn├ę menu - skvel├í hodnota za peniaze.</p>
+                        <div class="d-flex align-items-center">
+                            <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                                <span class="text-white fw-bold">MK</span>
+                            </div>
+                            <div class="ps-3">
+                                <h5 class="mb-1">M├íria K.</h5>
+                                <small><i class="fab fa-google me-1"></i>Google Recenzia</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-item bg-transparent border rounded p-4">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="text-warning">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </div>
+                        </div>
+                        <i class="fa fa-quote-left fa-2x text-primary mb-3"></i>
+                        <p>Organizovali sme tu firemn├║ oslavu a bolo to perfektn├ę! Profesion├ílny pr├şstup, v├Żborn├ę jedlo a kr├ísne prostredie. V┼íetci boli nad┼íen├ş. ─Äakujeme za skvel├Ż z├í┼żitok!</p>
+                        <div class="d-flex align-items-center">
+                            <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                                <span class="text-white fw-bold">JP</span>
+                            </div>
+                            <div class="ps-3">
+                                <h5 class="mb-1">J├ín P.</h5>
+                                <small><i class="fab fa-google me-1"></i>Google Recenzia</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-item bg-transparent border rounded p-4">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="text-warning">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </div>
+                        </div>
+                        <i class="fa fa-quote-left fa-2x text-primary mb-3"></i>
+                        <p>Nav┼ít├şvili sme Levo─Źu a t├íto re┼ítaur├ícia bola skvel├Ż n├ílez. Autentick├í slovensk├í kuchy┼ła, pr├şjemn├í atmosf├ęra a skvel├í poloha na n├ímest├ş. Ur─Źite odpor├║─Źam!</p>
+                        <div class="d-flex align-items-center">
+                            <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                                <span class="text-white fw-bold">AS</span>
+                            </div>
+                            <div class="ps-3">
+                                <h5 class="mb-1">Anna S.</h5>
+                                <small><i class="fab fa-google me-1"></i>Google Recenzia</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-item bg-transparent border rounded p-4">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="text-warning">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </div>
+                        </div>
+                        <i class="fa fa-quote-left fa-2x text-primary mb-3"></i>
+                        <p>Skvel├í re┼ítaur├ícia s dlhou hist├│riou. Jedlo je v┼żdy ─Źerstv├ę a chutn├ę, obsluha je mil├í a ochotn├í. Letn├í terasa je perfektn├í na relax. Jedna z najlep┼í├şch re┼ítaur├íci├ş v Levo─Źi!</p>
+                        <div class="d-flex align-items-center">
+                            <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                                <span class="text-white fw-bold">PT</span>
+                            </div>
+                            <div class="ps-3">
+                                <h5 class="mb-1">Peter T.</h5>
+                                <small><i class="fab fa-google me-1"></i>Google Recenzia</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-item bg-transparent border rounded p-4">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="text-warning">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </div>
+                        </div>
+                        <i class="fa fa-quote-left fa-2x text-primary mb-3"></i>
+                        <p>Catering slu┼żby na na┼íej svadbe boli vynikaj├║ce! V┼íetko bolo perfektne zorganizovan├ę, jedlo bolo v├Żborn├ę a hostia boli nad┼íen├ş. Profesion├ílny pr├şstup od za─Źiatku do konca.</p>
+                        <div class="d-flex align-items-center">
+                            <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                                <span class="text-white fw-bold">LM</span>
+                            </div>
+                            <div class="ps-3">
+                                <h5 class="mb-1">Lucia M.</h5>
+                                <small><i class="fab fa-google me-1"></i>Google Recenzia</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center mt-5">
+                    <a href="https://www.google.com/maps/place/Plan├ęta+Levo─Źa" target="_blank" class="btn btn-primary py-3 px-5">
+                        <i class="fab fa-google me-2"></i>Pozrie┼ą v┼íetky recenzie na Google
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-- Testimonial End -->
+
+
+        <!-- Gallery Start -->
+        <div class="container-xxl py-5">
+            <div class="container">
+                <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                    <h5 class="section-title ff-secondary text-center text-primary fw-normal">Gal├ęria</h5>
+                    <h1 class="mb-5">Na┼ía Re┼ítaur├ícia</h1>
+                    <p class="mb-5">Pozrite si fotografie z na┼íej re┼ítaur├ície, jed├íl, interi├ęru a podujat├ş</p>
+                </div>
+                <div class="row g-4">
+                    <!-- Interi├ęr -->
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="position-relative overflow-hidden">
+                            <img class="img-fluid rounded w-100" src="img/interier.jpg" alt="Interi├ęr re┼ítaur├ície Plan├ęta Levo─Źa" style="height: 300px; object-fit: cover;">
+                            <div class="position-absolute top-0 start-0 rounded mt-3 ms-3 py-1 px-2 bg-primary text-white">Interi├ęr</div>
+                            <div class="position-absolute bottom-0 start-0 w-100 p-3 bg-dark bg-opacity-50 text-white">
+                                <h6 class="mb-0">Pr├şjemn├í atmosf├ęra</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Jedl├í -->
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.2s">
+                        <div class="position-relative overflow-hidden">
+                            <img class="img-fluid rounded w-100" src="img/jedlo2.jpg" alt="Jedl├í v Planete Levo─Źa" style="height: 300px; object-fit: cover;">
+                            <div class="position-absolute top-0 start-0 rounded mt-3 ms-3 py-1 px-2 bg-primary text-white">Jedl├í</div>
+                            <div class="position-absolute bottom-0 start-0 w-100 p-3 bg-dark bg-opacity-50 text-white">
+                                <h6 class="mb-0">Kvalitn├ę jedl├í</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Terasa -->
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                        <div class="position-relative overflow-hidden">
+                            <img class="img-fluid rounded w-100" src="img/terasa.jpg" alt="Letn├í terasa" style="height: 300px; object-fit: cover;">
+                            <div class="position-absolute top-0 start-0 rounded mt-3 ms-3 py-1 px-2 bg-primary text-white">Terasa</div>
+                            <div class="position-absolute bottom-0 start-0 w-100 p-3 bg-dark bg-opacity-50 text-white">
+                                <h6 class="mb-0">Letn├í terasa</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Oslavy -->
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.4s">
+                        <div class="position-relative overflow-hidden">
+                            <img class="img-fluid rounded w-100" src="img/event1.jpg" alt="Organizovanie osl├ív" style="height: 300px; object-fit: cover;">
+                            <div class="position-absolute top-0 start-0 rounded mt-3 ms-3 py-1 px-2 bg-primary text-white">Oslavy</div>
+                            <div class="position-absolute bottom-0 start-0 w-100 p-3 bg-dark bg-opacity-50 text-white">
+                                <h6 class="mb-0">Organizovanie osl├ív</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ┼ápeciality -->
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+                        <div class="position-relative overflow-hidden">
+                            <img class="img-fluid rounded w-100" src="img/speciality.jpg" alt="┼ápeciality" style="height: 300px; object-fit: cover;">
+                            <div class="position-absolute top-0 start-0 rounded mt-3 ms-3 py-1 px-2 bg-primary text-white">┼ápeciality</div>
+                            <div class="position-absolute bottom-0 start-0 w-100 p-3 bg-dark bg-opacity-50 text-white">
+                                <h6 class="mb-0">Na┼íe ┼ípeciality</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Atmosf├ęra -->
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.6s">
+                        <div class="position-relative overflow-hidden">
+                            <img class="img-fluid rounded w-100" src="img/atmosfera.jpg" alt="Atmosf├ęra re┼ítaur├ície" style="height: 300px; object-fit: cover;">
+                            <div class="position-absolute top-0 start-0 rounded mt-3 ms-3 py-1 px-2 bg-primary text-white">Atmosf├ęra</div>
+                            <div class="position-absolute bottom-0 start-0 w-100 p-3 bg-dark bg-opacity-50 text-white">
+                                <h6 class="mb-0">Jedine─Źn├í atmosf├ęra</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Historick├ę mesto Levo─Źa -->
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
+                        <div class="position-relative overflow-hidden">
+                            <img class="img-fluid rounded w-100" src="img/levoca.jpg" alt="Historick├ę mesto Levo─Źa" style="height: 300px; object-fit: cover;">
+                            <div class="position-absolute top-0 start-0 rounded mt-3 ms-3 py-1 px-2 bg-primary text-white">Levo─Źa</div>
+                            <div class="position-absolute bottom-0 start-0 w-100 p-3 bg-dark bg-opacity-50 text-white">
+                                <h6 class="mb-0">Historick├ę mesto</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Denn├ę menu -->
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.8s">
+                        <div class="position-relative overflow-hidden">
+                            <img class="img-fluid rounded w-100" src="img/jedlo1.jpg" alt="Denn├ę menu" style="height: 300px; object-fit: cover;">
+                            <div class="position-absolute top-0 start-0 rounded mt-3 ms-3 py-1 px-2 bg-primary text-white">Menu</div>
+                            <div class="position-absolute bottom-0 start-0 w-100 p-3 bg-dark bg-opacity-50 text-white">
+                                <h6 class="mb-0">Denn├ę menu</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Catering -->
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.9s">
+                        <div class="position-relative overflow-hidden">
+                            <img class="img-fluid rounded w-100" src="img/catering2.jpg" alt="Catering slu┼żby" style="height: 300px; object-fit: cover;">
+                            <div class="position-absolute top-0 start-0 rounded mt-3 ms-3 py-1 px-2 bg-primary text-white">Catering</div>
+                            <div class="position-absolute bottom-0 start-0 w-100 p-3 bg-dark bg-opacity-50 text-white">
+                                <h6 class="mb-0">Catering slu┼żby</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- N├ímestie Majstra Pavla -->
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="position-relative overflow-hidden">
+                            <img class="img-fluid rounded w-100" src="img/namestie.jpg" alt="N├ímestie Majstra Pavla" style="height: 300px; object-fit: cover;">
+                            <div class="position-absolute top-0 start-0 rounded mt-3 ms-3 py-1 px-2 bg-primary text-white">N├ímestie</div>
+                            <div class="position-absolute bottom-0 start-0 w-100 p-3 bg-dark bg-opacity-50 text-white">
+                                <h6 class="mb-0">N├ímestie Majstra Pavla</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Svadby -->
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.2s">
+                        <div class="position-relative overflow-hidden">
+                            <img class="img-fluid rounded w-100" src="img/svadby.jpg" alt="Svadby" style="height: 300px; object-fit: cover;">
+                            <div class="position-absolute top-0 start-0 rounded mt-3 ms-3 py-1 px-2 bg-primary text-white">Svadby</div>
+                            <div class="position-absolute bottom-0 start-0 w-100 p-3 bg-dark bg-opacity-50 text-white">
+                                <h6 class="mb-0">Organizovanie svadieb</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Eventy -->
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                        <div class="position-relative overflow-hidden">
+                            <img class="img-fluid rounded w-100" src="img/event2.jpg" alt="Eventy" style="height: 300px; object-fit: cover;">
+                            <div class="position-absolute top-0 start-0 rounded mt-3 ms-3 py-1 px-2 bg-primary text-white">Eventy</div>
+                            <div class="position-absolute bottom-0 start-0 w-100 p-3 bg-dark bg-opacity-50 text-white">
+                                <h6 class="mb-0">Firemn├ę eventy</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center mt-5">
+                    <a href="gallery.html" class="btn btn-primary py-3 px-5">Pozrie┼ą cel├║ gal├ęriu</a>
+                    <p class="text-muted mt-3">Pre viac fotografi├ş n├ís nav┼ít├şvte na <a href="https://www.facebook.com/PlanetaLevoca" target="_blank" class="text-primary">Facebooku</a></p>
+                </div>
+            </div>
+        </div>
+        <!-- Gallery End -->
+
+
+
+
+
+
+        <!-- Team Start -->
+        <div class="container-xxl pt-5 pb-3">
+            <div class="container">
+                <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                    <h5 class="section-title ff-secondary text-center text-primary fw-normal">Team Members</h5>
+                    <h1 class="mb-5">Our Master Chefs</h1>
+                </div>
+                <div class="row g-4">
+                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="team-item text-center rounded overflow-hidden">
+                            <div class="rounded-circle overflow-hidden m-4">
+                                <img class="img-fluid" src="img/team-1.jpg" alt="">
+                            </div>
+                            <h5 class="mb-0">Full Name</h5>
+                            <small>Designation</small>
+                            <div class="d-flex justify-content-center mt-3">
+                                <a class="btn btn-square btn-primary mx-1" href=""><i class="fab fa-facebook-f"></i></a>
+                                <a class="btn btn-square btn-primary mx-1" href=""><i class="fab fa-twitter"></i></a>
+                                <a class="btn btn-square btn-primary mx-1" href=""><i class="fab fa-instagram"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                        <div class="team-item text-center rounded overflow-hidden">
+                            <div class="rounded-circle overflow-hidden m-4">
+                                <img class="img-fluid" src="img/team-2.jpg" alt="">
+                            </div>
+                            <h5 class="mb-0">Full Name</h5>
+                            <small>Designation</small>
+                            <div class="d-flex justify-content-center mt-3">
+                                <a class="btn btn-square btn-primary mx-1" href=""><i class="fab fa-facebook-f"></i></a>
+                                <a class="btn btn-square btn-primary mx-1" href=""><i class="fab fa-twitter"></i></a>
+                                <a class="btn btn-square btn-primary mx-1" href=""><i class="fab fa-instagram"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+                        <div class="team-item text-center rounded overflow-hidden">
+                            <div class="rounded-circle overflow-hidden m-4">
+                                <img class="img-fluid" src="img/team-3.jpg" alt="">
+                            </div>
+                            <h5 class="mb-0">Full Name</h5>
+                            <small>Designation</small>
+                            <div class="d-flex justify-content-center mt-3">
+                                <a class="btn btn-square btn-primary mx-1" href=""><i class="fab fa-facebook-f"></i></a>
+                                <a class="btn btn-square btn-primary mx-1" href=""><i class="fab fa-twitter"></i></a>
+                                <a class="btn btn-square btn-primary mx-1" href=""><i class="fab fa-instagram"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
+                        <div class="team-item text-center rounded overflow-hidden">
+                            <div class="rounded-circle overflow-hidden m-4">
+                                <img class="img-fluid" src="img/team-4.jpg" alt="">
+                            </div>
+                            <h5 class="mb-0">Full Name</h5>
+                            <small>Designation</small>
+                            <div class="d-flex justify-content-center mt-3">
+                                <a class="btn btn-square btn-primary mx-1" href=""><i class="fab fa-facebook-f"></i></a>
+                                <a class="btn btn-square btn-primary mx-1" href=""><i class="fab fa-twitter"></i></a>
+                                <a class="btn btn-square btn-primary mx-1" href=""><i class="fab fa-instagram"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Team End -->
+
+
+        <!-- Footer Start -->
+        <div class="container-fluid bg-dark text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
+            <div class="container py-5">
+                <div class="row g-5">
+                    <div class="col-lg-3 col-md-6">
+                        <h4 class="section-title ff-secondary text-start text-primary fw-normal mb-4">Re┼ítaur├ícia</h4>
+                        <a class="btn btn-link" href="about.html">O n├ís</a>
+                        <a class="btn btn-link" href="contact.html">Kontakt</a>
+                        <a class="btn btn-link" href="#testimonial">Recenzie</a>
+                        <a class="btn btn-link" href="service.html">Slu┼żby</a>
+                        <a class="btn btn-link" href="menu.html">Jed├ílny l├şstok</a>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <h4 class="section-title ff-secondary text-start text-primary fw-normal mb-4">Kontakt</h4>
+                        <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>N├ímestie Majstra Pavla 26, 054 01 Levo─Źa</p>
+                        <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>053/451 21 00</p>
+                        <p class="mb-2"><i class="fa fa-envelope me-3"></i>milan1970@centrum.sk</p>
+                        <div class="d-flex pt-2">
+                            <a class="btn btn-outline-light btn-social" href="https://www.facebook.com/PlanetaLevoca" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <h4 class="section-title ff-secondary text-start text-primary fw-normal mb-4">Otv├íracie hodiny</h4>
+                        <h5 class="text-light fw-normal">1. okt├│ber - 30. apr├şl</h5>
+                        <p>Pon-Ne: 8:00 - 18:00</p>
+                        <h5 class="text-light fw-normal">1. m├íj - 30. september</h5>
+                        <p>Pon-Ne: 7:30 - 18:00</p>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <h4 class="section-title ff-secondary text-start text-primary fw-normal mb-4">Novinky</h4>
+                        <p>Sledujte n├ís na Facebooku pre aktu├ílne denn├ę menu a novinky.</p>
+                        <div class="d-flex pt-2">
+                            <a class="btn btn-primary" href="https://www.facebook.com/PlanetaLevoca" target="_blank">
+                                <i class="fab fa-facebook-f me-2"></i>Facebook
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="copyright">
+                    <div class="row">
+                        <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                            &copy; <a class="border-bottom" href="index.html">Plan├ęta Levo─Źa</a>, V┼íetky pr├íva vyhraden├ę. <small>Design by <a href="https://teliolabs.sk" target="_blank" class="text-primary">TelioLabs.sk</a></small>
+                        </div>
+                        <div class="col-md-6 text-center text-md-end">
+                            <div class="footer-menu">
+                                <a href="index.html">Domov</a>
+                                <a href="about.html">O n├ís</a>
+                                <a href="contact.html">Kontakt</a>
+                                <a href="menu.html">Jed├ílny l├şstok</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Footer End -->
+
+
+        <!-- Back to Top -->
+        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+    </div>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/wow/wow.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/counterup/counterup.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="lib/tempusdominus/js/moment.min.js"></script>
+    <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
+    <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="js/main.js"></script>
+    <!-- Google Reviews Loader -->
+    <script src="js/google-reviews.js"></script>
+</body>
+
+</html>
+
