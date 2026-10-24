@@ -533,9 +533,4 @@
 @media (max-width: 1400px) { .navbar-brand h1 { font-size: 1.2rem !important; } }
 @media (max-width: 1200px) { .navbar-brand h1 { font-size: 1.1rem !important; } }
 
-/* Dočasne skryté - Denné menu */
-a[href*="daily-menu"],
-.daily-menu-hide {
-    display: none !important;
-}
 

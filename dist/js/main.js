@@ -9,7 +9,12 @@
             }
         }, 1);
     };
-    spinner();
+        spinner();
+
+    // Brand logo
+    $('.navbar-brand').each(function () {
+        $(this).html('<img src="img/logo1-transparent.png" alt="Planéta Levoča">');
+    });
     
     
     // Initiate the wowjs
